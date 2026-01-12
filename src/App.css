@@ -15,19 +15,20 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: 'Hind Siliguri', sans-serif;
 }
 
 body {
   background-color: var(--bg-cream);
   color: var(--text-main);
   overflow-x: hidden;
-  font-family: 'Tiro Bangla', serif;
+  font-family: 'Hind Siliguri', sans-serif;
   transition: background-color 0.5s ease;
 }
 
 /* --- Hero Section Typography --- */
 .hero-content h1 {
-  font-family: 'Tiro Bangla', serif !important;
+  font-family: 'Hind Siliguri', sans-serif !important;
   font-size: 2.5rem;
   margin-bottom: 15px;
   font-weight: 700;
@@ -36,7 +37,7 @@ body {
 }
 
 .hero-content p {
-  font-family: 'Tiro Bangla', serif !important;
+  font-family: 'Hind Siliguri', sans-serif !important;
   font-size: 20px;
   margin-bottom: 25px;
   line-height: 1.6;
@@ -59,17 +60,17 @@ header {
   transition: all 0.3s ease;
 }
 
-.logo-img { 
-  height: 55px; 
-  width: auto; 
-  transition: all 0.3s ease; 
+.logo-img {
+  height: 55px;
+  width: auto;
+  transition: all 0.3s ease;
 }
 
-.header-controls { 
-  display: flex; 
-  align-items: center; 
-  gap: 12px; 
-  transition: all 0.3s ease; 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
 }
 
 .auth-btn {
@@ -78,7 +79,7 @@ header {
   color: #fff;
   padding: 10px 18px;
   border-radius: 50px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Hind Siliguri', sans-serif;
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -89,11 +90,11 @@ header {
   text-transform: uppercase;
 }
 
-.menu-icon { 
-  font-size: 22px; 
-  cursor: pointer; 
-  color: var(--text-main); 
-  transition: all 0.3s ease; 
+.menu-icon {
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: all 0.3s ease;
 }
 
 /* --- Side Menu --- */
@@ -110,33 +111,33 @@ header {
   padding: 40px 20px;
 }
 
-.side-menu.active { 
-  right: 0; 
+.side-menu.active {
+  right: 0;
 }
-.side-menu ul { 
-  list-style: none; 
-  margin-top: 30px; 
-  transition: all 0.3s ease; 
+.side-menu ul {
+  list-style: none;
+  margin-top: 30px;
+  transition: all 0.3s ease;
 }
-.side-menu ul li { 
-  margin-bottom: 20px; 
-  transition: all 0.3s ease; 
+.side-menu ul li {
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 .side-menu ul li a {
   text-decoration: none;
   color: var(--text-main);
   font-size: 18px;
   font-weight: 600;
-  font-family: 'Tiro Bangla', serif;
+  font-family: 'Hind Siliguri', sans-serif;
   transition: all 0.3s ease;
 }
-.close-menu { 
-  position: absolute; 
-  top: 15px; 
-  left: 20px; 
-  font-size: 24px; 
-  cursor: pointer; 
-  transition: all 0.3s ease; 
+.close-menu {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 /* --- Hero --- */
@@ -149,48 +150,48 @@ header {
   gap: 20px;
   transition: all 0.3s ease;
 }
-.hero-content { 
-  flex: 1; 
-  min-width: 300px; 
-  transition: all 0.3s ease; 
+.hero-content {
+  flex: 1;
+  min-width: 300px;
+  transition: all 0.3s ease;
 }
-.hero-image { 
-  flex: 1; 
-  display: flex; 
-  justify-content: center; 
-  min-width: 300px; 
-  transition: all 0.3s ease; 
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 300px;
+  transition: all 0.3s ease;
 }
-.hero-image img { 
-  width: 100%; 
-  max-width: 350px; 
-  border-radius: 20px; 
-  border: 5px solid white; 
-  box-shadow: var(--shadow); 
-  transition: all 0.3s ease; 
+.hero-image img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 20px;
+  border: 5px solid white;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
 }
 
 /* --- Action Buttons --- */
-.action-buttons { 
-  display: flex; 
-  justify-content: center; 
-  gap: 15px; 
-  padding: 10px 8%; 
-  margin-top: -20px; 
-  transition: all 0.3s ease; 
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px 8%;
+  margin-top: -20px;
+  transition: all 0.3s ease;
 }
 .img-btn {
-  width: 160px; 
+  width: 160px;
   height: 75px;
-  background-size: cover; 
+  background-size: cover;
   background-position: center;
-  border-radius: 12px; 
-  display: flex; 
-  align-items: center; 
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  text-decoration: none; 
-  position: relative; 
-  overflow: hidden; 
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
   box-shadow: var(--shadow);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -198,103 +199,103 @@ header {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
-.img-btn::after { 
-  content: ''; 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  background: rgba(0,0,0,0.45); 
-  transition: all 0.3s ease; 
+.img-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  transition: all 0.3s ease;
 }
-.img-btn span { 
-  font-family: 'Montserrat', sans-serif; 
-  position: relative; 
-  z-index: 2; 
-  color: white; 
-  font-size: 15px; 
-  font-weight: 800; 
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8); 
-  transition: all 0.3s ease; 
+.img-btn span {
+  font-family: 'Hind Siliguri', sans-serif;
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  transition: all 0.3s ease;
 }
 
 /* --- Courses --- */
-#courses-section { 
-  padding: 80px 8% 50px; 
-  text-align: center; 
-  transition: all 0.3s ease; 
+#courses-section {
+  padding: 80px 8% 50px;
+  text-align: center;
+  transition: all 0.3s ease;
 }
-.tab-box { 
-  background: #f0f0f0; 
-  padding: 5px; 
-  border-radius: 12px; 
-  display: inline-flex; 
-  margin-bottom: 35px; 
-  transition: all 0.3s ease; 
+.tab-box {
+  background: #f0f0f0;
+  padding: 5px;
+  border-radius: 12px;
+  display: inline-flex;
+  margin-bottom: 35px;
+  transition: all 0.3s ease;
 }
-.tab-btn { 
-  padding: 8px 22px; 
-  border: none; 
-  background: transparent; 
-  cursor: pointer; 
-  font-size: 15px; 
-  font-weight: 600; 
-  border-radius: 8px; 
-  color: #666; 
-  font-family: 'Montserrat'; 
-  transition: all 0.3s ease; 
+.tab-btn {
+  padding: 8px 22px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  color: #666;
+  font-family: 'Hind Siliguri', sans-serif;
+  transition: all 0.3s ease;
 }
-.tab-btn.active { 
-  background: var(--white); 
-  color: var(--dark-gold); 
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+.tab-btn.active {
+  background: var(--white);
+  color: var(--dark-gold);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.tab-content { 
-  display: none; 
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-  gap: 25px; 
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+.tab-content {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.tab-content.active { 
-  display: grid; 
+.tab-content.active {
+  display: grid;
 }
-.course-card { 
-  background: var(--white); 
-  border-radius: 20px; 
-  overflow: hidden; 
-  text-align: left; 
+.course-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: left;
   box-shadow: var(--shadow);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.course-card:hover { 
-  transform: translateY(-5px); 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-.course-thumb { 
-  width: 100%; 
-  height: 180px; 
-  object-fit: cover; 
-  transition: all 0.3s ease; 
+.course-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: all 0.3s ease;
 }
-.course-info { 
-  padding: 20px; 
-  transition: all 0.3s ease; 
+.course-info {
+  padding: 20px;
+  transition: all 0.3s ease;
 }
-.course-info h3 { 
-  font-family: 'Montserrat'; 
-  font-size: 20px; 
-  margin-bottom: 10px; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  transition: all 0.3s ease; 
+.course-info h3 {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
 }
-.course-info p { 
-  font-size: 17px; 
-  line-height: 1.5; 
-  color: #555; 
-  transition: all 0.3s ease; 
+.course-info p {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #555;
+  transition: all 0.3s ease;
 }
 
 .price-tag {
@@ -330,28 +331,28 @@ header {
   text-decoration: none;
   font-weight: 700;
   margin-top: 15px;
-  font-family: 'Montserrat';
+  font-family: 'Hind Siliguri', sans-serif;
   cursor: pointer;
   border: none;
   width: 100%;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.enroll-btn:hover { 
-  background: #e1b900; 
-  transform: translateY(-2px); 
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+.enroll-btn:hover {
+  background: #e1b900;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-.enroll-btn.disabled { 
-  background: #999; 
-  cursor: not-allowed; 
+.enroll-btn.disabled {
+  background: #999;
+  cursor: not-allowed;
 }
 
 /* --- Enroll Popup Design --- */
 .modal-overlay {
   position: fixed;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.7);
   backdrop-filter: blur(8px);
@@ -373,108 +374,108 @@ header {
   border: 2px solid #f8f8f8;
   transition: all 0.3s ease;
 }
-@keyframes popIn { 
-  from { 
-    transform: scale(0.85); 
-    opacity: 0; 
-  } 
-  to { 
-    transform: scale(1); 
-    opacity: 1; 
-  } 
+@keyframes popIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modal-icon-container {
-  width: 90px; 
+  width: 90px;
   height: 90px;
   background: #fffdf0;
   border-radius: 50%;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
   box-shadow: 0 10px 20px rgba(255, 210, 0, 0.15);
   transition: all 0.3s ease;
 }
-.modal-icon { 
-  font-size: 45px; 
-  transition: all 0.3s ease; 
+.modal-icon {
+  font-size: 45px;
+  transition: all 0.3s ease;
 }
-.icon-gold { 
-  color: var(--dark-gold); 
-  transition: all 0.3s ease; 
+.icon-gold {
+  color: var(--dark-gold);
+  transition: all 0.3s ease;
 }
-.icon-blue { 
-  color: var(--primary-blue); 
-  transition: all 0.3s ease; 
+.icon-blue {
+  color: var(--primary-blue);
+  transition: all 0.3s ease;
 }
 
-.modal-title { 
-  font-family: 'Montserrat'; 
-  font-weight: 800; 
-  font-size: 20px; 
-  display: block; 
-  margin-bottom: 12px; 
-  color: #111; 
-  letter-spacing: -0.5px; 
-  transition: all 0.3s ease; 
+.modal-title {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  display: block;
+  margin-bottom: 12px;
+  color: #111;
+  letter-spacing: -0.5px;
+  transition: all 0.3s ease;
 }
-.modal-desc { 
-  font-family: 'Tiro Bangla'; 
-  font-size: 18px; 
-  color: #444; 
-  line-height: 1.6; 
-  margin-bottom: 30px; 
-  transition: all 0.3s ease; 
+.modal-desc {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 18px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
 }
 .modal-action-btn {
-  background: #000; 
-  color: #fff; 
-  padding: 15px; 
+  background: #000;
+  color: #fff;
+  padding: 15px;
   border-radius: 12px;
-  font-family: 'Montserrat'; 
-  font-weight: 800; 
-  font-size: 16px; 
+  font-family: 'Hind Siliguri', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
   width: 100%;
-  border: none; 
-  cursor: pointer; 
+  border: none;
+  cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   text-transform: uppercase;
 }
-.modal-action-btn:hover { 
-  background: var(--dark-gold); 
-  transform: translateY(-2px); 
+.modal-action-btn:hover {
+  background: var(--dark-gold);
+  transform: translateY(-2px);
 }
 
 /* --- Footer --- */
-footer { 
-  background: #111; 
-  color: #fff; 
-  padding: 50px 8% 25px; 
-  margin-top: 60px; 
-  border-radius: 30px 30px 0 0; 
-  transition: all 0.3s ease; 
+footer {
+  background: #111;
+  color: #fff;
+  padding: 50px 8% 25px;
+  margin-top: 60px;
+  border-radius: 30px 30px 0 0;
+  transition: all 0.3s ease;
 }
-.footer-content { 
-  display: flex; 
-  justify-content: space-between; 
-  flex-wrap: wrap; 
-  gap: 25px; 
-  border-bottom: 1px solid #222; 
-  padding-bottom: 25px; 
-  transition: all 0.3s ease; 
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 25px;
+  border-bottom: 1px solid #222;
+  padding-bottom: 25px;
+  transition: all 0.3s ease;
 }
-.footer-logo-img { 
-  height: 50px; 
-  transition: all 0.3s ease; 
+.footer-logo-img {
+  height: 50px;
+  transition: all 0.3s ease;
 }
-.footer-links { 
-  display: flex; 
-  gap: 15px; 
-  flex-wrap: wrap; 
-  justify-content: center; 
-  transition: all 0.3s ease; 
+.footer-links {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
 .footer-links a {
   display: flex;
@@ -486,18 +487,18 @@ footer {
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   color: #fff;
-  font-family: 'Tiro Bangla';
+  font-family: 'Hind Siliguri', sans-serif;
 }
 .footer-links a:hover {
   background: #333;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-.footer-bottom { 
-  text-align: center; 
-  margin-top: 25px; 
-  font-size: 13px; 
-  color: #555; 
-  font-family: 'Montserrat'; 
-  transition: all 0.3s ease; 
+.footer-bottom {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 13px;
+  color: #555;
+  font-family: 'Hind Siliguri', sans-serif;
+  transition: all 0.3s ease;
 }

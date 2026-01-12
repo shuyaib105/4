@@ -2,11 +2,32 @@
 <html lang="bn">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Beautiful Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="সিলেবাসের বাইরে - Make Education Simple">
+    <meta name="theme-color" content="#ffffff">
+
     <title>সিলেবাসের বাইরে | Make Education Simple</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap">
+
+    <!-- Preload critical resources for faster loading -->
+    <link rel="preload" href="/src/main.jsx" as="script">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Apply Hind Siliguri font globally -->
+    <style>
+      * {
+        font-family: 'Hind Siliguri', sans-serif;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
