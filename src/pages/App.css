@@ -1,3 +1,6 @@
+/* Import fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
 /* Global Styles for Performance and Smoothness */
 * {
   box-sizing: border-box;
@@ -6,7 +9,7 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Tiro Bangla', serif;
   line-height: 1.6;
   scroll-behavior: smooth; /* Makes scrolling smooth */
 }
