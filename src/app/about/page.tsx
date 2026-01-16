@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe, faUserCircle, faBarsStaggered, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe, faUserCircle, faBarsStaggered, faTimes, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -22,6 +22,20 @@ export default function AboutPage() {
     localStorage.clear();
     setIsLoggedIn(false);
     window.location.reload();
+  };
+  
+  const heroData = {
+    subtitle: 'সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।'
+  };
+  
+  const footerData = {
+    logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
+    links: [
+      { "url": "https://t.me/syllabuserbaire", "icon": faTelegramPlane, "text": "টেলিগ্রাম চ্যানেল", "color": "#0088cc" },
+      { "url": "/about", "icon": faInfoCircle, "text": "আমাদের সম্পর্কে", "color": "hsl(var(--primary-blue))" },
+      { "url": "/privacy-policy", "icon": faShieldAlt, "text": "প্রাইভেসি পলিসি", "color": "hsl(var(--success-green))" }
+    ],
+    copyright: "&copy; 2025 SYLLABUSER BAIRE"
   };
 
   return (
@@ -153,17 +167,29 @@ export default function AboutPage() {
             </div>
         </div>
 
-        {/* Footer Intro */}
-        <div className="text-center pb-20">
-            <h4 className="font-sans font-black text-xs text-gray-400 uppercase tracking-[0.5em] mb-4">Contact us for any queries</h4>
-            <p className="text-lg font-bold text-[#B8860B]">আমাদের সাথে যুক্ত হতে আমাদের সোশ্যাল মিডিয়া বা ইমেইলে যোগাযোগ করুন।</p>
-        </div>
-
       </main>
 
-      {/* Simple Footer */}
-      <footer className="bg-black text-white py-10 px-6 text-center">
-        <p className="text-xs font-sans font-medium opacity-50 tracking-widest">&copy; 2025 SYLLABUS ER BAIRE. ALL RIGHTS RESERVED.</p>
+      {/* Footer */}
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20 rounded-t-3xl">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+            <div className="flex flex-col items-center text-center">
+                <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2" />
+                <p className="mt-2 text-base text-gray-400 max-w-md">{heroData.subtitle}</p>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 my-10">
+                {footerData.links.map(link => (
+                  <Link key={link.text} href={link.url} className="flex items-center gap-2.5 text-gray-300 hover:text-white hover:scale-105 transition-all duration-300 text-base">
+                    <FontAwesomeIcon icon={link.icon} className="h-5 w-5" style={{color: link.color}}/>
+                    <span className="font-medium">{link.text}</span>
+                  </Link>
+                ))}
+            </div>
+            
+            <div className="mt-10 pt-8 border-t border-zinc-800 text-center">
+                <p className="text-sm text-zinc-500" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
+            </div>
+        </div>
       </footer>
     </div>
   );
