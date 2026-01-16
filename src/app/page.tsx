@@ -157,7 +157,7 @@ export default function Home() {
           <div className="container mx-auto px-6 py-20 lg:py-28">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
+                <h1 className="text-4xl lg:text-5xl font-black mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
                 <p className="text-xl mb-10 text-gray-600 leading-relaxed">{heroData.subtitle}</p>
                 <div className="flex flex-wrap gap-4">
                   {actionButtonsData.map(button => (
