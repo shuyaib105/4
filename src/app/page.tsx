@@ -13,8 +13,8 @@ const heroData = {
 };
 
 const actionButtonsData = [
-  { "url": "#", "image": "https://picsum.photos/seed/action1/160/75", "title": "HSC", "imageHint": "student studying" },
-  { "url": "#", "image": "https://picsum.photos/seed/action2/160/75", "title": "SSC", "imageHint": "books classroom" }
+  { "url": "#courses-section", "image": "https://picsum.photos/seed/courses/160/75", "title": "কোর্স সমূহ", "imageHint": "lecture notes" },
+  { "url": "#", "image": "https://picsum.photos/seed/calendar/160/75", "title": "ক্যালেন্ডার", "imageHint": "calendar schedule" }
 ];
 
 const courseTabsData = [
