@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -31,7 +32,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
 
   const app = useFirebaseApp();
   const auth = getAuth(app);
@@ -119,7 +120,7 @@ export default function LoginPage() {
     <div className="flex justify-center items-center min-h-screen bg-[#FFFDF5] p-5">
       <div className="bg-white w-full max-w-md p-10 rounded-3xl shadow-lg text-center relative">
         <div className="mb-6">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="সিলেবাসের বাইরে" width={80} height={80} className="mx-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="সিলেবাসের বাইরে" width={100} height={100} className="mx-auto" />
         </div>
 
         <h2 className="font-extrabold text-2xl mb-2 text-black">
