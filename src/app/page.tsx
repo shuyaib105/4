@@ -204,7 +204,7 @@ export default function Home() {
                         <div key={course.title} className="bg-white rounded-2xl overflow-hidden text-left shadow-lg transition-all duration-400 hover:-translate-y-1 hover:shadow-xl">
                             <Image src={course.image} alt={course.title} width={400} height={180} className="w-full h-44 object-cover" data-ai-hint={course.imageHint} />
                             <div className="p-5">
-                                <h3 className="text-xl mb-2.5 flex justify-between items-center">
+                                <h3 className="text-xl font-bold mb-2.5 flex justify-between items-center">
                                     {course.title} 
                                     <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
                                         {course.price}
