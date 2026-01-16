@@ -14,7 +14,9 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, up
 import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useFirebaseApp } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
-
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 const formSchema = z.object({
   name: z.string(),
@@ -23,7 +25,6 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -36,8 +37,12 @@ export default function LoginPage() {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
 
-  const { register, handleSubmit, formState: { errors }, reset, setError } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(
+      isLogin
+        ? formSchema.omit({ name: true })
+        : formSchema
+    ),
     defaultValues: { name: '', email: '', password: '' }
   });
 
@@ -52,15 +57,12 @@ export default function LoginPage() {
         toast({ title: 'সফলভাবে লগইন হয়েছে' });
       } else {
         // Handle Sign Up
-        if (!name || !name.trim()) {
-          setError('name', {
-            type: 'manual',
-            message: 'নাম প্রদান করুন',
-          });
+        if (!name || name.trim() === '') {
+          form.setError('name', { type: 'manual', message: 'নাম প্রদান করুন' });
           setIsLoading(false);
           return;
         }
-
+        
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
@@ -86,15 +88,23 @@ export default function LoginPage() {
       console.error(error);
       const errorMessage = error.code === 'auth/email-already-in-use'
         ? 'এই ইমেইল দিয়ে ইতিমধ্যে অ্যাকাউন্ট তৈরি করা আছে।'
-        : error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found'
+        : error.code === 'auth/invalid-credential'
         ? 'ভুল ইমেইল অথবা পাসওয়ার্ড।'
         : 'একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।';
-
-      toast({
-        variant: 'destructive',
-        title: 'ত্রুটি',
-        description: errorMessage,
-      });
+      
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          toast({
+            variant: 'destructive',
+            title: 'ত্রুটি',
+            description: 'ভুল ইমেইল অথবা পাসওয়ার্ড।',
+          });
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'ত্রুটি',
+          description: errorMessage,
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +112,7 @@ export default function LoginPage() {
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
-    reset(); // Reset form fields on toggle
+    form.reset(); // Reset form fields on toggle
   };
 
   return (
@@ -132,31 +142,64 @@ export default function LoginPage() {
             </div>
         )}
 
-        <form onSubmit={handleSubmit(handleAuth)}>
-          {!isLogin && (
-            <div className="mb-4 text-left">
-              <label className="block mb-2 font-semibold text-gray-600">আপনার নাম</label>
-              <input {...register('name')} className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" placeholder="আপনার পুরো নাম" />
-              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
-            </div>
-          )}
-
-          <div className="mb-4 text-left">
-            <label className="block mb-2 font-semibold text-gray-600">ইমেইল</label>
-            <input {...register('email')} className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" placeholder="example@email.com" />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
-          </div>
-
-          <div className="mb-4 text-left">
-            <label className="block mb-2 font-semibold text-gray-600">পাসওয়ার্ড</label>
-            <input type="password" {...register('password')} className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" placeholder="••••••••" />
-            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
-          </div>
-
-          <button type="submit" disabled={isLoading} className="w-full p-4 bg-black text-white rounded-lg font-bold text-base uppercase transition hover:bg-accent disabled:bg-gray-400">
-            {isLoading ? 'লোড হচ্ছে...' : (isLogin ? 'লগইন করুন' : 'সাইন আপ করুন')}
-          </button>
-        </form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleAuth)} className="space-y-4">
+            {!isLogin && (
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="text-left">
+                    <FormLabel className="block mb-2 font-semibold text-gray-600">আপনার নাম</FormLabel>
+                    <FormControl>
+                      <Input 
+                        className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" 
+                        placeholder="আপনার পুরো নাম" 
+                        {...field} />
+                    </FormControl>
+                    <FormMessage className="text-red-500 text-xs mt-1" />
+                  </FormItem>
+                )}
+              />
+            )}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="text-left">
+                  <FormLabel className="block mb-2 font-semibold text-gray-600">ইমেইল</FormLabel>
+                  <FormControl>
+                    <Input 
+                      className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" 
+                      placeholder="example@email.com" 
+                      {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500 text-xs mt-1" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="text-left">
+                  <FormLabel className="block mb-2 font-semibold text-gray-600">পাসওয়ার্ড</FormLabel>
+                  <FormControl>
+                    <Input 
+                      type="password" 
+                      className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" 
+                      placeholder="••••••••" 
+                      {...field} />
+                  </FormControl>
+                  <FormMessage className="text-red-500 text-xs mt-1" />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" disabled={isLoading} className="w-full p-4 h-auto bg-black text-white rounded-lg font-bold text-base uppercase transition hover:bg-accent disabled:bg-gray-400">
+              {isLoading ? 'লোড হচ্ছে...' : (isLogin ? 'লগইন করুন' : 'সাইন আপ করুন')}
+            </Button>
+          </form>
+        </Form>
 
         <Link href="/" className="mt-6 inline-flex items-center gap-2 text-gray-500 hover:text-accent">
           <FontAwesomeIcon icon={faArrowLeft} /> 
