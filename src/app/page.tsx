@@ -31,6 +31,7 @@ const courseTabsData = [
         "title": "Physics Second Part",
         "price": "FREE",
         "description": "",
+        "startDate": "কোর্স শুরুঃ ১ ফেব্রুয়ারি",
         "features": [
           "১০ টি অধ্যায় ভিত্তিক MCQ Exam",
           "১টি সাবজেক্ট ফাইনাল এক্সাম",
@@ -204,12 +205,18 @@ export default function Home() {
                         <div key={course.title} className="bg-white rounded-2xl overflow-hidden text-left shadow-lg transition-all duration-400 hover:-translate-y-1 hover:shadow-xl">
                             <Image src={course.image} alt={course.title} width={400} height={180} className="w-full h-44 object-cover" data-ai-hint={course.imageHint} />
                             <div className="p-5">
-                                <h3 className="text-xl font-bold mb-2.5 flex justify-between items-center">
-                                    {course.title} 
-                                    <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
+                                <h3 className="text-xl font-bold mb-2.5 flex justify-between items-start">
+                                    <span className="flex-1 pr-2">{course.title}</span>
+                                    <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
                                         {course.price}
                                     </span>
                                 </h3>
+                                {(course as any).startDate && (
+                                    <div className="flex items-center text-sm text-gray-500 mb-3">
+                                        <FontAwesomeIcon icon={faCalendarAlt} className="mr-2 text-accent" />
+                                        <span className="font-medium">{(course as any).startDate}</span>
+                                    </div>
+                                )}
                                 {course.description && <p className="text-base leading-snug text-gray-600">{course.description}</p>}
                                 <div className="mt-3">
                                     {course.features.map(feature => (
