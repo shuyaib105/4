@@ -150,26 +150,38 @@ export default function Home() {
         </ul>
       </div>
 
-      <main className="bg-background">
+      <main>
         {/* Hero Section */}
-        <section className="flex items-center justify-between px-[8%] py-10 flex-wrap gap-5">
-          <div className="flex-1 min-w-[300px]">
-            <h1 className="text-4xl mb-4 font-bold leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
-            <p className="text-xl mb-6 leading-relaxed text-gray-700">{heroData.subtitle}</p>
+        <section className="bg-gradient-to-b from-yellow-50 to-background">
+          <div className="container mx-auto px-6 py-20 lg:py-28">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
+                <p className="text-xl mb-10 text-gray-600 leading-relaxed">{heroData.subtitle}</p>
+                <div className="flex flex-wrap gap-4">
+                  {actionButtonsData.map(button => (
+                      <a key={button.title} href={button.url} className="bg-white rounded-2xl flex items-center justify-center no-underline shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl px-8 py-5">
+                          <div className="flex items-center gap-3">
+                              <FontAwesomeIcon icon={button.icon} className="text-2xl text-accent" />
+                              <span className="text-lg font-bold text-gray-800">{button.title}</span>
+                          </div>
+                      </a>
+                  ))}
+                </div>
+              </div>
+              <div className="hidden md:flex justify-center items-center">
+                <Image 
+                  src="https://picsum.photos/seed/online-class/600/600"
+                  width={600}
+                  height={600}
+                  alt="Online Learning"
+                  className="rounded-full shadow-2xl"
+                  data-ai-hint="online learning student"
+                />
+              </div>
+            </div>
           </div>
         </section>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 px-[8%] -mt-8">
-            {actionButtonsData.map(button => (
-                <a key={button.title} href={button.url} className="w-52 h-20 bg-white rounded-2xl flex items-center justify-center no-underline shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                    <div className="text-center">
-                        <FontAwesomeIcon icon={button.icon} className="text-2xl text-accent mb-1" />
-                        <span className="text-lg font-bold text-gray-800 block">{button.title}</span>
-                    </div>
-                </a>
-            ))}
-        </div>
 
         {/* Courses Section */}
         <section id="courses-section" className="py-20 px-[8%] text-center">
