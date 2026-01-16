@@ -222,20 +222,27 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#111] text-white pt-12 pb-6 px-[8%] mt-16 rounded-t-3xl">
-        <div className="flex justify-between flex-wrap gap-6 border-b border-gray-800 pb-6">
-          <div>
-            <Image src={footerData.logo} alt="Footer Logo" width={50} height={50} className="h-[50px] w-auto" />
-          </div>
-          <div className="flex gap-4 flex-wrap justify-center">
-            {footerData.links.map(link => (
-              <a key={link.text} href={link.url} className="flex items-center gap-2 bg-[#222] px-5 py-3 rounded-full no-underline text-white transition-all duration-400 hover:bg-[#333] hover:-translate-y-0.5 hover:shadow-lg">
-                <FontAwesomeIcon icon={link.icon} style={{color: link.color}}/> {link.text}
-              </a>
-            ))}
-          </div>
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20 rounded-t-3xl">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+            <div className="flex flex-col items-center text-center">
+                <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} className="h-16 w-auto mb-2" />
+                <h3 className="text-2xl font-bold text-white">সিলেবাসের বাইরে</h3>
+                <p className="mt-2 text-base text-gray-400 max-w-md">{heroData.subtitle}</p>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 my-10">
+                {footerData.links.map(link => (
+                  <a key={link.text} href={link.url} className="flex items-center gap-2.5 text-gray-300 hover:text-white hover:scale-105 transition-all duration-300 text-base">
+                    <FontAwesomeIcon icon={link.icon} className="h-5 w-5" style={{color: link.color}}/>
+                    <span className="font-medium">{link.text}</span>
+                  </a>
+                ))}
+            </div>
+            
+            <div className="mt-10 pt-8 border-t border-zinc-800 text-center">
+                <p className="text-sm text-zinc-500" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
+            </div>
         </div>
-        <div className="text-center mt-6 text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
       </footer>
       <style jsx>{`
         .animate-popIn {
