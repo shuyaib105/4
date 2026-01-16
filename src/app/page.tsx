@@ -130,7 +130,7 @@ export default function Home() {
 
       {/* Header */}
       <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[70px]">
-        <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} className="h-[55px] w-auto" />
+        <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
         <div className="flex items-center gap-3">
           <a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase">
             <FontAwesomeIcon icon={faUserCircle} />
@@ -225,7 +225,7 @@ export default function Home() {
       <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20 rounded-t-3xl">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
-                <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} className="h-16 w-auto mb-2" />
+                <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2" />
                 <p className="mt-2 text-base text-gray-400 max-w-md">{heroData.subtitle}</p>
             </div>
             
