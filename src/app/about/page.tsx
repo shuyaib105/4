@@ -177,11 +177,11 @@ export default function AboutPage() {
                 <p className="mt-2 text-base text-gray-400 max-w-md">{heroData.subtitle}</p>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 my-10">
+            <div className="flex flex-wrap justify-center gap-4 my-10">
                 {footerData.links.map(link => (
-                  <Link key={link.text} href={link.url} className="flex items-center gap-2.5 text-gray-300 hover:text-white hover:scale-105 transition-all duration-300 text-base">
+                  <Link key={link.text} href={link.url} className="bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-medium py-3 px-5 rounded-full flex items-center gap-3 transition-colors duration-300 text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5">
                     <FontAwesomeIcon icon={link.icon} className="h-5 w-5" style={{color: link.color}}/>
-                    <span className="font-medium">{link.text}</span>
+                    <span>{link.text}</span>
                   </Link>
                 ))}
             </div>
