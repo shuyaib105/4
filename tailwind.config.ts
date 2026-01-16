@@ -13,6 +13,8 @@ export default {
         body: ['Inter', 'sans-serif'],
         headline: ['Inter', 'sans-serif'],
         code: ['monospace'],
+        bengali: ['Noto Serif Bengali', 'serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -65,6 +67,8 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        'primary-blue': 'hsl(var(--primary-blue))',
+        'success-green': 'hsl(var(--success-green))',
       },
       borderRadius: {
         lg: 'var(--radius)',

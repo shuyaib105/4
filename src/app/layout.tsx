@@ -1,9 +1,12 @@
 import type {Metadata} from 'next';
 import './globals.css';
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 export const metadata: Metadata = {
-  title: 'Hello World App',
-  description: "Displays the classic 'Hello, World!' message.",
+  title: 'সিলেবাসের বাইরে | Make Education Simple',
+  description: 'সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।',
 };
 
 export default function RootLayout({
@@ -12,13 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">{children}</body>
+    <html lang="bn">
+      <body>{children}</body>
     </html>
   );
 }
