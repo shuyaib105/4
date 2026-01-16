@@ -28,16 +28,6 @@ const courseTabsData = [
     "id": "hsc-26",
     "courses": [
       {
-        "title": "উচ্চতর গণিত",
-        "price": "৳600",
-        "description": "সহজ পদ্ধতিতে জটিল সব গাণিতিক সমস্যার সমাধান।",
-        "features": ["সকল অধ্যায়ের ক্লাস", "লাইভ প্রশ্নোত্তর পর্ব", "মডেল টেস্ট"],
-        "enrollButton": "Enroll Now",
-        "image": "https://images.unsplash.com/photo-1758685734555-a0e7f15ea33f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYXRoZW1hdGljcyUyMGNoYWxrYm9hcmR8ZW58MHx8fHwxNzY4NDkxODI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-        "imageHint": "mathematics chalkboard",
-        "disabled": false
-      },
-      {
         "title": "Physics Second Part",
         "price": "FREE",
         "description": "",
