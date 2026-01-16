@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { useState, useEffect } from 'react';
 
@@ -21,8 +21,9 @@ export default function AboutPage() {
         <Link href="/">
           <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={48} height={48} className="h-12 w-auto" />
         </Link>
-        <a href={isLoggedIn ? 'dashboard.html' : 'login.html'} className="bg-black text-white px-6 py-2 rounded-full text-[11px] font-bold tracking-widest hover:bg-yellow-500 hover:text-black transition-all no-underline">
-            {isLoggedIn ? 'DASHBOARD' : 'ACCOUNT'}
+        <a href={isLoggedIn ? 'dashboard.html' : 'login.html'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
+            <FontAwesomeIcon icon={faUserCircle} />
+            <span>{isLoggedIn ? 'Dashboard' : 'Account'}</span>
         </a>
       </header>
 
