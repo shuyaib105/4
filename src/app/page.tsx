@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCheckCircle, faInfoCircle, faShieldAlt, faBookOpen, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCheckCircle, faInfoCircle, faShieldAlt, faBookOpen, faCalendarAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -19,7 +19,8 @@ const heroData = {
 
 const actionButtonsData = [
   { url: "#courses-section", title: "কোর্স সমূহ", icon: faBookOpen },
-  { url: "#", title: "ক্যালেন্ডার", icon: faCalendarAlt }
+  { url: "#", title: "ক্যালেন্ডার", icon: faCalendarAlt },
+  { url: "#", title: "প্রশ্নব্যাংক", icon: faQuestionCircle }
 ];
 
 const courseTabsData = [
@@ -127,14 +128,14 @@ export default function Home() {
       )}
 
       {/* Header */}
-      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[70px]">
+      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[60px]">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={45} height={45} quality={100} className="h-[45px] w-auto" />
         </Link>
         <div className="flex items-center gap-3">
           <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase">
             <FontAwesomeIcon icon={faUserCircle} />
-            <span>{user ? "Dashboard" : "Account"}</span>
+            <span className="font-montserrat">{user ? "Dashboard" : "Account"}</span>
           </Link>
           <div className="text-2xl cursor-pointer text-foreground" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faBarsStaggered} />
@@ -146,12 +147,12 @@ export default function Home() {
       <div className={cn("fixed top-0 w-[280px] h-full bg-white z-[1001] shadow-xl transition-all duration-400 ease-in-out p-10 pt-5", menuOpen ? "right-0" : "-right-[280px]")}>
         <div className="absolute top-4 left-5 text-2xl cursor-pointer" onClick={toggleMenu}><FontAwesomeIcon icon={faTimes} /></div>
         <ul className="list-none mt-8">
-          <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">হোম</Link></li>
-          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">কোর্সসমূহ</a></li>
-          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
-          <li className="mb-5"><Link href={user ? "/dashboard" : "/login"} onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">{user ? "ড্যাশবোর্ড" : "লগইন করুন"}</Link></li>
+          <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold font-tiro-bangla">হোম</Link></li>
+          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold font-tiro-bangla">কোর্সসমূহ</a></li>
+          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold font-tiro-bangla">আমাদের সম্পর্কে</Link></li>
+          <li className="mb-5"><Link href={user ? "/dashboard" : "/login"} onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold"><span className="font-tiro-bangla">{user ? "ড্যাশবোর্ড" : "লগইন করুন"}</span></Link></li>
           {user && (
-            <li><button onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold w-full text-left bg-transparent border-none">লগ আউট</button></li>
+            <li><button onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold w-full text-left bg-transparent border-none font-tiro-bangla">লগ আউট</button></li>
           )}
         </ul>
       </div>
@@ -159,17 +160,17 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-yellow-50 to-background">
-          <div className="container mx-auto px-6 pt-12 lg:pt-16 pb-12">
+          <div className="container mx-auto px-6 pt-8 lg:pt-12 pb-12">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-4xl lg:text-5xl font-black mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
-                <p className="text-xl mb-10 text-gray-600 leading-relaxed">{heroData.subtitle}</p>
+                <h1 className="text-4xl lg:text-5xl font-black mb-6 leading-tight font-tiro-bangla" dangerouslySetInnerHTML={{ __html: heroData.title }} />
+                <p className="text-xl mb-10 text-gray-600 leading-relaxed font-tiro-bangla">{heroData.subtitle}</p>
                 <div className="flex flex-wrap gap-4">
                   {actionButtonsData.map(button => (
                       <a key={button.title} href={button.url} className="bg-white rounded-2xl flex items-center justify-center no-underline shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl px-8 py-5">
                           <div className="flex items-center gap-3">
                               <FontAwesomeIcon icon={button.icon} className="text-2xl text-accent" />
-                              <span className="text-lg font-bold text-gray-800">{button.title}</span>
+                              <span className="text-lg font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
                           </div>
                       </a>
                   ))}
@@ -193,7 +194,7 @@ export default function Home() {
         <section id="courses-section" className="py-20 px-[8%] text-center">
             <div className="bg-gray-200 p-1.5 rounded-xl inline-flex mb-8">
                 {courseTabsData.map(tab => (
-                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("px-5 py-2 border-none bg-transparent cursor-pointer text-base font-semibold rounded-lg text-gray-600 transition-all", activeTab === tab.id && "bg-white text-accent shadow-md")}>
+                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("px-5 py-2 border-none bg-transparent cursor-pointer text-base font-semibold rounded-lg text-gray-600 transition-all font-montserrat", activeTab === tab.id && "bg-white text-accent shadow-md")}>
                         {tab.name}
                     </button>
                 ))}
@@ -206,7 +207,7 @@ export default function Home() {
                             <Image src={course.image} alt={course.title} width={400} height={180} className="w-full h-44 object-cover" data-ai-hint={course.imageHint} />
                             <div className="p-5">
                                 <h3 className="text-xl font-bold mb-2.5 flex justify-between items-start">
-                                    <span className="flex-1 pr-2">{course.title}</span>
+                                    <span className="flex-1 pr-2 font-montserrat">{course.title}</span>
                                     <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
                                         {course.price}
                                     </span>
@@ -214,22 +215,22 @@ export default function Home() {
                                 {(course as any).startDate && (
                                     <div className="flex items-center text-sm text-gray-500 mb-3">
                                         <FontAwesomeIcon icon={faCalendarAlt} className="mr-2 text-accent" />
-                                        <span className="font-medium">{(course as any).startDate}</span>
+                                        <span className="font-tiro-bangla">{(course as any).startDate}</span>
                                     </div>
                                 )}
-                                {course.description && <p className="text-base leading-snug text-gray-600">{course.description}</p>}
+                                {course.description && <p className="text-base leading-snug text-gray-600 font-tiro-bangla">{course.description}</p>}
                                 <div className="mt-3">
                                     {course.features.map(feature => (
                                         <div key={feature} className="flex items-center my-2.5">
                                             <FontAwesomeIcon icon={faCheckCircle} className="text-primary-blue mr-2" />
-                                            <span>{feature}</span>
+                                            <span className="font-tiro-bangla">{feature}</span>
                                         </div>
                                     ))}
                                 </div>
                                 <button
                                     onClick={() => !course.disabled && openEnrollPopup(course.title)}
                                     disabled={course.disabled}
-                                    className={cn("inline-block bg-primary text-black px-5 py-2.5 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300", 
+                                    className={cn("inline-block bg-primary text-black px-5 py-2.5 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300 font-montserrat", 
                                     course.disabled ? "bg-gray-400 cursor-not-allowed" : "hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg")}>
                                     {course.enrollButton}
                                 </button>
@@ -246,20 +247,20 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2" />
-                <p className="mt-2 text-base text-gray-400 max-w-md">{heroData.subtitle}</p>
+                <p className="mt-2 text-base text-gray-400 max-w-md font-tiro-bangla">{heroData.subtitle}</p>
             </div>
             
             <div className="flex flex-wrap justify-center gap-4 my-10">
                 {footerData.links.map(link => (
                   <Link key={link.text} href={link.url} className="bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-medium py-3 px-5 rounded-full flex items-center gap-3 transition-colors duration-300 text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5">
                     <FontAwesomeIcon icon={link.icon} className="h-5 w-5" style={{color: link.color}}/>
-                    <span>{link.text}</span>
+                    <span className="font-tiro-bangla">{link.text}</span>
                   </Link>
                 ))}
             </div>
             
             <div className="mt-10 pt-8 border-t border-zinc-800 text-center">
-                <p className="text-sm text-zinc-500" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
+                <p className="text-sm text-zinc-500 font-montserrat" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
             </div>
         </div>
       </footer>
