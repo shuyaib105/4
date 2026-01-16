@@ -109,7 +109,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background text-foreground font-montserrat">
+    <div className="bg-background text-foreground">
       {/* Enroll Popup Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-[2000]" onClick={() => setModalOpen(false)}>
@@ -117,8 +117,8 @@ export default function Home() {
             <div className="w-24 h-24 bg-[#fffdf0] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
               <FontAwesomeIcon icon={isLoggedIn ? faCertificate : faUserLock} className={cn("text-5xl", isLoggedIn ? "text-accent" : "text-primary-blue")} />
             </div>
-            <span className="font-extrabold text-xl block mb-3 text-gray-800 tracking-tight font-bengali">{modalCourse}</span>
-            <p className="text-lg text-gray-600 leading-relaxed mb-8 font-bengali">
+            <span className="font-extrabold text-xl block mb-3 text-gray-800 tracking-tight">{modalCourse}</span>
+            <p className="text-lg text-gray-600 leading-relaxed mb-8">
               {isLoggedIn ? "Dashboard-এ কোর্সটি যুক্ত করা হচ্ছে..." : "লগইন করার পর এই কোর্সটি অটোমেটিক সিলেক্ট করা হবে।"}
             </p>
             <button onClick={executeRedirect} className="bg-black text-white p-4 rounded-xl font-extrabold text-base w-full uppercase transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 shadow-lg">
@@ -146,12 +146,12 @@ export default function Home() {
       <div className={cn("fixed top-0 w-[280px] h-full bg-white z-[1001] shadow-xl transition-all duration-400 ease-in-out p-10 pt-5", menuOpen ? "right-0" : "-right-[280px]")}>
         <div className="absolute top-4 left-5 text-2xl cursor-pointer" onClick={toggleMenu}><FontAwesomeIcon icon={faTimes} /></div>
         <ul className="list-none mt-8">
-          <li className="mb-5"><a href="#" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold font-bengali">হোম</a></li>
-          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold font-bengali">কোর্সসমূহ</a></li>
-          <li className="mb-5"><a href="about.html" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold font-bengali">আমাদের সম্পর্কে</a></li>
-          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-text-main text-lg font-semibold font-bengali">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
+          <li className="mb-5"><a href="#" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">হোম</a></li>
+          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">কোর্সসমূহ</a></li>
+          <li className="mb-5"><a href="about.html" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">আমাদের সম্পর্কে</a></li>
+          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-text-main text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
           {isLoggedIn && (
-            <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold font-bengali">লগ আউট</a></li>
+            <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold">লগ আউট</a></li>
           )}
         </ul>
       </div>
@@ -160,8 +160,8 @@ export default function Home() {
         {/* Hero Section */}
         <section className="flex items-center justify-between px-[8%] py-10 flex-wrap gap-5">
           <div className="flex-1 min-w-[300px]">
-            <h1 className="text-4xl mb-4 font-bold leading-tight font-bengali" dangerouslySetInnerHTML={{ __html: heroData.title }} />
-            <p className="text-xl mb-6 leading-relaxed text-gray-700 font-bengali">{heroData.subtitle}</p>
+            <h1 className="text-4xl mb-4 font-bold leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
+            <p className="text-xl mb-6 leading-relaxed text-gray-700">{heroData.subtitle}</p>
           </div>
         </section>
 
@@ -191,25 +191,25 @@ export default function Home() {
                         <div key={course.title} className="bg-white rounded-2xl overflow-hidden text-left shadow-lg transition-all duration-400 hover:-translate-y-1 hover:shadow-xl">
                             <Image src={course.image} alt={course.title} width={400} height={180} className="w-full h-44 object-cover" data-ai-hint={course.imageHint} />
                             <div className="p-5">
-                                <h3 className="text-xl mb-2.5 flex justify-between items-center font-montserrat">
+                                <h3 className="text-xl mb-2.5 flex justify-between items-center">
                                     {course.title} 
                                     <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
                                         {course.price}
                                     </span>
                                 </h3>
-                                {course.description && <p className="text-base leading-snug text-gray-600 font-bengali">{course.description}</p>}
+                                {course.description && <p className="text-base leading-snug text-gray-600">{course.description}</p>}
                                 <div className="mt-3">
                                     {course.features.map(feature => (
                                         <div key={feature} className="flex items-center my-2.5">
                                             <FontAwesomeIcon icon={faCheckCircle} className="text-primary-blue mr-2" />
-                                            <span className="font-bengali">{feature}</span>
+                                            <span>{feature}</span>
                                         </div>
                                     ))}
                                 </div>
                                 <button
                                     onClick={() => !course.disabled && openEnrollPopup(course.title)}
                                     disabled={course.disabled}
-                                    className={cn("inline-block bg-primary text-black px-5 py-2.5 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300 font-montserrat", 
+                                    className={cn("inline-block bg-primary text-black px-5 py-2.5 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300", 
                                     course.disabled ? "bg-gray-400 cursor-not-allowed" : "hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg")}>
                                     {course.enrollButton}
                                 </button>
@@ -229,13 +229,13 @@ export default function Home() {
           </div>
           <div className="flex gap-4 flex-wrap justify-center">
             {footerData.links.map(link => (
-              <a key={link.text} href={link.url} className="flex items-center gap-2 bg-[#222] px-5 py-3 rounded-full no-underline text-white transition-all duration-400 hover:bg-[#333] hover:-translate-y-0.5 hover:shadow-lg font-bengali">
+              <a key={link.text} href={link.url} className="flex items-center gap-2 bg-[#222] px-5 py-3 rounded-full no-underline text-white transition-all duration-400 hover:bg-[#333] hover:-translate-y-0.5 hover:shadow-lg">
                 <FontAwesomeIcon icon={link.icon} style={{color: link.color}}/> {link.text}
               </a>
             ))}
           </div>
         </div>
-        <div className="text-center mt-6 text-sm text-gray-600 font-montserrat" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
+        <div className="text-center mt-6 text-sm text-gray-600" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
       </footer>
       <style jsx>{`
         .animate-popIn {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -61,12 +61,6 @@
   }
   body {
     @apply bg-background text-foreground overflow-x-hidden;
-    font-family: 'Montserrat', sans-serif;
-  }
-  .bengali-text, .font-bengali {
-    font-family: 'Noto Serif Bengali', serif !important;
-  }
-  .font-montserrat {
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Hind Siliguri', sans-serif;
   }
 }
