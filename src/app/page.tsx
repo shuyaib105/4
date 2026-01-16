@@ -19,23 +19,6 @@ const actionButtonsData = [
 
 const courseTabsData = [
   {
-    "name": "QB course",
-    "id": "qb-course",
-    "courses": [
-      {
-        "title": "HSC প্রশ্নব্যাংক সলভ",
-        "price": "৳700",
-        "description": "এইচএসসি পরীক্ষার জন্য বিগত বছরের প্রশ্নব্যাংক সলভ ও বিশ্লেষণ।",
-        "features": ["বিগত বছরের প্রশ্ন সমাধান", "অধ্যায়ভিত্তিক আলোচনা", "বিশেষ মডেল টেস্ট"],
-        "enrollButton": "Enroll Now",
-        "image": "https://picsum.photos/seed/hscqb/400/180",
-        "imageHint": "question bank",
-        "disabled": false,
-        "enrollAction": "openEnrollPopup('HSC প্রশ্নব্যাংক সলভ')"
-      }
-    ]
-  },
-  {
     "name": "HSC 26",
     "id": "hsc-26",
     "courses": [
@@ -49,6 +32,23 @@ const courseTabsData = [
         "imageHint": "mathematics chalkboard",
         "disabled": false,
         "enrollAction": "openEnrollPopup('উচ্চতর গণিত')"
+      }
+    ]
+  },
+  {
+    "name": "QB course",
+    "id": "qb-course",
+    "courses": [
+      {
+        "title": "HSC প্রশ্নব্যাংক সলভ",
+        "price": "৳700",
+        "description": "এইচএসসি পরীক্ষার জন্য বিগত বছরের প্রশ্নব্যাংক সলভ ও বিশ্লেষণ।",
+        "features": ["বিগত বছরের প্রশ্ন সমাধান", "অধ্যায়ভিত্তিক আলোচনা", "বিশেষ মডেল টেস্ট"],
+        "enrollButton": "Enroll Now",
+        "image": "https://picsum.photos/seed/hscqb/400/180",
+        "imageHint": "question bank",
+        "disabled": false,
+        "enrollAction": "openEnrollPopup('HSC প্রশ্নব্যাংক সলভ')"
       }
     ]
   }
