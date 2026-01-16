@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCheckCircle, faInfoCircle, faShieldAlt, faBookOpen, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const heroData = {
   title: 'তোমার <span class="text-accent">সেরা প্রস্তুতির</span> শুরু হোক এখানে থেকেই',
@@ -59,7 +60,7 @@ const footerData = {
   logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
   links: [
     { "url": "https://t.me/syllabuserbaire", "icon": faTelegramPlane, "text": "টেলিগ্রাম চ্যানেল", "color": "#0088cc" },
-    { "url": "#", "icon": faInfoCircle, "text": "আমাদের সম্পর্কে", "color": "hsl(var(--primary-blue))" },
+    { "url": "/about", "icon": faInfoCircle, "text": "আমাদের সম্পর্কে", "color": "hsl(var(--primary-blue))" },
     { "url": "#", "icon": faShieldAlt, "text": "প্রাইভেসি পলিসি", "color": "hsl(var(--success-green))" }
   ],
   copyright: "&copy; 2025 SYLLABUSER BAIRE"
@@ -139,7 +140,7 @@ export default function Home() {
         <ul className="list-none mt-8">
           <li className="mb-5"><a href="#" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">হোম</a></li>
           <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">কোর্সসমূহ</a></li>
-          <li className="mb-5"><a href="about.html" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">আমাদের সম্পর্কে</a></li>
+          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
           <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-text-main text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
           {isLoggedIn && (
             <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold">লগ আউট</a></li>
@@ -224,10 +225,10 @@ export default function Home() {
             
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 my-10">
                 {footerData.links.map(link => (
-                  <a key={link.text} href={link.url} className="flex items-center gap-2.5 text-gray-300 hover:text-white hover:scale-105 transition-all duration-300 text-base">
+                  <Link key={link.text} href={link.url} className="flex items-center gap-2.5 text-gray-300 hover:text-white hover:scale-105 transition-all duration-300 text-base">
                     <FontAwesomeIcon icon={link.icon} className="h-5 w-5" style={{color: link.color}}/>
                     <span className="font-medium">{link.text}</span>
-                  </a>
+                  </Link>
                 ))}
             </div>
             
