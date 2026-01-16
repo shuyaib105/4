@@ -226,7 +226,6 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} className="h-16 w-auto mb-2" />
-                <h3 className="text-2xl font-bold text-white">সিলেবাসের বাইরে</h3>
                 <p className="mt-2 text-base text-gray-400 max-w-md">{heroData.subtitle}</p>
             </div>
             
