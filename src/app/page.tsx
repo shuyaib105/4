@@ -19,28 +19,19 @@ const actionButtonsData = [
 
 const courseTabsData = [
   {
-    "name": "HSC 25",
-    "id": "hsc-25",
+    "name": "QB course",
+    "id": "qb-course",
     "courses": [
       {
-        "title": "পদার্থবিজ্ঞান ১ম পত্র",
-        "price": "৳550",
-        "description": "সম্পূর্ণ নতুন সিলেবাস অনুযায়ী থিওরি এবং গাণিতিক সমস্যার সমাধান।",
-        "features": ["সকল অধ্যায়ের ক্লাস", "রেকর্ডেড লেকচার", "সাপ্তাহিক পরীক্ষা"],
+        "title": "HSC প্রশ্নব্যাংক সলভ",
+        "price": "৳700",
+        "description": "এইচএসসি পরীক্ষার জন্য বিগত বছরের প্রশ্নব্যাংক সলভ ও বিশ্লেষণ।",
+        "features": ["বিগত বছরের প্রশ্ন সমাধান", "অধ্যায়ভিত্তিক আলোচনা", "বিশেষ মডেল টেস্ট"],
         "enrollButton": "Enroll Now",
-        "image": "https://picsum.photos/seed/physics1/400/180",
-        "imageHint": "physics abstract",
+        "image": "https://picsum.photos/seed/hscqb/400/180",
+        "imageHint": "question bank",
         "disabled": false,
-        "enrollAction": "openEnrollPopup('পদার্থবিজ্ঞান ১ম পত্র')"
-      },
-      {
-        "title": "রসায়ন ২য় পত্র",
-        "price": "EXPIRED",
-        "features": ["সকল অধ্যায়ের ক্লাস", "রেকর্ডেড লেকচার", "মাসিক পরীক্ষা"],
-        "enrollButton": "Admission Closed",
-        "image": "https://picsum.photos/seed/chem2/400/180",
-        "imageHint": "chemistry lab",
-        "disabled": true
+        "enrollAction": "openEnrollPopup('HSC প্রশ্নব্যাংক সলভ')"
       }
     ]
   },
