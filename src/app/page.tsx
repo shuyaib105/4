@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCheckCircle, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCheckCircle, faInfoCircle, faShieldAlt, faBookOpen, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { cn } from '@/lib/utils';
 
@@ -13,8 +13,8 @@ const heroData = {
 };
 
 const actionButtonsData = [
-  { "url": "#courses-section", "image": "https://picsum.photos/seed/courses/160/75", "title": "কোর্স সমূহ", "imageHint": "lecture notes" },
-  { "url": "#", "image": "https://picsum.photos/seed/calendar/160/75", "title": "ক্যালেন্ডার", "imageHint": "calendar schedule" }
+  { url: "#courses-section", image: "https://picsum.photos/seed/courses/200/100", title: "কোর্স সমূহ", icon: faBookOpen, imageHint: "lecture notes" },
+  { url: "#", image: "https://picsum.photos/seed/calendar/200/100", title: "ক্যালেন্ডার", icon: faCalendarAlt, imageHint: "calendar schedule" }
 ];
 
 const courseTabsData = [
@@ -166,11 +166,14 @@ export default function Home() {
         </section>
 
         {/* Action Buttons */}
-        <div className="flex justify-center gap-4 px-[8%] -mt-5">
+        <div className="flex flex-wrap justify-center gap-6 px-[8%] -mt-8">
             {actionButtonsData.map(button => (
-                <a key={button.title} href={button.url} className="w-40 h-[75px] bg-cover bg-center rounded-xl flex items-center justify-center no-underline relative overflow-hidden shadow-md transition-all duration-400 hover:-translate-y-1 hover:shadow-lg" style={{backgroundImage: `url(${button.image})`}}>
-                    <div className="absolute inset-0 bg-black/45"></div>
-                    <span className="relative z-10 text-white text-base font-extrabold text-shadow-lg">{button.title}</span>
+                <a key={button.title} href={button.url} className="w-52 h-28 bg-cover bg-center rounded-2xl flex flex-col items-center justify-center no-underline relative overflow-hidden shadow-lg transition-all duration-400 hover:-translate-y-1.5 hover:shadow-xl group">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20 group-hover:from-black/70 transition-colors"></div>
+                    <div className="relative z-10 text-white text-center">
+                        <FontAwesomeIcon icon={button.icon} className="text-3xl mb-2 transition-transform group-hover:scale-110" />
+                        <span className="text-lg font-extrabold tracking-wide">{button.title}</span>
+                    </div>
                 </a>
             ))}
         </div>
