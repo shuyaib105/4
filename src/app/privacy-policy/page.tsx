@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserShield, faHdd, faCloudSlash, faBug, faLock, faUserCircle, faBarsStaggered, faTimes, faShieldAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserShield, faHdd, faBan, faBug, faLock, faUserCircle, faBarsStaggered, faTimes, faShieldAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             <div className="policy-card">
-                <div className="icon-box"><FontAwesomeIcon icon={faCloudSlash} /></div>
+                <div className="icon-box"><FontAwesomeIcon icon={faBan} /></div>
                 <h3 className="text-xl font-bold mb-3">নো সার্ভার ব্যাকআপ</h3>
                 <div className="gradient-line"></div>
                 <p className="text-slate-600 text-sm">
