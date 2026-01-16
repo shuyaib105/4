@@ -3,29 +3,58 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe, faUserCircle, faBarsStaggered, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { useState, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
   }, []);
 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    window.location.reload();
+  };
+
   return (
-    <div className="bg-[#FFFDF5] text-[#333] antialiased">
+    <div className="bg-[#FFFDF5] text-foreground antialiased">
       {/* Header */}
-      <header className="bg-white sticky top-0 z-50 shadow-sm px-6 py-3 flex justify-between items-center h-[75px]">
+      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[70px]">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={48} height={48} className="h-12 w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
         </Link>
-        <a href={isLoggedIn ? 'dashboard.html' : 'login.html'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
-            <FontAwesomeIcon icon={faUserCircle} />
-            <span>{isLoggedIn ? 'Dashboard' : 'Account'}</span>
-        </a>
+        <div className="flex items-center gap-3">
+          <a href={isLoggedIn ? 'dashboard.html' : 'login.html'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
+              <FontAwesomeIcon icon={faUserCircle} />
+              <span>{isLoggedIn ? 'Dashboard' : 'Account'}</span>
+          </a>
+          <div className="text-2xl cursor-pointer text-foreground" onClick={toggleMenu}>
+            <FontAwesomeIcon icon={faBarsStaggered} />
+          </div>
+        </div>
       </header>
+      
+      {/* Side Menu */}
+      <div className={cn("fixed top-0 w-[280px] h-full bg-white z-[1001] shadow-xl transition-all duration-400 ease-in-out p-10 pt-5", menuOpen ? "right-0" : "-right-[280px]")}>
+        <div className="absolute top-4 left-5 text-2xl cursor-pointer" onClick={toggleMenu}><FontAwesomeIcon icon={faTimes} /></div>
+        <ul className="list-none mt-8">
+          <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">হোম</Link></li>
+          <li className="mb-5"><a href="/#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">কোর্সসমূহ</a></li>
+          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
+          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-foreground text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
+          {isLoggedIn && (
+            <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold">লগ আউট</a></li>
+          )}
+        </ul>
+      </div>
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary to-accent pt-20 pb-32 px-6 text-center text-white overflow-hidden">

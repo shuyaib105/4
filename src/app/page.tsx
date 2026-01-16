@@ -128,7 +128,7 @@ export default function Home() {
             <FontAwesomeIcon icon={faUserCircle} />
             <span>{isLoggedIn ? "Dashboard" : "Account"}</span>
           </a>
-          <div className="text-2xl cursor-pointer text-text-main" onClick={toggleMenu}>
+          <div className="text-2xl cursor-pointer text-foreground" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faBarsStaggered} />
           </div>
         </div>
@@ -138,10 +138,10 @@ export default function Home() {
       <div className={cn("fixed top-0 w-[280px] h-full bg-white z-[1001] shadow-xl transition-all duration-400 ease-in-out p-10 pt-5", menuOpen ? "right-0" : "-right-[280px]")}>
         <div className="absolute top-4 left-5 text-2xl cursor-pointer" onClick={toggleMenu}><FontAwesomeIcon icon={faTimes} /></div>
         <ul className="list-none mt-8">
-          <li className="mb-5"><a href="#" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">হোম</a></li>
-          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">কোর্সসমূহ</a></li>
-          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-text-main text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
-          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-text-main text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
+          <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">হোম</Link></li>
+          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">কোর্সসমূহ</a></li>
+          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
+          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-foreground text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
           {isLoggedIn && (
             <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold">লগ আউট</a></li>
           )}
