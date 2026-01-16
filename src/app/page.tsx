@@ -7,6 +7,10 @@ import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCh
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useUser } from '@/firebase';
+import { getAuth, signOut } from 'firebase/auth';
+import { useFirebaseApp } from '@/firebase';
+import { useRouter } from 'next/navigation';
 
 const heroData = {
   title: 'তোমার <span class="text-accent">সেরা প্রস্তুতির</span> শুরু হোক এখানে থেকেই',
@@ -32,7 +36,6 @@ const courseTabsData = [
         "image": "https://picsum.photos/seed/math/400/180",
         "imageHint": "mathematics chalkboard",
         "disabled": false,
-        "enrollAction": "openEnrollPopup('উচ্চতর গণিত')"
       }
     ]
   },
@@ -49,7 +52,6 @@ const courseTabsData = [
         "image": "https://picsum.photos/seed/hscqb/400/180",
         "imageHint": "question bank",
         "disabled": false,
-        "enrollAction": "openEnrollPopup('HSC প্রশ্নব্যাংক সলভ')"
       }
     ]
   }
@@ -68,24 +70,23 @@ const footerData = {
 
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(courseTabsData[0].id);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalCourse, setModalCourse] = useState('');
-
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
-  }, []);
+  
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
+  const router = useRouter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    setIsLoggedIn(false);
-    window.location.reload();
+  const handleLogout = async () => {
+    await signOut(auth);
+    toggleMenu();
   };
-
+  
   const openEnrollPopup = (courseName: string) => {
     setModalCourse(courseName);
     setModalOpen(true);
@@ -93,10 +94,10 @@ export default function Home() {
   
   const executeRedirect = () => {
     const encodedCourseName = encodeURIComponent(modalCourse);
-    if (isLoggedIn) {
-        window.location.href = `dashboard.html?course=${encodedCourseName}`;
+    if (user) {
+        router.push(`/dashboard?course=${encodedCourseName}`);
     } else {
-        window.location.href = `login.html?course=${encodedCourseName}`;
+        router.push(`/login?course=${encodedCourseName}`);
     }
   };
 
@@ -107,11 +108,11 @@ export default function Home() {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-[2000]" onClick={() => setModalOpen(false)}>
           <div className="bg-white p-8 rounded-3xl w-[90%] max-w-md text-center shadow-2xl animate-popIn border-2 border-gray-100" onClick={(e) => e.stopPropagation()}>
             <div className="w-24 h-24 bg-[#fffdf0] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-              <FontAwesomeIcon icon={isLoggedIn ? faCertificate : faUserLock} className={cn("text-5xl", isLoggedIn ? "text-accent" : "text-primary-blue")} />
+              <FontAwesomeIcon icon={user ? faCertificate : faUserLock} className={cn("text-5xl", user ? "text-accent" : "text-primary-blue")} />
             </div>
             <span className="font-extrabold text-xl block mb-3 text-gray-800 tracking-tight">{modalCourse}</span>
             <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              {isLoggedIn ? "Dashboard-এ কোর্সটি যুক্ত করা হচ্ছে..." : "লগইন করার পর এই কোর্সটি অটোমেটিক সিলেক্ট করা হবে।"}
+              {user ? "ড্যাশবোর্ডে কোর্সটি যুক্ত করা হচ্ছে..." : "লগইন করার পর এই কোর্সটি অটোমেটিক সিলেক্ট করা হবে।"}
             </p>
             <button onClick={executeRedirect} className="bg-black text-white p-4 rounded-xl font-extrabold text-base w-full uppercase transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 shadow-lg">
               Proceed to Enroll
@@ -126,10 +127,10 @@ export default function Home() {
           <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
         </Link>
         <div className="flex items-center gap-3">
-          <a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase">
+          <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase">
             <FontAwesomeIcon icon={faUserCircle} />
-            <span>{isLoggedIn ? "Dashboard" : "Account"}</span>
-          </a>
+            <span>{user ? "Dashboard" : "Account"}</span>
+          </Link>
           <div className="text-2xl cursor-pointer text-foreground" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faBarsStaggered} />
           </div>
@@ -143,9 +144,9 @@ export default function Home() {
           <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">হোম</Link></li>
           <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">কোর্সসমূহ</a></li>
           <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
-          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-foreground text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
-          {isLoggedIn && (
-            <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold">লগ আউট</a></li>
+          <li className="mb-5"><Link href={user ? "/dashboard" : "/login"} onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">{user ? "ড্যাশবোর্ড" : "লগইন করুন"}</Link></li>
+          {user && (
+            <li><button onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold w-full text-left bg-transparent border-none">লগ আউট</button></li>
           )}
         </ul>
       </div>

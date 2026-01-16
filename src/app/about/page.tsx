@@ -5,23 +5,24 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBrain, faLightbulb, faEnvelope, faRocket, faFingerprint, faGlobe, faUserCircle, faBarsStaggered, faTimes, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useUser } from '@/firebase';
+import { getAuth, signOut } from 'firebase/auth';
+import { useFirebaseApp } from '@/firebase';
 
 export default function AboutPage() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
 
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
-  }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    setIsLoggedIn(false);
-    window.location.reload();
+  const handleLogout = async () => {
+    await signOut(auth);
+    toggleMenu();
   };
   
   const heroData = {
@@ -46,10 +47,10 @@ export default function AboutPage() {
           <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
         </Link>
         <div className="flex items-center gap-3">
-          <a href={isLoggedIn ? 'dashboard.html' : 'login.html'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
+          <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
               <FontAwesomeIcon icon={faUserCircle} />
-              <span>{isLoggedIn ? 'Dashboard' : 'Account'}</span>
-          </a>
+              <span>{user ? 'Dashboard' : 'Account'}</span>
+          </Link>
           <div className="text-2xl cursor-pointer text-foreground" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faBarsStaggered} />
           </div>
@@ -63,9 +64,9 @@ export default function AboutPage() {
           <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">হোম</Link></li>
           <li className="mb-5"><a href="/#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">কোর্সসমূহ</a></li>
           <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">আমাদের সম্পর্কে</Link></li>
-          <li className="mb-5"><a href={isLoggedIn ? "dashboard.html" : "login.html"} className="no-underline text-foreground text-lg font-semibold">{isLoggedIn ? "ড্যাশবোর্ড" : "লগইন করুন"}</a></li>
-          {isLoggedIn && (
-            <li><a href="#" onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold">লগ আউট</a></li>
+          <li className="mb-5"><Link href={user ? "/dashboard" : "/login"} onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold">{user ? "ড্যাশবোর্ড" : "লগইন করুন"}</Link></li>
+          {user && (
+            <li><button onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold w-full text-left bg-transparent border-none">লগ আউট</button></li>
           )}
         </ul>
       </div>

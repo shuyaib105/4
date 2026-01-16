@@ -1,0 +1,156 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirebaseApp } from '@/firebase';
+import { useToast } from '@/hooks/use-toast';
+
+
+const formSchema = z.object({
+  name: z.string().min(1, 'নাম প্রদান করুন'),
+  email: z.string().email('সঠিক ইমেইল প্রদান করুন'),
+  password: z.string().min(6, 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে'),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+
+export default function LoginPage() {
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const app = useFirebaseApp();
+  const auth = getAuth(app);
+  const firestore = getFirestore(app);
+
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { name: '', email: '', password: '' }
+  });
+
+  const handleAuth: SubmitHandler<FormValues> = async (data) => {
+    setIsLoading(true);
+    const { email, password, name } = data;
+
+    try {
+      if (isLogin) {
+        // Handle Login
+        await signInWithEmailAndPassword(auth, email, password);
+        toast({ title: 'সফলভাবে লগইন হয়েছে' });
+      } else {
+        // Handle Sign Up
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Create user profile in Firestore
+        await setDoc(doc(firestore, "users", user.uid), {
+            uid: user.uid,
+            displayName: name,
+            email: user.email,
+            createdAt: serverTimestamp(),
+            enrolledCourses: [],
+        });
+        toast({ title: 'অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে' });
+      }
+      
+      const course = searchParams.get('course');
+      const redirectUrl = course ? `/dashboard?course=${encodeURIComponent(course)}` : '/dashboard';
+      router.push(redirectUrl);
+
+    } catch (error: any) {
+      console.error(error);
+      const errorMessage = error.code === 'auth/email-already-in-use'
+        ? 'এই ইমেইল দিয়ে ইতিমধ্যে অ্যাকাউন্ট তৈরি করা আছে।'
+        : error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found'
+        ? 'ভুল ইমেইল অথবা পাসওয়ার্ড।'
+        : 'একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+
+      toast({
+        variant: 'destructive',
+        title: 'ত্রুটি',
+        description: errorMessage,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+    reset(); // Reset form fields on toggle
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-[#FFFDF5] p-5">
+      <div className="bg-white w-full max-w-md p-10 rounded-3xl shadow-lg text-center relative">
+        <div className="mb-6">
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="সিলেবাসের বাইরে" width={80} height={80} className="mx-auto" />
+        </div>
+
+        <h2 className="font-extrabold text-2xl mb-2 text-black">
+          {isLogin ? 'আপনার অ্যাকাউন্টে লগইন করুন' : 'নতুন অ্যাকাউন্ট তৈরি করুন'}
+        </h2>
+        
+        <p className="text-gray-500 mb-6">
+            {isLogin ? 'নতুন?' : 'ইতিমধ্যে অ্যাকাউন্ট আছে?'}
+            <button onClick={toggleForm} className="text-accent font-semibold ml-1 hover:underline">
+                {isLogin ? 'অ্যাকাউন্ট তৈরি করুন' : 'লগইন করুন'}
+            </button>
+        </p>
+        
+        {!isLogin && (
+            <div className="bg-yellow-50 border-l-4 border-accent p-3 mb-6 rounded-lg text-left">
+                <p className="text-sm text-yellow-800 leading-tight">
+                    <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2 text-accent" />
+                    <strong>সতর্কবার্তা:</strong> আপনার প্রদত্ত নাম সার্টিফিকেট এবং অন্যান্য জায়গায় ব্যবহৃত হবে। প্রয়োজনে ড্যাশবোর্ড থেকে নাম পরিবর্তন করতে পারবেন।
+                </p>
+            </div>
+        )}
+
+        <form onSubmit={handleSubmit(handleAuth)}>
+          {!isLogin && (
+            <div className="mb-4 text-left">
+              <label className="block mb-2 font-semibold text-gray-600">আপনার নাম</label>
+              <input {...register('name')} className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" placeholder="আপনার পুরো নাম" />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+            </div>
+          )}
+
+          <div className="mb-4 text-left">
+            <label className="block mb-2 font-semibold text-gray-600">ইমেইল</label>
+            <input {...register('email')} className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" placeholder="example@email.com" />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+          </div>
+
+          <div className="mb-4 text-left">
+            <label className="block mb-2 font-semibold text-gray-600">পাসওয়ার্ড</label>
+            <input type="password" {...register('password')} className="w-full p-3 border-2 border-gray-200 rounded-lg outline-none focus:border-accent" placeholder="••••••••" />
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          </div>
+
+          <button type="submit" disabled={isLoading} className="w-full p-4 bg-black text-white rounded-lg font-bold text-base uppercase transition hover:bg-accent disabled:bg-gray-400">
+            {isLoading ? 'লোড হচ্ছে...' : (isLogin ? 'লগইন করুন' : 'সাইন আপ করুন')}
+          </button>
+        </form>
+
+        <Link href="/" className="mt-6 inline-flex items-center gap-2 text-gray-500 hover:text-accent">
+          <FontAwesomeIcon icon={faArrowLeft} /> 
+          হোম পেজে ফিরে যান
+        </Link>
+      </div>
+    </div>
+  );
+}
