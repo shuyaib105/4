@@ -31,7 +31,7 @@ const courseTabsData = [
         "title": "Physics Second Part",
         "price": "FREE",
         "description": "",
-        "startDate": "কোর্স শুরুঃ ১ ফেব্রুয়ারি",
+        "startDate": "Course Starts: February 1st",
         "features": [
           "১০ টি অধ্যায় ভিত্তিক MCQ Exam",
           "১টি সাবজেক্ট ফাইনাল এক্সাম",
