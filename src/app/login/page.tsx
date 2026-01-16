@@ -10,14 +10,14 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useFirebaseApp } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 
 
 const formSchema = z.object({
-  name: z.string().min(1, 'নাম প্রদান করুন'),
+  name: z.string(),
   email: z.string().email('সঠিক ইমেইল প্রদান করুন'),
   password: z.string().min(6, 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে'),
 });
@@ -36,7 +36,7 @@ export default function LoginPage() {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors }, reset, setError } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: '', email: '', password: '' }
   });
@@ -52,8 +52,20 @@ export default function LoginPage() {
         toast({ title: 'সফলভাবে লগইন হয়েছে' });
       } else {
         // Handle Sign Up
+        if (!name || !name.trim()) {
+          setError('name', {
+            type: 'manual',
+            message: 'নাম প্রদান করুন',
+          });
+          setIsLoading(false);
+          return;
+        }
+
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+
+        // Update Firebase auth profile
+        await updateProfile(user, { displayName: name });
 
         // Create user profile in Firestore
         await setDoc(doc(firestore, "users", user.uid), {
