@@ -10,10 +10,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Hind Siliguri', 'sans-serif'],
-        headline: ['Hind Siliguri', 'sans-serif'],
+        body: ['Montserrat', 'Tiro Bangla', 'sans-serif'],
+        headline: ['Montserrat', 'Tiro Bangla', 'sans-serif'],
         code: ['monospace'],
-        'hind-siliguri': ['Hind Siliguri', 'sans-serif'],
+        'tiro-bangla': ['Tiro Bangla', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
