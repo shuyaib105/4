@@ -33,7 +33,7 @@ const courseTabsData = [
         "description": "সহজ পদ্ধতিতে জটিল সব গাণিতিক সমস্যার সমাধান।",
         "features": ["সকল অধ্যায়ের ক্লাস", "লাইভ প্রশ্নোত্তর পর্ব", "মডেল টেস্ট"],
         "enrollButton": "Enroll Now",
-        "image": "https://picsum.photos/seed/math/400/180",
+        "image": "https://images.unsplash.com/photo-1758685734555-a0e7f15ea33f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYXRoZW1hdGljcyUyMGNoYWxrYm9hcmR8ZW58MHx8fHwxNzY4NDkxODI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
         "imageHint": "mathematics chalkboard",
         "disabled": false,
       }
@@ -49,7 +49,7 @@ const courseTabsData = [
         "description": "এইচএসসি পরীক্ষার জন্য বিগত বছরের প্রশ্নব্যাংক সলভ ও বিশ্লেষণ।",
         "features": ["বিগত বছরের প্রশ্ন সমাধান", "অধ্যায়ভিত্তিক আলোচনা", "বিশেষ মডেল টেস্ট"],
         "enrollButton": "Enroll Now",
-        "image": "https://picsum.photos/seed/hscqb/400/180",
+        "image": "https://images.unsplash.com/photo-1592698765727-387c9464cd7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxxdWVzdGlvbiUyMGJhbmt8ZW58MHx8fHwxNzY4NTg5NzkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
         "imageHint": "question bank",
         "disabled": false,
       }
@@ -154,7 +154,7 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-yellow-50 to-background">
-          <div className="container mx-auto px-6 py-20 lg:py-28">
+          <div className="container mx-auto px-6 py-12 lg:py-16">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl lg:text-5xl font-black mb-6 leading-tight" dangerouslySetInnerHTML={{ __html: heroData.title }} />
