@@ -72,15 +72,15 @@ export default function AboutPage() {
       <section className="relative bg-gradient-to-br from-primary to-accent pt-12 pb-20 px-6 text-center text-white overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto">
           <span className="font-sans font-bold text-xs tracking-[0.3em] bg-black/20 px-4 py-2 rounded-full mb-4 inline-block">WHO WE ARE</span>
-          <h1 className="text-3xl md:text-4xl font-black mb-4 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
-          <p className="text-base opacity-90 leading-relaxed font-medium font-tiro-bangla">
+          <h1 className="text-2xl md:text-3xl font-black mb-4 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
+          <p className="text-sm opacity-90 leading-relaxed font-medium font-tiro-bangla">
             "সিলেবাসের বাইরে" শুধু একটি প্ল্যাটফর্ম নয়, এটি একটি শিক্ষা বিপ্লব। আমরা বিশ্বাস করি প্রকৃত জ্ঞান কোনো নির্দিষ্ট বই বা সিলেবাসে সীমাবদ্ধ নয়।
           </p>
         </div>
         
         {/* Decoration */}
-        <Brain className="absolute top-20 left-10 h-16 w-16 opacity-10 -rotate-12" />
-        <Lightbulb className="absolute bottom-40 right-10 h-16 w-16 opacity-10 rotate-12" />
+        <Brain className="absolute top-20 left-10 h-12 w-12 opacity-10 -rotate-12" />
+        <Lightbulb className="absolute bottom-40 right-10 h-12 w-12 opacity-10 rotate-12" />
 
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none transform rotate-180">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-[calc(100%+1.3px)] h-24">
@@ -98,19 +98,19 @@ export default function AboutPage() {
             {/* Founder Profile */}
             <div className="bg-white p-6 rounded-3xl shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
                 <div className="flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-32 h-32 rounded-3xl bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
-                        <Image src="https://raw.githubusercontent.com/MNRfrom2020/logo-and-icon-cdn/refs/heads/main/Logo/Shuyaib/Shuyaib.png" alt="Shuyaib Islam" width={128} height={128} className="w-full h-full object-cover" />
+                    <div className="w-24 h-24 rounded-3xl bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
+                        <Image src="https://raw.githubusercontent.com/MNRfrom2020/logo-and-icon-cdn/refs/heads/main/Logo/Shuyaib/Shuyaib.png" alt="Shuyaib Islam" width={96} height={96} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center md:text-left">
                         <span className="text-yellow-600 font-sans font-bold text-xs tracking-widest uppercase">Owner & Founder</span>
-                        <h2 className="text-xl font-black mt-1 mb-3 font-tiro-bangla">শুআইব ইসলাম</h2>
-                        <p className="text-gray-600 text-sm mb-4 leading-relaxed font-tiro-bangla">
+                        <h2 className="text-lg font-black mt-1 mb-2 font-tiro-bangla">শুআইব ইসলাম</h2>
+                        <p className="text-gray-600 text-xs mb-3 leading-relaxed font-tiro-bangla">
                             "সিলেবাসের বাইরে" এর প্রতিষ্ঠাতা হিসেবে আমি শিক্ষার্থীদের গতানুগতিক ধারার বাইরে চিন্তা করতে এবং প্রযুক্তির সহায়তায় নিজেকে আরও দক্ষ করে গড়ে তুলতে উদ্বুদ্ধ করি।
                         </p>
-                        <div className="flex justify-center md:justify-start gap-3">
-                            <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={18} /></a>
-                            <a href="https://github.com/shuyaib105" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github size={18} /></a>
-                            <a href="https://t.me/shu_yaib" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={18} /></a>
+                        <div className="flex justify-center md:justify-start gap-2">
+                            <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={16} /></a>
+                            <a href="https://github.com/shuyaib105" className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github size={16} /></a>
+                            <a href="https://t.me/shu_yaib" className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={16} /></a>
                         </div>
                     </div>
                 </div>
@@ -119,18 +119,18 @@ export default function AboutPage() {
             {/* Advisor Profile */}
               <div className="bg-white p-6 rounded-3xl shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
                 <div className="flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-32 h-32 rounded-3xl bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
-                        <Image src="https://avatars.githubusercontent.com/u/175545919?v=4" alt="Frost Foe" width={128} height={128} className="w-full h-full object-cover" />
+                    <div className="w-24 h-24 rounded-3xl bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
+                        <Image src="https://avatars.githubusercontent.com/u/175545919?v=4" alt="Frost Foe" width={96} height={96} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center md:text-left">
                         <span className="text-yellow-600 font-sans font-bold text-xs tracking-widest uppercase">Development Consultant</span>
-                        <h2 className="text-xl font-black mt-1 mb-3 font-tiro-bangla">Frost Foe</h2>
-                        <p className="text-gray-600 text-sm mb-4 leading-relaxed font-tiro-bangla">
+                        <h2 className="text-lg font-black mt-1 mb-2 font-tiro-bangla">Frost Foe</h2>
+                        <p className="text-gray-600 text-xs mb-3 leading-relaxed font-tiro-bangla">
                             প্ল্যাটফর্মের কারিগরি উন্নয়ন এবং ইনোভেশন নিশ্চিত করতে আমি ডেভেলপিং পরামর্শদাতা হিসেবে কাজ করছি। আমাদের লক্ষ্য একটি ত্রুটিমুক্ত ডিজিটাল লার্নিং এক্সপেরিয়েন্স তৈরি করা।
                         </p>
-                        <div className="flex justify-center md:justify-start gap-3">
-                            <a href="mailto:frostfoe@gmail.com" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={18} /></a>
-                             <a href="https.me/frostfoe" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={18} /></a>
+                        <div className="flex justify-center md:justify-start gap-2">
+                            <a href="mailto:frostfoe@gmail.com" className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={16} /></a>
+                             <a href="https.me/frostfoe" className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={16} /></a>
                         </div>
                     </div>
                 </div>
@@ -142,25 +142,25 @@ export default function AboutPage() {
         <div className="bg-white rounded-3xl p-8 shadow-2xl border border-yellow-50 mb-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 <div className="space-y-3">
-                    <div className="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-                        <Rocket size={28} />
+                    <div className="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+                        <Rocket size={24} />
                     </div>
-                    <h3 className="text-lg font-bold font-tiro-bangla">লক্ষ্য</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed font-tiro-bangla">শিক্ষার্থীদের ডিজিটাল যুগে প্রতিযোগিতামূলক করার জন্য সিলেবাসের বাইরেও জ্ঞান আহরণে সহায়তা করা।</p>
+                    <h3 className="text-base font-bold font-tiro-bangla">লক্ষ্য</h3>
+                    <p className="text-gray-500 text-xs leading-relaxed font-tiro-bangla">শিক্ষার্থীদের ডিজিটাল যুগে প্রতিযোগিতামূলক করার জন্য সিলেবাসের বাইরেও জ্ঞান আহরণে সহায়তা করা।</p>
                 </div>
                 <div className="space-y-3">
-                    <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-                        <Fingerprint size={28} />
+                    <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+                        <Fingerprint size={24} />
                     </div>
-                    <h3 className="text-lg font-bold font-tiro-bangla">স্বকীয়তা</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed font-tiro-bangla">আমরা বিশ্বাস করি প্রতিটি শিক্ষার্থী অনন্য। তাই তাদের মেধা বিকাশে আমরা গতানুগতিক পদ্ধতির ঊর্ধ্বে কাজ করি।</p>
+                    <h3 className="text-base font-bold font-tiro-bangla">স্বকীয়তা</h3>
+                    <p className="text-gray-500 text-xs leading-relaxed font-tiro-bangla">আমরা বিশ্বাস করি প্রতিটি শিক্ষার্থী অনন্য। তাই তাদের মেধা বিকাশে আমরা গতানুগতিক পদ্ধতির ঊর্ধ্বে কাজ করি।</p>
                 </div>
                 <div className="space-y-3">
-                    <div className="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-                        <Globe size={28} />
+                    <div className="w-12 h-12 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+                        <Globe size={24} />
                     </div>
-                    <h3 className="text-lg font-bold font-tiro-bangla">ভবিষ্যৎ</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed font-tiro-bangla">আগামীর স্মার্ট বাংলাদেশ বিনির্মাণে দক্ষ জনবল তৈরিতে একটি পূর্ণাঙ্গ ই-লার্নিং হাব হয়ে ওঠা।</p>
+                    <h3 className="text-base font-bold font-tiro-bangla">ভবিষ্যৎ</h3>
+                    <p className="text-gray-500 text-xs leading-relaxed font-tiro-bangla">আগামীর স্মার্ট বাংলাদেশ বিনির্মাণে দক্ষ জনবল তৈরিতে একটি পূর্ণাঙ্গ ই-লার্নিং হাব হয়ে ওঠা।</p>
                 </div>
             </div>
         </div>
