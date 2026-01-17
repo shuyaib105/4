@@ -1,10 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
-config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: 'সিলেবাসের বাইরে | Make Education Simple',

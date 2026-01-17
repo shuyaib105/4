@@ -5,8 +5,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { AlertTriangle, ArrowLeft } from 'lucide-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -135,9 +134,9 @@ export default function LoginPage() {
         </p>
         
         {!isLogin && (
-            <div className="bg-yellow-50 border-l-4 border-accent p-3 mb-6 rounded-lg text-left">
+            <div className="bg-yellow-50 border-l-4 border-accent p-3 mb-6 rounded-lg text-left flex items-start">
+                <AlertTriangle className="h-5 w-5 text-accent mr-2 shrink-0" />
                 <p className="text-sm text-yellow-800 leading-tight">
-                    <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2 text-accent" />
                     <strong>সতর্কবার্তা:</strong> আপনার প্রদত্ত নাম সার্টিফিকেট এবং অন্যান্য জায়গায় ব্যবহৃত হবে। প্রয়োজনে ড্যাশবোর্ড থেকে নাম পরিবর্তন করতে পারবেন।
                 </p>
             </div>
@@ -203,7 +202,7 @@ export default function LoginPage() {
         </Form>
 
         <Link href="/" className="mt-6 inline-flex items-center gap-2 text-gray-500 hover:text-accent">
-          <FontAwesomeIcon icon={faArrowLeft} /> 
+          <ArrowLeft className="h-4 w-4" /> 
           হোম পেজে ফিরে যান
         </Link>
       </div>
