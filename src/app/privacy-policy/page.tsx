@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserShield, Hdd, Ban, Bug, Lock, UserCircle, Info, Shield, Menu, X } from 'lucide-react';
+import { UserShield, Hdd, Ban, Bug, Lock, UserCircle, Info, Shield, X } from 'lucide-react';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { useUser } from '@/firebase';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export default function PrivacyPolicyPage() {
   const { user } = useUser();
@@ -88,7 +90,7 @@ export default function PrivacyPolicyPage() {
               <span>{user ? 'Dashboard' : 'Account'}</span>
           </Link>
           <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-            <Menu size={24} />
+            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
           </button>
         </div>
         {showMenu && (

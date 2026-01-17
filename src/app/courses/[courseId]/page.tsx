@@ -5,10 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { allCourses } from '@/lib/courses';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CheckCircle, Calendar, UserCircle, Info, Shield, Menu, X } from 'lucide-react';
+import { CheckCircle, Calendar, UserCircle, Info, Shield, X } from 'lucide-react';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { useUser } from '@/firebase';
 import { cn } from '@/lib/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -75,7 +77,7 @@ export default function CourseDetailPage() {
               <span className="font-montserrat">{user ? 'Dashboard' : 'Account'}</span>
           </Link>
           <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-            <Menu size={24} />
+            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
           </button>
         </div>
         {showMenu && (

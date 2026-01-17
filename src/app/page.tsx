@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { UserCircle, BookOpen, Calendar, Info, Shield, Menu, X } from 'lucide-react';
+import { UserCircle, BookOpen, Calendar, Info, Shield } from 'lucide-react';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
 import { courseTabsData } from '@/lib/courses';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const heroData = {
   title: 'তোমার <span class="text-accent">সেরা প্রস্তুতির</span> শুরু হোক এখানে থেকেই',
@@ -64,7 +66,7 @@ export default function Home() {
           </Link>
           
           <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-            <Menu size={24} />
+            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
           </button>
         </div>
 
