@@ -1,16 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faBarsStaggered, faTimes, faCertificate, faUserLock, faCheckCircle, faInfoCircle, faShieldAlt, faBookOpen, faCalendarAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faBarsStaggered, faTimes, faBookOpen, faCalendarAlt, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
 import { getAuth, signOut } from 'firebase/auth';
 import { useFirebaseApp } from '@/firebase';
-import { useRouter } from 'next/navigation';
+import { courseTabsData } from '@/lib/courses';
 
 const heroData = {
   title: 'তোমার <span class="text-accent">সেরা প্রস্তুতির</span> শুরু হোক এখানে থেকেই',
@@ -21,47 +21,6 @@ const actionButtonsData = [
   { url: "#courses-section", title: "কোর্স সমূহ", icon: faBookOpen },
   { url: "#", title: "ক্যালেন্ডার", icon: faCalendarAlt },
 ];
-
-const courseTabsData = [
-  {
-    "name": "HSC 26",
-    "id": "hsc-26",
-    "courses": [
-      {
-        "title": "Physics Second Part",
-        "price": "FREE",
-        "description": "",
-        "startDate": "কোর্স শুরু: February 1st",
-        "features": [
-          "১০ টি অধ্যায় ভিত্তিক MCQ Exam",
-          "১টি সাবজেক্ট ফাইনাল এক্সাম",
-          "কোর্স শেষে CQ সাজেশন পিডিএফ ফাইল প্রদান"
-        ],
-        "enrollButton": "Enroll Now",
-        "image": "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/phy2f.webp",
-        "imageHint": "physics textbook",
-        "disabled": false
-      }
-    ]
-  },
-  {
-    "name": "QB course",
-    "id": "qb-course",
-    "courses": [
-      {
-        "title": "HSC প্রশ্নব্যাংক সলভ",
-        "price": "৳700",
-        "description": "এইচএসসি পরীক্ষার জন্য বিগত বছরের প্রশ্নব্যাংক সলভ ও বিশ্লেষণ।",
-        "features": ["বিগত বছরের প্রশ্ন সমাধান", "অধ্যায়ভিত্তিক আলোচনা", "বিশেষ মডেল টেস্ট"],
-        "enrollButton": "Enroll Now",
-        "image": "https://images.unsplash.com/photo-1592698765727-387c9464cd7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxxdWVzdGlvbiUyMGJhbmt8ZW58MHx8fHwxNzY4NTg5NzkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-        "imageHint": "question bank",
-        "disabled": false
-      }
-    ]
-  }
-];
-
 
 const footerData = {
   logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
@@ -78,12 +37,9 @@ export default function Home() {
   const { user } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(courseTabsData[0].id);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalCourse, setModalCourse] = useState('');
   
   const app = useFirebaseApp();
   const auth = getAuth(app);
-  const router = useRouter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -92,40 +48,8 @@ export default function Home() {
     toggleMenu();
   };
   
-  const openEnrollPopup = (courseName: string) => {
-    setModalCourse(courseName);
-    setModalOpen(true);
-  };
-  
-  const executeRedirect = () => {
-    const encodedCourseName = encodeURIComponent(modalCourse);
-    if (user) {
-        router.push(`/dashboard?course=${encodedCourseName}`);
-    } else {
-        router.push(`/login?course=${encodedCourseName}`);
-    }
-  };
-
   return (
     <div className="bg-background text-foreground">
-      {/* Enroll Popup Modal */}
-      {modalOpen && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-[2000]" onClick={() => setModalOpen(false)}>
-          <div className="bg-white p-8 rounded-3xl w-[90%] max-w-md text-center shadow-2xl animate-popIn border-2 border-gray-100" onClick={(e) => e.stopPropagation()}>
-            <div className="w-24 h-24 bg-[#fffdf0] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-              <FontAwesomeIcon icon={user ? faCertificate : faUserLock} className={cn("text-5xl", user ? "text-accent" : "text-primary-blue")} />
-            </div>
-            <span className="font-extrabold text-xl block mb-3 text-gray-800 tracking-tight">{modalCourse}</span>
-            <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              {user ? "ড্যাশবোর্ডে কোর্সটি যুক্ত করা হচ্ছে..." : "লগইন করার পর এই কোর্সটি অটোমেটিক সিলেক্ট করা হবে।"}
-            </p>
-            <button onClick={executeRedirect} className="bg-black text-white p-4 rounded-xl font-extrabold text-base w-full uppercase transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 shadow-lg">
-              Proceed to Enroll
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Header */}
       <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[60px]">
         <Link href="/">
@@ -205,34 +129,19 @@ export default function Home() {
                         <div key={course.title} className="bg-white rounded-2xl overflow-hidden text-left shadow-lg transition-all duration-400 hover:-translate-y-1 hover:shadow-xl">
                             <Image src={course.image} alt={course.title} width={400} height={180} className="w-full h-44 object-cover" data-ai-hint={course.imageHint} />
                             <div className="p-5">
-                                <h3 className="text-xl font-bold mb-2.5 flex justify-between items-start">
-                                    <span className="flex-1 pr-2 font-montserrat">{course.title}</span>
+                                <h3 className="text-xl font-bold mb-2.5 flex justify-between items-start font-montserrat">
+                                    <span className="flex-1 pr-2">{course.title}</span>
                                     <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
                                         {course.price}
                                     </span>
                                 </h3>
-                                {(course as any).startDate && (
-                                    <div className="flex items-center text-sm text-gray-500 mb-3">
-                                        <FontAwesomeIcon icon={faCalendarAlt} className="mr-2 text-accent" />
-                                        <span className="font-tiro-bangla">{(course as any).startDate}</span>
-                                    </div>
-                                )}
-                                {course.description && <p className="text-base leading-snug text-gray-600 font-tiro-bangla">{course.description}</p>}
-                                <div className="mt-3">
-                                    {course.features.map(feature => (
-                                        <div key={feature} className="flex items-center my-2.5">
-                                            <FontAwesomeIcon icon={faCheckCircle} className="text-primary-blue mr-2" />
-                                            <span className="font-tiro-bangla">{feature}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                                <button
-                                    onClick={() => !course.disabled && openEnrollPopup(course.title)}
-                                    disabled={course.disabled}
-                                    className={cn("inline-block bg-primary text-black px-5 py-2.5 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300 font-montserrat", 
-                                    course.disabled ? "bg-gray-400 cursor-not-allowed" : "hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg")}>
-                                    {course.enrollButton}
-                                </button>
+                                
+                                <Link
+                                    href={`/courses/${course.id}`}
+                                    className={cn("inline-block text-center bg-primary text-black px-5 py-2.5 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300 font-montserrat", 
+                                    course.disabled ? "bg-gray-400 cursor-not-allowed pointer-events-none" : "hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg")}>
+                                    View Course details
+                                </Link>
                             </div>
                         </div>
                     ))}
@@ -263,21 +172,6 @@ export default function Home() {
             </div>
         </div>
       </footer>
-      <style jsx>{`
-        .animate-popIn {
-          animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popIn {
-          from {
-            transform: scale(0.85);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   );
 }
