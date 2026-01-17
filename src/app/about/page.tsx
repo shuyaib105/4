@@ -80,15 +80,15 @@ export default function AboutPage() {
       <section className="relative bg-gradient-to-br from-primary to-accent pt-16 pb-24 px-6 text-center text-white overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto">
           <span className="font-sans font-bold text-xs tracking-[0.3em] bg-black/20 px-4 py-2 rounded-full mb-6 inline-block">WHO WE ARE</span>
-          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
+          <h1 className="text-4xl md:text-5xl font-black mb-6 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
           <p className="text-lg opacity-90 leading-relaxed font-medium font-tiro-bangla">
             "সিলেবাসের বাইরে" শুধু একটি প্ল্যাটফর্ম নয়, এটি একটি শিক্ষা বিপ্লব। আমরা বিশ্বাস করি প্রকৃত জ্ঞান কোনো নির্দিষ্ট বই বা সিলেবাসে সীমাবদ্ধ নয়।
           </p>
         </div>
         
         {/* Decoration */}
-        <Brain className="absolute top-20 left-10 h-24 w-24 opacity-10 -rotate-12" />
-        <Lightbulb className="absolute bottom-40 right-10 h-24 w-24 opacity-10 rotate-12" />
+        <Brain className="absolute top-20 left-10 h-20 w-20 opacity-10 -rotate-12" />
+        <Lightbulb className="absolute bottom-40 right-10 h-20 w-20 opacity-10 rotate-12" />
 
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none transform rotate-180">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-[calc(100%+1.3px)] h-24">
@@ -104,41 +104,41 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             
             {/* Founder Profile */}
-            <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+            <div className="bg-white p-8 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-40 h-40 rounded-[2.5rem] bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
                         <Image src="https://raw.githubusercontent.com/MNRfrom2020/logo-and-icon-cdn/refs/heads/main/Logo/Shuyaib/Shuyaib.png" alt="Shuyaib Islam" width={160} height={160} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center md:text-left">
                         <span className="text-yellow-600 font-sans font-bold text-xs tracking-widest uppercase">Owner & Founder</span>
-                        <h2 className="text-3xl font-black mt-1 mb-4 font-tiro-bangla">শুআইব ইসলাম</h2>
+                        <h2 className="text-2xl font-black mt-1 mb-4 font-tiro-bangla">শুআইব ইসলাম</h2>
                         <p className="text-gray-600 mb-6 leading-relaxed font-tiro-bangla">
                             "সিলেবাসের বাইরে" এর প্রতিষ্ঠাতা হিসেবে আমি শিক্ষার্থীদের গতানুগতিক ধারার বাইরে চিন্তা করতে এবং প্রযুক্তির সহায়তায় নিজেকে আরও দক্ষ করে গড়ে তুলতে উদ্বুদ্ধ করি।
                         </p>
                         <div className="flex justify-center md:justify-start gap-4">
-                            <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail /></a>
-                            <a href="https://github.com/shuyaib105" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github /></a>
-                            <a href="https://t.me/shu_yaib" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send /></a>
+                            <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={20} /></a>
+                            <a href="https://github.com/shuyaib105" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github size={20} /></a>
+                            <a href="https://t.me/shu_yaib" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={20} /></a>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Advisor Profile */}
-              <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+              <div className="bg-white p-8 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-40 h-40 rounded-[2.5rem] bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
                         <Image src="https://avatars.githubusercontent.com/u/175545919?v=4" alt="Frost Foe" width={160} height={160} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center md:text-left">
                         <span className="text-yellow-600 font-sans font-bold text-xs tracking-widest uppercase">Development Consultant</span>
-                        <h2 className="text-3xl font-black mt-1 mb-4 font-tiro-bangla">Frost Foe</h2>
+                        <h2 className="text-2xl font-black mt-1 mb-4 font-tiro-bangla">Frost Foe</h2>
                         <p className="text-gray-600 mb-6 leading-relaxed font-tiro-bangla">
                             প্ল্যাটফর্মের কারিগরি উন্নয়ন এবং ইনোভেশন নিশ্চিত করতে আমি ডেভেলপিং পরামর্শদাতা হিসেবে কাজ করছি। আমাদের লক্ষ্য একটি ত্রুটিমুক্ত ডিজিটাল লার্নিং এক্সপেরিয়েন্স তৈরি করা।
                         </p>
                         <div className="flex justify-center md:justify-start gap-4">
-                            <a href="mailto:frostfoe@gmail.com" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail /></a>
-                             <a href="https.me/frostfoe" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send /></a>
+                            <a href="mailto:frostfoe@gmail.com" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={20} /></a>
+                             <a href="https.me/frostfoe" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={20} /></a>
                         </div>
                     </div>
                 </div>
@@ -147,27 +147,27 @@ export default function AboutPage() {
         </div>
 
         {/* Vision & Mission */}
-        <div className="bg-white rounded-[4rem] p-16 shadow-2xl border border-yellow-50 mb-16">
+        <div className="bg-white rounded-[4rem] p-12 shadow-2xl border border-yellow-50 mb-16">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
                 <div className="space-y-4">
-                    <div className="w-20 h-20 bg-yellow-100 text-yellow-600 rounded-3xl flex items-center justify-center mx-auto text-3xl shadow-inner">
-                        <Rocket />
+                    <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
+                        <Rocket size={32} />
                     </div>
-                    <h3 className="text-2xl font-bold font-tiro-bangla">লক্ষ্য</h3>
+                    <h3 className="text-xl font-bold font-tiro-bangla">লক্ষ্য</h3>
                     <p className="text-gray-500 leading-relaxed font-tiro-bangla">শিক্ষার্থীদের ডিজিটাল যুগে প্রতিযোগিতামূলক করার জন্য সিলেবাসের বাইরেও জ্ঞান আহরণে সহায়তা করা।</p>
                 </div>
                 <div className="space-y-4">
-                    <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-3xl flex items-center justify-center mx-auto text-3xl shadow-inner">
-                        <Fingerprint />
+                    <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
+                        <Fingerprint size={32} />
                     </div>
-                    <h3 className="text-2xl font-bold font-tiro-bangla">স্বকীয়তা</h3>
+                    <h3 className="text-xl font-bold font-tiro-bangla">স্বকীয়তা</h3>
                     <p className="text-gray-500 leading-relaxed font-tiro-bangla">আমরা বিশ্বাস করি প্রতিটি শিক্ষার্থী অনন্য। তাই তাদের মেধা বিকাশে আমরা গতানুগতিক পদ্ধতির ঊর্ধ্বে কাজ করি।</p>
                 </div>
                 <div className="space-y-4">
-                    <div className="w-20 h-20 bg-green-100 text-green-600 rounded-3xl flex items-center justify-center mx-auto text-3xl shadow-inner">
-                        <Globe />
+                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
+                        <Globe size={32} />
                     </div>
-                    <h3 className="text-2xl font-bold font-tiro-bangla">ভবিষ্যৎ</h3>
+                    <h3 className="text-xl font-bold font-tiro-bangla">ভবিষ্যৎ</h3>
                     <p className="text-gray-500 leading-relaxed font-tiro-bangla">আগামীর স্মার্ট বাংলাদেশ বিনির্মাণে দক্ষ জনবল তৈরিতে একটি পূর্ণাঙ্গ ই-লার্নিং হাব হয়ে ওঠা।</p>
                 </div>
             </div>
