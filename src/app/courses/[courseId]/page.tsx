@@ -21,6 +21,11 @@ export default function CourseDetailPage() {
   const [showMenu, setShowMenu] = useState(false);
   const { user } = useUser();
 
+  const navLinks = [
+    { href: '/', text: 'হোম' },
+    { href: '/#courses-section', text: 'কোর্সসমূহ' },
+    { href: '/about', text: 'আমাদের সম্পর্কে' },
+  ];
 
   const executeRedirect = () => {
     const encodedCourseName = encodeURIComponent(course?.title || '');
@@ -53,16 +58,37 @@ export default function CourseDetailPage() {
   return (
     <div className="bg-[#FFFDF5] text-foreground antialiased">
       {/* Header */}
-      <header className="bg-white/95 px-[8%] py-4 flex justify-between items-center sticky top-0 z-10 shadow-sm">
+      <header className="bg-white/95 px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
         <Link href="/">
           <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={50} height={50} quality={100} className="h-[50px] w-auto" />
         </Link>
+        <nav className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">
+              {link.text}
+            </Link>
+          ))}
+        </nav>
         <div className="flex items-center gap-3">
           <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 uppercase">
               <UserCircle size={16}/>
               <span className="font-montserrat">{user ? 'Dashboard' : 'Account'}</span>
           </Link>
+          <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
+            <Menu size={24} />
+          </button>
         </div>
+        {showMenu && (
+          <div className="absolute top-full left-0 w-full bg-white shadow-lg md:hidden z-30">
+            <nav className="flex flex-col p-4">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} onClick={() => setShowMenu(false)} className="py-2 text-sm font-semibold text-gray-700 hover:text-primary">
+                  {link.text}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
       </header>
       
       <main className="container mx-auto px-6 py-16">
@@ -90,8 +116,8 @@ export default function CourseDetailPage() {
                         <h3 className="font-bold text-2xl mb-4 font-tiro-bangla">কোর্সের ফিচারসমূহ</h3>
                         <div className="space-y-3">
                         {course.features.map(feature => (
-                            <div key={feature} className="flex items-center">
-                                <CheckCircle className="text-blue-500 mr-3" size={24} />
+                            <div key={feature} className="flex items-start">
+                                <CheckCircle className="text-blue-500 mr-3 h-5 w-5 shrink-0 mt-1" />
                                 <span className="font-tiro-bangla text-lg text-gray-800">{feature}</span>
                             </div>
                         ))}
