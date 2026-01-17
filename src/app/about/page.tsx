@@ -27,16 +27,6 @@ export default function AboutPage() {
   const heroData = {
     subtitle: 'সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।'
   };
-  
-  const footerData = {
-    logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
-    links: [
-      { "url": "https://t.me/syllabuserbaire", icon: <Send className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
-      { "url": "/about", icon: <Info className="h-5 w-5 text-blue-500"/>, "text": "আমাদের সম্পর্কে" },
-      { "url": "/privacy-policy", icon: <Shield className="h-5 w-5 text-green-500"/>, "text": "প্রাইভেসি পলিসি" }
-    ],
-    copyright: "&copy; 2025 SYLLABUSER BAIRE"
-  };
 
   return (
     <div className="bg-[#FFFDF5] text-foreground antialiased">
@@ -168,25 +158,54 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-12 pb-6 mt-12">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-            <div className="inline-block">
-                <Image src={footerData.logo} alt="Footer Logo" width={70} height={70} quality={100} className="h-20 w-auto mb-4 mx-auto" />
+      <footer className="bg-white border-t mt-12">
+        <div className="container mx-auto px-6 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Column 1: Logo and Description */}
+            <div className="space-y-4">
+              <Link href="/">
+                <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Footer Logo" width={50} height={50} quality={100} />
+              </Link>
+              <p className="text-gray-600 font-tiro-bangla text-sm max-w-xs">
+                {heroData.subtitle}
+              </p>
             </div>
-            <p className="mt-2 text-base text-gray-400 max-w-md mx-auto font-tiro-bangla">{heroData.subtitle}</p>
-            
-            <div className="flex justify-center gap-6 my-8">
-                {footerData.links.map(link => (
-                  <Link key={link.text} href={link.url} className="text-gray-300 hover:text-white font-medium transition-colors duration-300 text-sm flex items-center gap-2">
-                    {link.icon}
-                    <span className="font-tiro-bangla">{link.text}</span>
+
+            {/* Column 2: Quick Links */}
+            <div>
+              <h3 className="font-bold text-base font-montserrat mb-4">গুরুত্বপূর্ণ লিংক</h3>
+              <ul className="space-y-3">
+                <li><Link href="/" className="text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm">হোম</Link></li>
+                <li><Link href="/#courses-section" className="text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm">কোর্সসমূহ</Link></li>
+                <li><Link href="/about" className="text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm">আমাদের সম্পর্কে</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Contact & Social */}
+            <div>
+              <h3 className="font-bold text-base font-montserrat mb-4">যোগাযোগ</h3>
+              <ul className="space-y-3">
+                <li>
+                  <a href="https://t.me/syllabuserbaire" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors text-sm">
+                    <Send size={16} />
+                    <span className="font-tiro-bangla">টেলিগ্রাম চ্যানেল</span>
+                  </a>
+                </li>
+                <li>
+                   <Link href="/privacy-policy" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors text-sm">
+                    <Shield size={16} />
+                    <span className="font-tiro-bangla">প্রাইভেসি পলিসি</span>
                   </Link>
-                ))}
+                </li>
+              </ul>
             </div>
-            
-            <div className="mt-6 pt-6 border-t border-zinc-800">
-                <p className="text-sm text-zinc-500 font-montserrat" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
-            </div>
+          </div>
+          
+          <div className="mt-10 pt-8 border-t text-center">
+            <p className="text-sm text-gray-500 font-montserrat">
+              &copy; {new Date().getFullYear()} SYLLABUSER BAIRE. All Rights Reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
