@@ -5,7 +5,7 @@ import { allCourses } from '@/lib/courses';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCertificate, faUserLock, faCheckCircle, faCalendarAlt, faUserCircle, faBarsStaggered, faTimes, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCalendarAlt, faUserCircle, faBarsStaggered, faTimes, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
 import { useUser } from '@/firebase';
 import { getAuth, signOut } from 'firebase/auth';
@@ -32,12 +32,6 @@ export default function CourseDetailPage() {
     await signOut(auth);
     toggleMenu();
   };
-  
-  const [modalOpen, setModalOpen] = useState(false);
-  
-  const handleEnrollClick = () => {
-      setModalOpen(true);
-  }
 
   const executeRedirect = () => {
     const encodedCourseName = encodeURIComponent(course?.title || '');
@@ -69,37 +63,6 @@ export default function CourseDetailPage() {
 
   return (
     <div className="bg-[#FFFDF5] text-foreground antialiased">
-        {modalOpen && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-[2000]" onClick={() => setModalOpen(false)}>
-          <div className="bg-white p-8 rounded-3xl w-[90%] max-w-md text-center shadow-2xl animate-popIn border-2 border-gray-100" onClick={(e) => e.stopPropagation()}>
-            <div className="w-24 h-24 bg-[#fffdf0] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-              <FontAwesomeIcon icon={user ? faCertificate : faUserLock} className={cn("text-5xl", user ? "text-accent" : "text-primary-blue")} />
-            </div>
-            <span className="font-extrabold text-xl block mb-3 text-gray-800 tracking-tight">{course.title}</span>
-            <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              {user ? "ড্যাশবোর্ডে কোর্সটি যুক্ত করা হচ্ছে..." : "লগইন করার পর এই কোর্সটি অটোমেটিক সিলেক্ট করা হবে।"}
-            </p>
-            <button onClick={executeRedirect} className="bg-black text-white p-4 rounded-xl font-extrabold text-base w-full uppercase transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 shadow-lg">
-              Proceed to Enroll
-            </button>
-          </div>
-           <style jsx>{`
-            .animate-popIn {
-              animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            }
-            @keyframes popIn {
-              from {
-                transform: scale(0.85);
-                opacity: 0;
-              }
-              to {
-                transform: scale(1);
-                opacity: 1;
-              }
-            }
-          `}</style>
-        </div>
-      )}
       {/* Header */}
       <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[60px]">
         <Link href="/">
@@ -165,7 +128,7 @@ export default function CourseDetailPage() {
 
                     <div className="mt-auto">
                         <button
-                            onClick={handleEnrollClick}
+                            onClick={executeRedirect}
                             disabled={course.disabled}
                             className={cn("inline-block bg-primary text-black px-8 py-4 rounded-lg no-underline font-bold mt-4 w-full transition-all duration-300 font-montserrat text-lg", 
                             course.disabled ? "bg-gray-400 cursor-not-allowed" : "hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg")}>
