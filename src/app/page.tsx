@@ -2,14 +2,11 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faBarsStaggered, faTimes, faBookOpen, faCalendarAlt, faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
-import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
+import { UserCircle, BookOpen, Calendar, Info, Shield } from 'lucide-react';
+import { FaTelegramPlane } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
-import { getAuth, signOut } from 'firebase/auth';
-import { useFirebaseApp } from '@/firebase';
 import { courseTabsData } from '@/lib/courses';
 
 const heroData = {
@@ -18,16 +15,16 @@ const heroData = {
 };
 
 const actionButtonsData = [
-  { url: "#courses-section", title: "কোর্স সমূহ", icon: faBookOpen },
-  { url: "#", title: "ক্যালেন্ডার", icon: faCalendarAlt },
+  { url: "#courses-section", title: "কোর্স সমূহ", icon: BookOpen },
+  { url: "#", title: "ক্যালেন্ডার", icon: Calendar },
 ];
 
 const footerData = {
   logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
   links: [
-    { "url": "https://t.me/syllabuserbaire", "icon": faTelegramPlane, "text": "টেলিগ্রাম চ্যানেল", "className": "text-[#0088cc]" },
-    { "url": "/about", "icon": faInfoCircle, "text": "আমাদের সম্পর্কে", "className": "text-primary-blue" },
-    { "url": "/privacy-policy", "icon": faShieldAlt, "text": "প্রাইভেসি পলিসি", "className": "text-success-green" }
+    { "url": "https://t.me/syllabuserbaire", icon: <FaTelegramPlane className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
+    { "url": "/about", icon: <Info className="h-5 w-5 text-blue-500"/>, "text": "আমাদের সম্পর্কে" },
+    { "url": "/privacy-policy", icon: <Shield className="h-5 w-5 text-green-500"/>, "text": "প্রাইভেসি পলিসি" }
   ],
   copyright: "&copy; 2025 SYLLABUSER BAIRE"
 };
@@ -35,50 +32,22 @@ const footerData = {
 
 export default function Home() {
   const { user } = useUser();
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(courseTabsData[0].id);
-  
-  const app = useFirebaseApp();
-  const auth = getAuth(app);
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    toggleMenu();
-  };
   
   return (
     <div className="bg-background text-foreground">
       {/* Header */}
-      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[60px]">
+      <header className="bg-white/95 px-[6%] py-2.5 flex justify-between items-center sticky top-0 z-10 shadow-sm h-[70px]">
         <Link href="/">
           <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={45} height={45} quality={100} className="h-[45px] w-auto" />
         </Link>
         <div className="flex items-center gap-3">
           <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase">
-            <FontAwesomeIcon icon={faUserCircle} />
+            <UserCircle size={14} />
             <span className="font-montserrat">{user ? "Dashboard" : "Account"}</span>
           </Link>
-          <div className="text-2xl cursor-pointer text-foreground" onClick={toggleMenu}>
-            <FontAwesomeIcon icon={faBarsStaggered} />
-          </div>
         </div>
       </header>
-
-      {/* Side Menu */}
-      <div className={cn("fixed top-0 w-[280px] h-full bg-white z-[1001] shadow-xl transition-all duration-400 ease-in-out p-10 pt-5", menuOpen ? "right-0" : "-right-[280px]")}>
-        <div className="absolute top-4 left-5 text-2xl cursor-pointer" onClick={toggleMenu}><FontAwesomeIcon icon={faTimes} /></div>
-        <ul className="list-none mt-8">
-          <li className="mb-5"><Link href="/" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold font-tiro-bangla">হোম</Link></li>
-          <li className="mb-5"><a href="#courses-section" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold font-tiro-bangla">কোর্সসমূহ</a></li>
-          <li className="mb-5"><Link href="/about" onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold font-tiro-bangla">আমাদের সম্পর্কে</Link></li>
-          <li className="mb-5"><Link href={user ? "/dashboard" : "/login"} onClick={toggleMenu} className="no-underline text-foreground text-lg font-semibold"><span className="font-tiro-bangla">{user ? "ড্যাশবোর্ড" : "লগইন করুন"}</span></Link></li>
-          {user && (
-            <li><button onClick={handleLogout} className="no-underline text-red-500 text-lg font-semibold w-full text-left bg-transparent border-none font-tiro-bangla">লগ আউট</button></li>
-          )}
-        </ul>
-      </div>
 
       <main>
         {/* Hero Section */}
@@ -92,7 +61,7 @@ export default function Home() {
                   {actionButtonsData.map(button => (
                       <a key={button.title} href={button.url} className="bg-white rounded-2xl flex items-center justify-center no-underline shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl px-8 py-5">
                           <div className="flex items-center gap-3">
-                              <FontAwesomeIcon icon={button.icon} className="text-2xl text-accent" />
+                              <button.icon className="text-2xl text-accent" />
                               <span className="text-lg font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
                           </div>
                       </a>
@@ -131,7 +100,7 @@ export default function Home() {
                             <div className="p-5">
                                 <h3 className="text-xl font-bold mb-2.5 flex justify-between items-start font-montserrat">
                                     <span className="flex-1 pr-2">{course.title}</span>
-                                    <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-success-green')}>
+                                    <span className={cn("text-white px-3 py-1 rounded-full text-sm font-semibold ml-2.5 align-middle whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-green-500')}>
                                         {course.price}
                                     </span>
                                 </h3>
@@ -151,7 +120,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-16">
+      <footer className="bg-zinc-900 text-gray-300 pt-12 pb-8 mt-12">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <div className="inline-block">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2 mx-auto" />
@@ -161,7 +130,7 @@ export default function Home() {
             <div className="flex justify-center gap-6 my-8">
                 {footerData.links.map(link => (
                   <Link key={link.text} href={link.url} className="text-gray-300 hover:text-white font-medium transition-colors duration-300 text-sm flex items-center gap-2">
-                    <FontAwesomeIcon icon={link.icon} className={cn("h-5 w-5", link.className)} />
+                    {link.icon}
                     <span className="font-tiro-bangla">{link.text}</span>
                   </Link>
                 ))}
