@@ -20,7 +20,6 @@ const heroData = {
 const actionButtonsData = [
   { url: "#courses-section", title: "কোর্স সমূহ", icon: faBookOpen },
   { url: "#", title: "ক্যালেন্ডার", icon: faCalendarAlt },
-  { url: "#", title: "প্রশ্নব্যাংক", icon: faQuestionCircle }
 ];
 
 const courseTabsData = [
@@ -243,23 +242,22 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20 rounded-t-3xl">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-col items-center text-center">
-                <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2" />
-                <p className="mt-2 text-base text-gray-400 max-w-md font-tiro-bangla">{heroData.subtitle}</p>
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+            <div className="inline-block">
+                <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2 mx-auto" />
             </div>
+            <p className="mt-2 text-base text-gray-400 max-w-md mx-auto font-tiro-bangla">{heroData.subtitle}</p>
             
-            <div className="flex flex-wrap justify-center gap-4 my-10">
+            <div className="flex justify-center gap-6 my-8">
                 {footerData.links.map(link => (
-                  <Link key={link.text} href={link.url} className="bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-medium py-3 px-5 rounded-full flex items-center gap-3 transition-colors duration-300 text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                    <FontAwesomeIcon icon={link.icon} className="h-5 w-5" style={{color: link.color}}/>
+                  <Link key={link.text} href={link.url} className="text-gray-300 hover:text-white font-medium transition-colors duration-300 text-sm">
                     <span className="font-tiro-bangla">{link.text}</span>
                   </Link>
                 ))}
             </div>
             
-            <div className="mt-10 pt-8 border-t border-zinc-800 text-center">
+            <div className="mt-8 pt-8 border-t border-zinc-800">
                 <p className="text-sm text-zinc-500 font-montserrat" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
             </div>
         </div>
