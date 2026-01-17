@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Brain, Lightbulb, Mail, Rocket, Fingerprint, Globe, UserCircle, Info, Shield, Github, Send, Menu } from 'lucide-react';
+import { Brain, Lightbulb, Mail, Rocket, Fingerprint, Globe, UserRound, Info, Shield, Github, Send, Menu } from 'lucide-react';
 import { useState } from 'react';
 import { useUser } from '@/firebase';
 import { getAuth, signOut } from 'firebase/auth';
@@ -41,23 +41,15 @@ export default function AboutPage() {
   return (
     <div className="bg-[#FFFDF5] text-foreground antialiased">
       {/* Header */}
-      <header className="bg-white/95 px-2 sm:px-4 lg:px-6 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+      <header className="bg-white/95 px-4 lg:px-6 py-3 flex justify-between items-center sticky top-0 z-20 shadow-sm">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={50} height={50} quality={100} className="h-[50px] w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/main/sb-logo.png" alt="Logo" width={160} height={40} quality={100} className="h-10 w-auto" />
         </Link>
         
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">
-              {link.text}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 uppercase hover:bg-yellow-500 hover:text-black transition-all">
-              <UserCircle size={16} />
-              <span>{user ? 'Dashboard' : 'Account'}</span>
+        <div className="flex items-center gap-4">
+          <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 uppercase hover:bg-gray-800 transition-all">
+              <UserRound size={16} />
+              <span className="font-montserrat">{user ? 'Dashboard' : 'Account'}</span>
           </Link>
            <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
             <Menu className="h-6 w-6" />
@@ -77,18 +69,18 @@ export default function AboutPage() {
       </header>
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary to-accent pt-16 pb-24 px-6 text-center text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary to-accent pt-12 pb-20 px-6 text-center text-white overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto">
-          <span className="font-sans font-bold text-xs tracking-[0.3em] bg-black/20 px-4 py-2 rounded-full mb-6 inline-block">WHO WE ARE</span>
-          <h1 className="text-4xl md:text-5xl font-black mb-6 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
-          <p className="text-lg opacity-90 leading-relaxed font-medium font-tiro-bangla">
+          <span className="font-sans font-bold text-xs tracking-[0.3em] bg-black/20 px-4 py-2 rounded-full mb-4 inline-block">WHO WE ARE</span>
+          <h1 className="text-3xl md:text-4xl font-black mb-4 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
+          <p className="text-base opacity-90 leading-relaxed font-medium font-tiro-bangla">
             "সিলেবাসের বাইরে" শুধু একটি প্ল্যাটফর্ম নয়, এটি একটি শিক্ষা বিপ্লব। আমরা বিশ্বাস করি প্রকৃত জ্ঞান কোনো নির্দিষ্ট বই বা সিলেবাসে সীমাবদ্ধ নয়।
           </p>
         </div>
         
         {/* Decoration */}
-        <Brain className="absolute top-20 left-10 h-20 w-20 opacity-10 -rotate-12" />
-        <Lightbulb className="absolute bottom-40 right-10 h-20 w-20 opacity-10 rotate-12" />
+        <Brain className="absolute top-20 left-10 h-16 w-16 opacity-10 -rotate-12" />
+        <Lightbulb className="absolute bottom-40 right-10 h-16 w-16 opacity-10 rotate-12" />
 
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none transform rotate-180">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-[calc(100%+1.3px)] h-24">
@@ -101,44 +93,44 @@ export default function AboutPage() {
       <main className="container mx-auto px-6 -mt-12 relative z-20">
         
         {/* Team Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             
             {/* Founder Profile */}
-            <div className="bg-white p-8 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                    <div className="w-40 h-40 rounded-[2.5rem] bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
-                        <Image src="https://raw.githubusercontent.com/MNRfrom2020/logo-and-icon-cdn/refs/heads/main/Logo/Shuyaib/Shuyaib.png" alt="Shuyaib Islam" width={160} height={160} className="w-full h-full object-cover" />
+            <div className="bg-white p-6 rounded-3xl shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="w-32 h-32 rounded-3xl bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
+                        <Image src="https://raw.githubusercontent.com/MNRfrom2020/logo-and-icon-cdn/refs/heads/main/Logo/Shuyaib/Shuyaib.png" alt="Shuyaib Islam" width={128} height={128} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center md:text-left">
                         <span className="text-yellow-600 font-sans font-bold text-xs tracking-widest uppercase">Owner & Founder</span>
-                        <h2 className="text-2xl font-black mt-1 mb-4 font-tiro-bangla">শুআইব ইসলাম</h2>
-                        <p className="text-gray-600 mb-6 leading-relaxed font-tiro-bangla">
+                        <h2 className="text-xl font-black mt-1 mb-3 font-tiro-bangla">শুআইব ইসলাম</h2>
+                        <p className="text-gray-600 text-sm mb-4 leading-relaxed font-tiro-bangla">
                             "সিলেবাসের বাইরে" এর প্রতিষ্ঠাতা হিসেবে আমি শিক্ষার্থীদের গতানুগতিক ধারার বাইরে চিন্তা করতে এবং প্রযুক্তির সহায়তায় নিজেকে আরও দক্ষ করে গড়ে তুলতে উদ্বুদ্ধ করি।
                         </p>
-                        <div className="flex justify-center md:justify-start gap-4">
-                            <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={20} /></a>
-                            <a href="https://github.com/shuyaib105" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github size={20} /></a>
-                            <a href="https://t.me/shu_yaib" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={20} /></a>
+                        <div className="flex justify-center md:justify-start gap-3">
+                            <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={18} /></a>
+                            <a href="https://github.com/shuyaib105" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github size={18} /></a>
+                            <a href="https://t.me/shu_yaib" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={18} /></a>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Advisor Profile */}
-              <div className="bg-white p-8 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                    <div className="w-40 h-40 rounded-[2.5rem] bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
-                        <Image src="https://avatars.githubusercontent.com/u/175545919?v=4" alt="Frost Foe" width={160} height={160} className="w-full h-full object-cover" />
+              <div className="bg-white p-6 rounded-3xl shadow-xl border border-yellow-100 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="w-32 h-32 rounded-3xl bg-yellow-400 overflow-hidden shadow-lg border-4 border-white shrink-0">
+                        <Image src="https://avatars.githubusercontent.com/u/175545919?v=4" alt="Frost Foe" width={128} height={128} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-center md:text-left">
                         <span className="text-yellow-600 font-sans font-bold text-xs tracking-widest uppercase">Development Consultant</span>
-                        <h2 className="text-2xl font-black mt-1 mb-4 font-tiro-bangla">Frost Foe</h2>
-                        <p className="text-gray-600 mb-6 leading-relaxed font-tiro-bangla">
+                        <h2 className="text-xl font-black mt-1 mb-3 font-tiro-bangla">Frost Foe</h2>
+                        <p className="text-gray-600 text-sm mb-4 leading-relaxed font-tiro-bangla">
                             প্ল্যাটফর্মের কারিগরি উন্নয়ন এবং ইনোভেশন নিশ্চিত করতে আমি ডেভেলপিং পরামর্শদাতা হিসেবে কাজ করছি। আমাদের লক্ষ্য একটি ত্রুটিমুক্ত ডিজিটাল লার্নিং এক্সপেরিয়েন্স তৈরি করা।
                         </p>
-                        <div className="flex justify-center md:justify-start gap-4">
-                            <a href="mailto:frostfoe@gmail.com" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={20} /></a>
-                             <a href="https.me/frostfoe" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={20} /></a>
+                        <div className="flex justify-center md:justify-start gap-3">
+                            <a href="mailto:frostfoe@gmail.com" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail size={18} /></a>
+                             <a href="https.me/frostfoe" className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send size={18} /></a>
                         </div>
                     </div>
                 </div>
@@ -147,28 +139,28 @@ export default function AboutPage() {
         </div>
 
         {/* Vision & Mission */}
-        <div className="bg-white rounded-[4rem] p-12 shadow-2xl border border-yellow-50 mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                <div className="space-y-4">
-                    <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
-                        <Rocket size={32} />
+        <div className="bg-white rounded-3xl p-8 shadow-2xl border border-yellow-50 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div className="space-y-3">
+                    <div className="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+                        <Rocket size={28} />
                     </div>
-                    <h3 className="text-xl font-bold font-tiro-bangla">লক্ষ্য</h3>
-                    <p className="text-gray-500 leading-relaxed font-tiro-bangla">শিক্ষার্থীদের ডিজিটাল যুগে প্রতিযোগিতামূলক করার জন্য সিলেবাসের বাইরেও জ্ঞান আহরণে সহায়তা করা।</p>
+                    <h3 className="text-lg font-bold font-tiro-bangla">লক্ষ্য</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed font-tiro-bangla">শিক্ষার্থীদের ডিজিটাল যুগে প্রতিযোগিতামূলক করার জন্য সিলেবাসের বাইরেও জ্ঞান আহরণে সহায়তা করা।</p>
                 </div>
-                <div className="space-y-4">
-                    <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
-                        <Fingerprint size={32} />
+                <div className="space-y-3">
+                    <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+                        <Fingerprint size={28} />
                     </div>
-                    <h3 className="text-xl font-bold font-tiro-bangla">স্বকীয়তা</h3>
-                    <p className="text-gray-500 leading-relaxed font-tiro-bangla">আমরা বিশ্বাস করি প্রতিটি শিক্ষার্থী অনন্য। তাই তাদের মেধা বিকাশে আমরা গতানুগতিক পদ্ধতির ঊর্ধ্বে কাজ করি।</p>
+                    <h3 className="text-lg font-bold font-tiro-bangla">স্বকীয়তা</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed font-tiro-bangla">আমরা বিশ্বাস করি প্রতিটি শিক্ষার্থী অনন্য। তাই তাদের মেধা বিকাশে আমরা গতানুগতিক পদ্ধতির ঊর্ধ্বে কাজ করি।</p>
                 </div>
-                <div className="space-y-4">
-                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-3xl flex items-center justify-center mx-auto shadow-inner">
-                        <Globe size={32} />
+                <div className="space-y-3">
+                    <div className="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
+                        <Globe size={28} />
                     </div>
-                    <h3 className="text-xl font-bold font-tiro-bangla">ভবিষ্যৎ</h3>
-                    <p className="text-gray-500 leading-relaxed font-tiro-bangla">আগামীর স্মার্ট বাংলাদেশ বিনির্মাণে দক্ষ জনবল তৈরিতে একটি পূর্ণাঙ্গ ই-লার্নিং হাব হয়ে ওঠা।</p>
+                    <h3 className="text-lg font-bold font-tiro-bangla">ভবিষ্যৎ</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed font-tiro-bangla">আগামীর স্মার্ট বাংলাদেশ বিনির্মাণে দক্ষ জনবল তৈরিতে একটি পূর্ণাঙ্গ ই-লার্নিং হাব হয়ে ওঠা।</p>
                 </div>
             </div>
         </div>
@@ -176,14 +168,14 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-12">
+      <footer className="bg-zinc-900 text-gray-300 pt-12 pb-6 mt-12">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <div className="inline-block">
                 <Image src={footerData.logo} alt="Footer Logo" width={70} height={70} quality={100} className="h-20 w-auto mb-4 mx-auto" />
             </div>
-            <p className="mt-2 text-lg text-gray-400 max-w-md mx-auto font-tiro-bangla">{heroData.subtitle}</p>
+            <p className="mt-2 text-base text-gray-400 max-w-md mx-auto font-tiro-bangla">{heroData.subtitle}</p>
             
-            <div className="flex justify-center gap-8 my-8">
+            <div className="flex justify-center gap-6 my-8">
                 {footerData.links.map(link => (
                   <Link key={link.text} href={link.url} className="text-gray-300 hover:text-white font-medium transition-colors duration-300 text-sm flex items-center gap-2">
                     {link.icon}
@@ -192,7 +184,7 @@ export default function AboutPage() {
                 ))}
             </div>
             
-            <div className="mt-8 pt-8 border-t border-zinc-800">
+            <div className="mt-6 pt-6 border-t border-zinc-800">
                 <p className="text-sm text-zinc-500 font-montserrat" dangerouslySetInnerHTML={{ __html: footerData.copyright }} />
             </div>
         </div>

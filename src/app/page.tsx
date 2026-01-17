@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { UserCircle, BookOpen, Calendar, Info, Shield, Send, Menu } from 'lucide-react';
+import { UserRound, BookOpen, Calendar, Info, Shield, Send, Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
@@ -43,22 +43,14 @@ export default function Home() {
   return (
     <div className="bg-background text-foreground">
       {/* Header */}
-      <header className="bg-white/95 px-2 sm:px-4 lg:px-6 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+      <header className="bg-white/95 px-4 lg:px-6 py-3 flex justify-between items-center sticky top-0 z-20 shadow-sm">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={50} height={50} quality={100} className="h-[50px] w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/main/sb-logo.png" alt="Logo" width={160} height={40} quality={100} className="h-10 w-auto" />
         </Link>
         
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">
-              {link.text}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 uppercase">
-            <UserCircle size={16} />
+        <div className="flex items-center gap-4">
+          <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 uppercase">
+            <UserRound size={16} />
             <span className="font-montserrat">{user ? "Dashboard" : "Account"}</span>
           </Link>
           
