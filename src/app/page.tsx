@@ -114,7 +114,7 @@ export default function Home() {
         </section>
 
         {/* Courses Section */}
-        <section id="courses-section" className="py-20 px-[8%] text-center">
+        <section id="courses-section" className="py-16 px-[8%] text-center">
             <div className="bg-gray-200 p-1.5 rounded-xl inline-flex mb-8">
                 {courseTabsData.map(tab => (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("px-5 py-2 border-none bg-transparent cursor-pointer text-base font-semibold rounded-lg text-gray-600 transition-all font-montserrat", activeTab === tab.id && "bg-white text-accent shadow-md")}>
@@ -151,7 +151,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20">
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-16">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <div className="inline-block">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2 mx-auto" />

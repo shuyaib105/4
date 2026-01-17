@@ -77,9 +77,9 @@ export default function PrivacyPolicyPage() {
             }
         `}</style>
       {/* Header */}
-      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[70px]">
+      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[60px]">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={45} height={45} quality={100} className="h-[45px] w-auto" />
         </Link>
         <div className="flex items-center gap-3">
           <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
@@ -106,9 +106,9 @@ export default function PrivacyPolicyPage() {
         </ul>
       </div>
 
-      <main className="max-w-5xl mx-auto px-6 py-20" style={{lineHeight: 1.8}}>
+      <main className="max-w-5xl mx-auto px-6 py-16" style={{lineHeight: 1.8}}>
         
-        <header className="text-center mb-20">
+        <header className="text-center mb-16">
             <h4 className="font-sans text-accent font-bold tracking-[0.4em] uppercase text-[10px] mb-4">Security & Trust</h4>
             <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">গোপনীয়তা <span className="text-accent">নীতি</span></h1>
             <p className="text-slate-500 max-w-2xl mx-auto">আপনার তথ্যের নিরাপত্তা আমাদের কাছে সর্বোচ্চ অগ্রাধিকার। আমরা কীভাবে আপনার তথ্য পরিচালনা করি তা নিচে স্বচ্ছভাবে ব্যাখ্যা করা হলো।</p>
@@ -168,7 +168,7 @@ export default function PrivacyPolicyPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20">
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-16">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <div className="inline-block">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2 mx-auto" />

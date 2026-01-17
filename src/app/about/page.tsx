@@ -42,9 +42,9 @@ export default function AboutPage() {
   return (
     <div className="bg-[#FFFDF5] text-foreground antialiased">
       {/* Header */}
-      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[70px]">
+      <header className="bg-white/95 px-[6%] py-1 flex justify-between items-center sticky top-0 z-[1000] shadow-sm h-[60px]">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={55} height={55} quality={100} className="h-[55px] w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={45} height={45} quality={100} className="h-[45px] w-auto" />
         </Link>
         <div className="flex items-center gap-3">
           <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase hover:bg-yellow-500 hover:text-black transition-all">
@@ -72,7 +72,7 @@ export default function AboutPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary to-accent pt-20 pb-32 px-6 text-center text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary to-accent pt-16 pb-24 px-6 text-center text-white overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto">
           <span className="font-sans font-bold text-xs tracking-[0.3em] bg-black/20 px-4 py-2 rounded-full mb-6 inline-block">WHO WE ARE</span>
           <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">শিখুন প্রথাগত <br /> সীমানার বাইরে</h1>
@@ -93,10 +93,10 @@ export default function AboutPage() {
       </section>
 
       {/* Content Sections */}
-      <main className="container mx-auto px-6 -mt-16 relative z-20">
+      <main className="container mx-auto px-6 -mt-12 relative z-20">
         
         {/* Team Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             
             {/* Founder Profile */}
             <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-yellow-100 hover:-translate-y-2.5 hover:shadow-lg transition-all duration-500">
@@ -142,7 +142,7 @@ export default function AboutPage() {
         </div>
 
         {/* Vision & Mission */}
-        <div className="bg-white rounded-[4rem] p-12 shadow-2xl border border-yellow-50 mb-20">
+        <div className="bg-white rounded-[4rem] p-12 shadow-2xl border border-yellow-50 mb-16">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
                 <div className="space-y-4">
                     <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
@@ -171,7 +171,7 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20">
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-16">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <div className="inline-block">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2 mx-auto" />

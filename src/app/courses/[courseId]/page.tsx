@@ -148,7 +148,7 @@ export default function CourseDetailPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-20">
+      <footer className="bg-zinc-900 text-gray-300 pt-16 pb-8 mt-16">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
             <div className="inline-block">
                 <Image src={footerData.logo} alt="Footer Logo" width={60} height={60} quality={100} className="h-16 w-auto mb-2 mx-auto" />
