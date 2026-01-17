@@ -2,15 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Brain, Lightbulb, Mail, Rocket, Fingerprint, Globe, UserCircle, Info, Shield, X } from 'lucide-react';
+import { Brain, Lightbulb, Mail, Rocket, Fingerprint, Globe, UserCircle, Info, Shield, Github, Send, Menu } from 'lucide-react';
 import { useState } from 'react';
 import { useUser } from '@/firebase';
 import { getAuth, signOut } from 'firebase/auth';
 import { useFirebaseApp } from '@/firebase';
-import { FaGithub, FaTelegramPlane } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-
 
 export default function AboutPage() {
   const [showMenu, setShowMenu] = useState(false);
@@ -35,7 +31,7 @@ export default function AboutPage() {
   const footerData = {
     logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
     links: [
-      { "url": "https://t.me/syllabuserbaire", icon: <FaTelegramPlane className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
+      { "url": "https://t.me/syllabuserbaire", icon: <Send className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
       { "url": "/about", icon: <Info className="h-5 w-5 text-blue-500"/>, "text": "আমাদের সম্পর্কে" },
       { "url": "/privacy-policy", icon: <Shield className="h-5 w-5 text-green-500"/>, "text": "প্রাইভেসি পলিসি" }
     ],
@@ -64,7 +60,7 @@ export default function AboutPage() {
               <span>{user ? 'Dashboard' : 'Account'}</span>
           </Link>
            <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
+            <Menu className="h-6 w-6" />
           </button>
         </div>
          {showMenu && (
@@ -121,8 +117,8 @@ export default function AboutPage() {
                         </p>
                         <div className="flex justify-center md:justify-start gap-4">
                             <a href="mailto:mdshuyaibislam5050@gmail.com" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail /></a>
-                            <a href="https://github.com/shuyaib105" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><FaGithub /></a>
-                            <a href="https://t.me/shu_yaib" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><FaTelegramPlane /></a>
+                            <a href="https://github.com/shuyaib105" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-black hover:text-white transition-all"><Github /></a>
+                            <a href="https://t.me/shu_yaib" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send /></a>
                         </div>
                     </div>
                 </div>
@@ -142,7 +138,7 @@ export default function AboutPage() {
                         </p>
                         <div className="flex justify-center md:justify-start gap-4">
                             <a href="mailto:frostfoe@gmail.com" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail /></a>
-                             <a href="https.me/frostfoe" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><FaTelegramPlane /></a>
+                             <a href="https.me/frostfoe" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><Send /></a>
                         </div>
                     </div>
                 </div>

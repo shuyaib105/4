@@ -2,14 +2,11 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { UserCircle, BookOpen, Calendar, Info, Shield } from 'lucide-react';
-import { FaTelegramPlane } from 'react-icons/fa';
+import { UserCircle, BookOpen, Calendar, Info, Shield, Send, Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
 import { courseTabsData } from '@/lib/courses';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const heroData = {
   title: 'তোমার <span class="text-accent">সেরা প্রস্তুতির</span> শুরু হোক এখানে থেকেই',
@@ -24,7 +21,7 @@ const actionButtonsData = [
 const footerData = {
   logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
   links: [
-    { "url": "https://t.me/syllabuserbaire", icon: <FaTelegramPlane className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
+    { "url": "https://t.me/syllabuserbaire", icon: <Send className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
     { "url": "/about", icon: <Info className="h-5 w-5 text-blue-500"/>, "text": "আমাদের সম্পর্কে" },
     { "url": "/privacy-policy", icon: <Shield className="h-5 w-5 text-green-500"/>, "text": "প্রাইভেসি পলিসি" }
   ],
@@ -66,7 +63,7 @@ export default function Home() {
           </Link>
           
           <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
+            <Menu className="h-6 w-6" />
           </button>
         </div>
 

@@ -2,12 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserShield, Hdd, Ban, Bug, Lock, UserCircle, Info, Shield, X } from 'lucide-react';
-import { FaTelegramPlane } from 'react-icons/fa';
+import { UserShield, Hdd, Ban, Bug, Lock, UserCircle, Info, Shield, Menu, Send } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export default function PrivacyPolicyPage() {
   const { user } = useUser();
@@ -26,7 +23,7 @@ export default function PrivacyPolicyPage() {
   const footerData = {
     logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
     links: [
-      { "url": "https://t.me/syllabuserbaire", icon: <FaTelegramPlane className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
+      { "url": "https://t.me/syllabuserbaire", icon: <Send className="h-5 w-5 text-[#0088cc]"/>, "text": "টেলিগ্রাম চ্যানেল" },
       { "url": "/about", icon: <Info className="h-5 w-5 text-blue-500"/>, "text": "আমাদের সম্পর্কে" },
       { "url": "/privacy-policy", icon: <Shield className="h-5 w-5 text-green-500"/>, "text": "প্রাইভেসি পলিসি" }
     ],
@@ -90,7 +87,7 @@ export default function PrivacyPolicyPage() {
               <span>{user ? 'Dashboard' : 'Account'}</span>
           </Link>
           <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-            <FontAwesomeIcon icon={faBars} className="h-6 w-6" />
+            <Menu className="h-6 w-6" />
           </button>
         </div>
         {showMenu && (
