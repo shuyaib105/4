@@ -142,7 +142,7 @@ export default function AboutPage() {
                         </p>
                         <div className="flex justify-center md:justify-start gap-4">
                             <a href="mailto:frostfoe@gmail.com" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-red-500 hover:text-white transition-all"><Mail /></a>
-                             <a href="https://t.me/frostfoe" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><FaTelegramPlane /></a>
+                             <a href="https.me/frostfoe" className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 hover:bg-blue-500 hover:text-white transition-all"><FaTelegramPlane /></a>
                         </div>
                     </div>
                 </div>
@@ -204,3 +204,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
