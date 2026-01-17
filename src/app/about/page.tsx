@@ -32,9 +32,9 @@ export default function AboutPage() {
   const footerData = {
     logo: "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png",
     links: [
-      { "url": "https://t.me/syllabuserbaire", "icon": faTelegramPlane, "text": "টেলিগ্রাম চ্যানেল", "color": "#0088cc" },
-      { "url": "/about", "icon": faInfoCircle, "text": "আমাদের সম্পর্কে", "color": "hsl(var(--primary-blue))" },
-      { "url": "/privacy-policy", "icon": faShieldAlt, "text": "প্রাইভেসি পলিসি", "color": "hsl(var(--success-green))" }
+      { "url": "https://t.me/syllabuserbaire", "icon": faTelegramPlane, "text": "টেলিগ্রাম চ্যানেল", "className": "text-[#0088cc]" },
+      { "url": "/about", "icon": faInfoCircle, "text": "আমাদের সম্পর্কে", "className": "text-primary-blue" },
+      { "url": "/privacy-policy", "icon": faShieldAlt, "text": "প্রাইভেসি পলিসি", "className": "text-success-green" }
     ],
     copyright: "&copy; 2025 SYLLABUSER BAIRE"
   };
@@ -180,7 +180,8 @@ export default function AboutPage() {
             
             <div className="flex justify-center gap-6 my-8">
                 {footerData.links.map(link => (
-                  <Link key={link.text} href={link.url} className="text-gray-300 hover:text-white font-medium transition-colors duration-300 text-sm">
+                  <Link key={link.text} href={link.url} className="text-gray-300 hover:text-white font-medium transition-colors duration-300 text-sm flex items-center gap-2">
+                    <FontAwesomeIcon icon={link.icon} className={cn("h-5 w-5", link.className)} />
                     <span className="font-tiro-bangla">{link.text}</span>
                   </Link>
                 ))}
