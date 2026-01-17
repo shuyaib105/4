@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="bg-background text-foreground">
       {/* Header */}
-      <header className="bg-white/95 px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+      <header className="bg-white/95 px-2 sm:px-4 lg:px-6 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
         <Link href="/">
           <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={50} height={50} quality={100} className="h-[50px] w-auto" />
         </Link>
@@ -57,7 +57,7 @@ export default function Home() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 uppercase">
+          <Link href={user ? "/dashboard" : "/login"} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 uppercase">
             <UserCircle size={16} />
             <span className="font-montserrat">{user ? "Dashboard" : "Account"}</span>
           </Link>
