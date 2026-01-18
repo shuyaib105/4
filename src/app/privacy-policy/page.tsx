@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserShield, Hdd, Ban, Bug, Lock, UserRound, Info, Shield, Menu, Send } from 'lucide-react';
+import { UserShield, Database, Ban, Bug, Lock, UserRound, Info, Shield, Menu, Send } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { useState } from 'react';
 
@@ -106,7 +106,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             <div className="policy-card">
-                <div className="icon-box"><Hdd /></div>
+                <div className="icon-box"><Database /></div>
                 <h3 className="text-xl font-bold mb-3 font-tiro-bangla">লোকাল স্টোরেজ ব্যবহার</h3>
                 <div className="gradient-line"></div>
                 <p className="text-slate-600 font-tiro-bangla">
