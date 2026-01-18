@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Brain, Lightbulb, Mail, Rocket, Fingerprint, Globe, UserRound, Info, Shield, Github, Send, Menu } from 'lucide-react';
+import { Brain, Lightbulb, Mail, Rocket, Fingerprint, Globe, UserRound, Info, Shield, Github, Send, Menu, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import { useUser } from '@/firebase';
 import { getAuth, signOut } from 'firebase/auth';
