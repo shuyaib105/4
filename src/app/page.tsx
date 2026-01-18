@@ -65,12 +65,12 @@ export default function Home() {
       <main>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-yellow-50 to-background">
-          <div className="container mx-auto px-6 pt-16 pb-20">
+          <div className="container mx-auto px-6 pt-16 pb-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-tight font-tiro-bangla" dangerouslySetInnerHTML={{ __html: heroData.title }} />
                 <p className="text-xl mb-10 text-gray-600 leading-relaxed font-tiro-bangla">{heroData.subtitle}</p>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex gap-4">
                   {actionButtonsData.map(button => (
                       <a key={button.title} href={button.url} className="bg-white rounded-2xl flex items-center justify-center no-underline shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl px-8 py-5">
                           <div className="flex items-center gap-4">
@@ -96,7 +96,7 @@ export default function Home() {
         </section>
 
         {/* Courses Section */}
-        <section id="courses-section" className="py-20 px-[8%] text-center">
+        <section id="courses-section" className="pt-8 pb-20 px-[8%] text-center">
             <div className="bg-gray-200 p-2 rounded-xl inline-flex mb-10">
                 {courseTabsData.map(tab => (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={cn("px-6 py-2 border-none bg-transparent cursor-pointer text-base font-semibold rounded-lg text-gray-600 transition-all font-montserrat", activeTab === tab.id && "bg-white text-accent shadow-md")}>
