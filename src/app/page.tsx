@@ -74,10 +74,10 @@ export default function Home() {
                 <p className="text-xl mb-10 text-gray-600 leading-relaxed font-tiro-bangla">{heroData.subtitle}</p>
                 <div className="flex gap-2">
                   {actionButtonsData.map(button => (
-                      <a key={button.title} href={button.url} className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-3 py-1.5">
-                          <div className="flex items-center gap-1.5">
-                              <button.icon size={16} className="text-accent" />
-                              <span className="text-xs font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
+                      <a key={button.title} href={button.url} className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-4 py-2">
+                          <div className="flex items-center gap-2">
+                              <button.icon size={18} className="text-accent" />
+                              <span className="text-sm font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
                           </div>
                       </a>
                   ))}
