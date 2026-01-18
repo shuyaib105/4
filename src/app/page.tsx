@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -71,11 +72,11 @@ export default function Home() {
               <div>
                 <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-tight font-tiro-bangla" dangerouslySetInnerHTML={{ __html: heroData.title }} />
                 <p className="text-xl mb-10 text-gray-600 leading-relaxed font-tiro-bangla">{heroData.subtitle}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex gap-2">
                   {actionButtonsData.map(button => (
                       <a key={button.title} href={button.url} className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-3 py-1.5">
                           <div className="flex items-center gap-1.5">
-                              <button.icon className="text-base text-accent" />
+                              <button.icon size={16} className="text-accent" />
                               <span className="text-xs font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
                           </div>
                       </a>
