@@ -164,7 +164,7 @@ export default function AboutPage() {
             {/* Column 1: Logo and Description */}
             <div className="space-y-4">
               <Link href="/">
-                <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Footer Logo" width={80} height={80} quality={100} />
+                <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Footer Logo" width={200} height={200} quality={100} />
               </Link>
               <p className="text-gray-600 font-tiro-bangla text-sm max-w-xs">
                 {heroData.subtitle}
@@ -211,5 +211,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
-    
