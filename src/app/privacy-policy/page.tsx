@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserShield, Database, Ban, Bug, Lock, UserRound, Info, Shield, Menu, Send } from 'lucide-react';
+import { ShieldCheck, Database, Ban, Bug, Lock, UserRound, Info, Shield, Menu, Send } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { useState } from 'react';
 
@@ -97,7 +97,7 @@ export default function PrivacyPolicyPage() {
         <div className="grid md:grid-cols-2 gap-8">
             
             <div className="policy-card">
-                <div className="icon-box"><UserShield /></div>
+                <div className="icon-box"><ShieldCheck /></div>
                 <h3 className="text-xl font-bold mb-3 font-tiro-bangla">ব্যক্তিগত তথ্য সংগ্রহ</h3>
                 <div className="gradient-line"></div>
                 <p className="text-slate-600 font-tiro-bangla">
