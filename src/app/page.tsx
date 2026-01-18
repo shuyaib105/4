@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { UserRound, BookOpen, Calendar, Info, Shield, Send, Menu } from 'lucide-react';
+import { UserRound, BookOpen, Calendar, Info, Shield, Send, Menu, BookCopy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
@@ -16,6 +16,7 @@ const heroData = {
 const actionButtonsData = [
   { url: "#courses-section", title: "কোর্স সমূহ", icon: BookOpen },
   { url: "#", title: "ক্যালেন্ডার", icon: Calendar },
+  { url: "#courses-section", title: "প্রশ্নব্যাংক", icon: BookCopy },
 ];
 
 
