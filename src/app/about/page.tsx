@@ -33,7 +33,7 @@ export default function AboutPage() {
       {/* Header */}
       <header className="bg-white/95 px-2 lg:px-6 py-3 flex justify-between items-center sticky top-0 z-20 shadow-sm">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={44} height={44} quality={100} className="h-11 w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={56} height={56} quality={100} className="h-14 w-auto" />
         </Link>
         
         <div className="flex items-center gap-4">
@@ -211,3 +211,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    

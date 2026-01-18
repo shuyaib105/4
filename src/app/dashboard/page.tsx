@@ -120,7 +120,7 @@ export default function DashboardPage() {
     <div className="bg-[#FFFDF5] min-h-screen">
       <header className="bg-white/95 px-[6%] py-4 flex justify-between items-center sticky top-0 z-10 shadow-sm">
           <Link href="/">
-            <img src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" className="h-[45px] w-auto" />
+            <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={56} height={56} quality={100} className="h-14 w-auto" />
           </Link>
           <div className="flex items-center gap-3">
               <span className="font-semibold text-gray-700">Welcome, {userData?.displayName || user.displayName || user.email}</span>
@@ -180,3 +180,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
