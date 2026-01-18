@@ -69,10 +69,10 @@ export default function Home() {
         <section className="bg-gradient-to-b from-yellow-50 to-background">
           <div className="container mx-auto px-6 pt-16 pb-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
+              <div className="text-center md:text-left">
                 <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-tight font-tiro-bangla" dangerouslySetInnerHTML={{ __html: heroData.title }} />
                 <p className="text-xl mb-10 text-gray-600 leading-relaxed font-tiro-bangla">{heroData.subtitle}</p>
-                <div className="flex gap-2">
+                <div className="flex justify-center md:justify-start gap-2">
                   {actionButtonsData.map(button => (
                       <a key={button.title} href={button.url} className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-4 py-2">
                           <div className="flex items-center gap-2">
