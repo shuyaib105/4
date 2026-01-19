@@ -39,6 +39,20 @@ export default function CourseDetailPage() {
   const heroData = {
     subtitle: 'সহজ ব্যাখ্যা আর আধুনিক টেকনিকের মাধ্যমে আমরা তোমার সিলেবাসের ভয় দূর করবো ইনশাআল্লাহ্‌।'
   };
+
+  const physicsRoutine = [
+    { date: '১ ফেব্রুয়ারি, ২০২৬', topic: 'তাপগতিবিদ্যা' },
+    { date: '৩ ফেব্রুয়ারি, ২০২৬', topic: 'স্থির তড়িৎ' },
+    { date: '৫ ফেব্রুয়ারি, ২০২৬', topic: 'চল তড়িৎ' },
+    { date: '৭ ফেব্রুয়ারি, ২০২৬', topic: 'তড়িৎ প্রবাহের চৌম্বক ক্রিয়া ও চুম্বকত্ব' },
+    { date: '৯ ফেব্রুয়ারি, ২০২৬', topic: 'তড়িৎচুম্বকীয় আবেশ ও পরবর্তী প্রবাহ' },
+    { date: '১১ ফেব্রুয়ারি, ২০২৬', topic: 'জ্যামিতিক ও ভৌত আলোকবিজ্ঞান' },
+    { date: '১৩ ফেব্রুয়ারি, ২০২৬', topic: 'আধুনিক পদার্থবিজ্ঞানের সূচনা' },
+    { date: '১৫ ফেব্রুয়ারি, ২০২৬', topic: 'পরমাণুর মডেল এবং নিউক্লিয়ার পদার্থবিজ্ঞান' },
+    { date: '১৭ ফেব্রুয়ারি, ২০২৬', topic: 'সেমিকন্ডাক্টর ও ইলেকট্রনিক্স' },
+    { date: '১৯ ফেব্রুয়ারি, ২০২৬', topic: 'জ্যোতির্বিজ্ঞান' },
+    { date: '২১ ফেব্রুয়ারি, ২০২৬', topic: 'Physics Second Part Final Exam' }
+  ];
   
   if (!course) {
     return <div className="flex justify-center items-center h-screen">Course not found</div>;
@@ -120,8 +134,31 @@ export default function CourseDetailPage() {
             <div className="mt-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-center font-tiro-bangla mb-8">কোর্স রুটিন</h2>
                 <div className="overflow-x-auto">
-                  <p className="text-center text-gray-500">কোর্স রুটিন খুব শীঘ্রই এখানে আপডেট করা হবে।</p>
-                  {/* Placeholder for course routine table */}
+                  {course.id === 'physics-second-part' ? (
+                      <>
+                          <table className="w-full min-w-max text-left border-collapse font-tiro-bangla shadow-md rounded-xl overflow-hidden">
+                              <thead className="bg-yellow-50">
+                                  <tr>
+                                      <th className="p-4 border-b border-yellow-200 text-lg font-bold text-accent">তারিখ</th>
+                                      <th className="p-4 border-b border-yellow-200 text-lg font-bold text-accent">পরীক্ষার বিষয়/টপিক</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {physicsRoutine.map((item, index) => (
+                                      <tr key={index} className="odd:bg-white even:bg-yellow-50/50 hover:bg-yellow-100 transition-colors">
+                                          <td className="p-4 border-b border-yellow-100 text-gray-700">{item.date}</td>
+                                          <td className="p-4 border-b border-yellow-100 text-gray-800 font-medium">{item.topic}</td>
+                                      </tr>
+                                  ))}
+                              </tbody>
+                          </table>
+                          <p className="text-center text-sm text-gray-600 mt-6 font-tiro-bangla">
+                              <strong>নোট:</strong> প্রতিটি পরীক্ষা সকাল ১০ টা থেকে রাত ১০ টা পর্যন্ত অনুষ্ঠিত হবে।
+                          </p>
+                      </>
+                  ) : (
+                      <p className="text-center text-gray-500">কোর্স রুটিন খুব শীঘ্রই এখানে আপডেট করা হবে।</p>
+                  )}
                 </div>
             </div>
         </div>
@@ -181,5 +218,3 @@ export default function CourseDetailPage() {
     </div>
   );
 }
-
-    
