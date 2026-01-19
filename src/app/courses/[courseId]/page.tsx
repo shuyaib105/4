@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { allCourses } from '@/lib/courses';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CheckCircle, Calendar, UserRound, Info, Shield, Send, Menu } from 'lucide-react';
+import { CheckCircle, Calendar, UserRound, Info, Shield, Send, Menu, Printer } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { cn } from '@/lib/utils';
 
@@ -58,12 +58,16 @@ export default function CourseDetailPage() {
     return <div className="flex justify-center items-center h-screen">Course not found</div>;
   }
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div className="bg-[#FFFDF5] text-foreground antialiased">
+    <div className="bg-gray-50 text-foreground antialiased print:bg-white">
       {/* Header */}
-      <header className="bg-white/95 px-2 lg:px-6 py-3 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+      <header className="bg-white/95 px-2 lg:px-6 py-3 flex justify-between items-center sticky top-0 z-20 shadow-sm print:hidden">
         <Link href="/">
-          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={56} height={56} quality={100} className="h-14 w-auto" />
+          <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={60} height={60} quality={100} className="h-14 w-auto" />
         </Link>
         <div className="flex items-center gap-4">
           <Link href={user ? '/dashboard' : '/login'} className="no-underline bg-black text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 uppercase hover:bg-gray-800 transition-all">
@@ -87,10 +91,10 @@ export default function CourseDetailPage() {
         )}
       </header>
       
-      <main className="container mx-auto px-6 py-12">
-        <div className="bg-white rounded-3xl shadow-xl p-6 md:p-12">
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-                <div>
+      <main className="container mx-auto px-6 py-12 print:p-8">
+        <div className="bg-white rounded-3xl shadow-lg p-6 md:p-10 print:shadow-none print:border-none print:p-0">
+            <div className="grid md:grid-cols-2 gap-10 items-start print:hidden">
+                <div className="sticky top-24">
                     <Image src={course.image} alt={course.title} width={600} height={400} className="w-full h-auto object-cover rounded-2xl shadow-lg" data-ai-hint={course.imageHint} />
                 </div>
                 <div className="flex flex-col h-full">
@@ -106,15 +110,15 @@ export default function CourseDetailPage() {
                             </div>
                         )}
                     </div>
-                    {course.description && <p className="text-lg leading-relaxed text-gray-700 font-tiro-bangla mb-6">{course.description}</p>}
+                    {course.description && <p className="text-lg leading-relaxed text-gray-700 font-tiro-bangla mb-8">{course.description}</p>}
                     
-                    <div className="my-6">
-                        <h3 className="font-bold text-2xl mb-4 font-tiro-bangla">কোর্সের ফিচারসমূহ</h3>
+                    <div className="bg-yellow-50/50 border border-yellow-200 rounded-xl p-6 my-6">
+                        <h3 className="font-bold text-xl mb-4 font-tiro-bangla">কোর্সের ফিচারসমূহ</h3>
                         <div className="space-y-3">
                         {course.features.map(feature => (
                             <div key={feature} className="flex items-start">
                                 <CheckCircle className="text-blue-500 mr-3 h-5 w-5 shrink-0 mt-1" />
-                                <span className="font-tiro-bangla text-lg text-gray-800">{feature}</span>
+                                <span className="font-tiro-bangla text-base text-gray-800">{feature}</span>
                             </div>
                         ))}
                         </div>
@@ -131,16 +135,42 @@ export default function CourseDetailPage() {
                     </div>
                 </div>
             </div>
-            <div className="mt-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-center font-tiro-bangla mb-8">কোর্স রুটিন</h2>
+            
+            {/* Routine Section */}
+            <div className="mt-16 print:mt-0">
+                {/* Print-only header */}
+                <div className="hidden print:block text-center mb-8">
+                    <Image 
+                        src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" 
+                        alt="Logo" 
+                        width={150} 
+                        height={150} 
+                        className="mx-auto"
+                        quality={100} 
+                    />
+                    <h1 className="text-2xl font-bold mt-4 font-tiro-bangla">{course.title}</h1>
+                    <h2 className="text-lg font-semibold mt-1 font-tiro-bangla">কোর্স রুটিন</h2>
+                </div>
+
+                <div className="flex justify-between items-center mb-8 print:hidden">
+                  <h2 className="text-3xl md:text-4xl font-bold font-tiro-bangla">কোর্স রুটিন</h2>
+                   <button
+                        onClick={handlePrint}
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-all font-montserrat"
+                    >
+                        <Printer size={18} />
+                        <span className="font-semibold">Print Routine</span>
+                    </button>
+                </div>
+                
                 <div className="overflow-x-auto">
                   {course.id === 'physics-second-part' ? (
                       <>
-                          <table className="w-full min-w-max text-left border-collapse font-tiro-bangla shadow-md rounded-xl overflow-hidden">
-                              <thead className="bg-yellow-50">
+                          <table className="w-full min-w-max text-left border-collapse font-tiro-bangla">
+                              <thead className="bg-yellow-100 print:bg-gray-200">
                                   <tr>
-                                      <th className="p-4 border-b border-yellow-200 text-lg font-bold text-accent">তারিখ</th>
-                                      <th className="p-4 border-b border-yellow-200 text-lg font-bold text-accent">পরীক্ষার বিষয়/টপিক</th>
+                                      <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">তারিখ</th>
+                                      <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">পরীক্ষার বিষয়/টপিক</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -152,7 +182,7 @@ export default function CourseDetailPage() {
                                   ))}
                               </tbody>
                           </table>
-                          <p className="text-center text-sm text-gray-600 mt-6 font-tiro-bangla">
+                          <p className="text-center text-sm text-gray-600 mt-6 font-tiro-bangla print:hidden">
                               <strong>নোট:</strong> প্রতিটি পরীক্ষা সকাল ১০ টা থেকে রাত ১০ টা পর্যন্ত অনুষ্ঠিত হবে।
                           </p>
                       </>
@@ -165,7 +195,7 @@ export default function CourseDetailPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-12">
+      <footer className="bg-white border-t mt-12 print:hidden">
         <div className="container mx-auto px-6 py-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Column 1: Logo and Description */}
