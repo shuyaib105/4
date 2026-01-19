@@ -57,17 +57,29 @@ export default function ExamsPage() {
   const { user, isLoading: isUserLoading } = useUser();
   const firestore = useFirestore();
   
-  const userDocRef = useMemo(() => user ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
+  const userDocRef = user ? doc(firestore, 'users', user.uid) : null;
   const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
-  
-  const enrolledCourseTitles = useMemo(() => userData?.enrolledCourses || [], [userData]);
-  const enrolledCourseIds = useMemo(() => allCourses.filter(c => enrolledCourseTitles.includes(c.title)).map(c => c.id), [enrolledCourseTitles]);
 
-  const examsQuery = useMemo(() => 
-    !isUserDataLoading && enrolledCourseIds.length > 0
-      ? query(collection(firestore, 'exams'), where('courseId', 'in', enrolledCourseIds))
-      : null
-  , [firestore, enrolledCourseIds, isUserDataLoading]);
+  const examsQuery = useMemo(() => {
+    if (isUserDataLoading || !userData) {
+      return null;
+    }
+    
+    const enrolledCourseTitles = userData.enrolledCourses || [];
+    if (enrolledCourseTitles.length === 0) {
+        return null;
+    }
+
+    const enrolledCourseIds = allCourses
+      .filter(c => enrolledCourseTitles.includes(c.title))
+      .map(c => c.id);
+
+    if (enrolledCourseIds.length === 0) {
+      return null;
+    }
+
+    return query(collection(firestore, 'exams'), where('courseId', 'in', enrolledCourseIds));
+  }, [firestore, userData, isUserDataLoading]);
   
   const { data: exams, isLoading: isExamsLoading } = useCollection<Exam>(examsQuery);
   
@@ -81,7 +93,7 @@ export default function ExamsPage() {
     const upcoming: Exam[] = [];
 
     exams.forEach(exam => {
-      if (!exam.startTime || !exam.endTime) return; // Defensive check for malformed data
+      if (!exam.startTime || !exam.endTime) return;
       
       const startTime = exam.startTime.toDate();
       const endTime = exam.endTime.toDate();
@@ -98,7 +110,7 @@ export default function ExamsPage() {
     return { todaysExams: todays, pastExams: past, upcomingExams: upcoming };
   }, [exams, now]);
   
-  const isLoading = isUserLoading || isUserDataLoading || (enrolledCourseIds.length > 0 && isExamsLoading);
+  const isLoading = isUserLoading || isUserDataLoading || (examsQuery !== null && isExamsLoading);
 
   return (
     <div className="space-y-6">
