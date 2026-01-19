@@ -18,10 +18,18 @@
           "type": "string",
           "description": "The user's display name."
         },
+        "photoURL": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "The URL of the user's profile picture."
+        },
         "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "The timestamp when the user was created."
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the user was created."
         },
         "enrolledCourses": {
           "type": "array",
@@ -31,11 +39,18 @@
           "description": "List of courses the user is enrolled in."
         }
       },
-      "required": ["uid", "email", "displayName", "createdAt"]
+      "required": [
+        "uid",
+        "email",
+        "displayName",
+        "createdAt"
+      ]
     }
   },
   "auth": {
-    "providers": ["email"]
+    "providers": [
+      "email"
+    ]
   },
   "firestore": {
     "/users/{userId}": {
