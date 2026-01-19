@@ -93,11 +93,11 @@ export default function CourseDetailPage() {
       
       <main className="container mx-auto px-6 py-12 print:p-8">
         <div className="bg-white rounded-3xl shadow-lg p-6 md:p-10 print:shadow-none print:border-none print:p-0">
-            <div className="grid md:grid-cols-2 gap-10 items-start print:hidden">
-                <div className="sticky top-24">
+            <div className="grid md:grid-cols-3 gap-10 items-start print:hidden">
+                <div className="md:col-span-1">
                     <Image src={course.image} alt={course.title} width={600} height={400} className="w-full h-auto object-cover rounded-2xl shadow-lg" data-ai-hint={course.imageHint} />
                 </div>
-                <div className="flex flex-col h-full">
+                <div className="md:col-span-2 flex flex-col h-full">
                     <h1 className="text-3xl lg:text-4xl font-black font-montserrat mb-4">{course.title}</h1>
                     <div className="flex items-center gap-4 mb-6">
                         <span className={cn("text-white px-4 py-1 rounded-full text-lg font-semibold whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-green-500')}>
@@ -163,10 +163,10 @@ export default function CourseDetailPage() {
                     </button>
                 </div>
                 
-                <div className="overflow-x-auto">
+                <div>
                   {course.id === 'physics-second-part' ? (
                       <>
-                          <table className="w-full min-w-max text-left border-collapse font-tiro-bangla">
+                          <table className="w-full text-left border-collapse font-tiro-bangla">
                               <thead className="bg-yellow-100 print:bg-gray-200">
                                   <tr>
                                       <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">তারিখ</th>
