@@ -91,13 +91,13 @@ export default function CourseDetailPage() {
         )}
       </header>
       
-      <main className="container mx-auto px-6 py-12 print:p-8">
+      <main className="container mx-auto px-6 py-12 print:p-8 print:pb-16">
         <div className="bg-white rounded-3xl shadow-lg p-6 md:p-10 print:shadow-none print:border-none print:p-0">
-            <div className="grid md:grid-cols-3 gap-10 items-start print:hidden">
-                <div className="md:col-span-1">
+            <div className="grid md:grid-cols-3 gap-10 items-start">
+                <div className="md:col-span-1 print:hidden">
                     <Image src={course.image} alt={course.title} width={600} height={400} className="w-full h-auto object-cover rounded-2xl shadow-lg" data-ai-hint={course.imageHint} />
                 </div>
-                <div className="md:col-span-2 flex flex-col h-full">
+                <div className="md:col-span-2 flex flex-col h-full print:hidden">
                     <h1 className="text-3xl lg:text-4xl font-black font-montserrat mb-4">{course.title}</h1>
                     <div className="flex items-center gap-4 mb-6">
                         <span className={cn("text-white px-4 py-1 rounded-full text-lg font-semibold whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-green-500')}>
@@ -182,7 +182,7 @@ export default function CourseDetailPage() {
                                   ))}
                               </tbody>
                           </table>
-                          <p className="text-center text-sm text-gray-600 mt-6 font-tiro-bangla print:hidden">
+                          <p className="text-center text-sm text-gray-600 mt-6 font-tiro-bangla">
                               <strong>নোট:</strong> প্রতিটি পরীক্ষা সকাল ১০ টা থেকে রাত ১০ টা পর্যন্ত অনুষ্ঠিত হবে।
                           </p>
                       </>
@@ -245,6 +245,18 @@ export default function CourseDetailPage() {
           </div>
         </div>
       </footer>
+      
+      {/* Print Footer */}
+      <div className="hidden print:block fixed bottom-0 left-0 w-full p-4 text-center text-xs text-gray-600 border-t bg-white">
+          <div className="flex justify-center items-center gap-4 font-tiro-bangla">
+              <div className="flex items-center gap-2">
+                  <Send size={14} />
+                  <span>সিলেবাসের বাইরে</span>
+              </div>
+              <span>|</span>
+              <span>যেকোনো প্রয়োজনে টেলিগ্রামে @shu_yaib কে মেসেজ করুন</span>
+          </div>
+      </div>
     </div>
   );
 }
