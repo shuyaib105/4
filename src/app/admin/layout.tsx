@@ -9,12 +9,14 @@ import {
   LayoutGrid,
   LogOut,
   User as UserIcon,
-  Shield,
   BookOpen,
+  ClipboardList,
+  BarChart3,
+  Users,
 } from 'lucide-react';
 
 import { useUser, useFirebaseApp } from '@/firebase';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -24,7 +26,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sidebar, SidebarProvider, SidebarTrigger, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 
 const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
@@ -32,6 +33,9 @@ const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
 const navItems = [
   { href: '/admin', text: 'Dashboard', icon: LayoutGrid },
   { href: '/admin/courses', text: 'Courses', icon: BookOpen },
+  { href: '/admin/questions', text: 'Questions', icon: ClipboardList },
+  { href: '/admin/results', text: 'Results', icon: BarChart3 },
+  { href: '/admin/students', text: 'Students', icon: Users },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -49,9 +53,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const isAdmin = user?.email === ADMIN_EMAIL;
 
   useEffect(() => {
-    if (isUserLoading) {
-      return; // Wait for user to load
-    }
+    if (isUserLoading) return;
 
     if (!user) {
       router.push('/login');
@@ -59,7 +61,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       router.push('/dashboard');
     }
   }, [isUserLoading, user, isAdmin, router]);
-
 
   if (isUserLoading || !user || !isAdmin) {
     return (
@@ -75,48 +76,23 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <SidebarProvider>
-    <div className="min-h-screen bg-[#FFFDF5] flex">
-      <Sidebar collapsible="icon" className="hidden md:block">
-        <SidebarHeader>
-           <Link href="/">
-            <Image
-              src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png"
-              alt="Logo"
-              width={60}
-              height={60}
-              quality={100}
-              className="h-14 w-auto"
-            />
-          </Link>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {navItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <Link href={item.href}>
-                  <SidebarMenuButton
-                    isActive={pathname === item.href}
-                    tooltip={item.text}
-                  >
-                    <item.icon />
-                    <span>{item.text}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-      </Sidebar>
-
-      <div className="flex-1 flex flex-col">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-white px-4 sm:px-6">
-          <div className="flex items-center gap-4">
-             <SidebarTrigger className="md:hidden"/>
-             <h1 className="text-xl font-semibold">Admin Panel</h1>
-          </div>
-          
-          <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-[#FFFDF5]">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-white px-4 sm:px-6">
+        <div className="flex items-center gap-4">
+            <Link href="/">
+              <Image
+                src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png"
+                alt="Logo"
+                width={60}
+                height={60}
+                quality={100}
+                className="h-14 w-auto"
+              />
+            </Link>
+            <h1 className="text-xl font-semibold hidden sm:block">Admin Panel</h1>
+        </div>
+        
+        <div className="flex items-center gap-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
@@ -136,31 +112,39 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push('/dashboard')}>
-                  <LayoutGrid className="mr-2 h-4 w-4" />
-                  <span>ড্যাশবোর্ড</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
                   <UserIcon className="mr-2 h-4 w-4" />
-                  <span>প্রোফাইল</span>
+                  <span>User Dashboard</span>
                 </DropdownMenuItem>
-                {isAdmin && (
-                  <DropdownMenuItem onClick={() => router.push('/admin')}>
-                    <Shield className="mr-2 h-4 w-4" />
-                    <span>Admin</span>
-                  </DropdownMenuItem>
-                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>লগআউট</span>
+                  <span>Log Out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
-        </header>
-        <main className="p-6 flex-1 overflow-auto">{children}</main>
-      </div>
+        </div>
+      </header>
+      
+      <main className="p-6 pb-24">{children}</main>
+
+      {/* Bottom Navigation Bar */}
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white shadow-t-lg">
+        <div className="mx-auto grid h-16 max-w-screen-md grid-cols-5 font-medium">
+          {navItems.map((item) => (
+            <Link 
+              href={item.href} 
+              key={item.href} 
+              className={cn(
+                "group inline-flex flex-col items-center justify-center px-5 text-gray-500 hover:bg-gray-50 hover:text-primary",
+                (pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href))) && "text-primary"
+              )}
+            >
+              <item.icon className="mb-1 h-6 w-6" />
+              <span className="text-xs font-bold font-tiro-bangla">{item.text}</span>
+            </Link>
+          ))}
+        </div>
+      </nav>
     </div>
-    </SidebarProvider>
   );
 }
