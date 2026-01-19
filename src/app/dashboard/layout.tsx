@@ -9,6 +9,7 @@ import {
   LayoutGrid,
   LogOut,
   User as UserIcon,
+  Shield,
 } from 'lucide-react';
 
 import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
@@ -64,6 +65,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     return name.charAt(0).toUpperCase();
   };
 
+  const isAdmin = userData?.displayName === 'Shuyaib Islam';
+
   return (
     <div className="min-h-screen bg-[#FFFDF5]">
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-white px-4 sm:px-6">
@@ -109,6 +112,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   <UserIcon className="mr-2 h-4 w-4" />
                   <span>প্রোফাইল</span>
                 </DropdownMenuItem>
+                {isAdmin && (
+                  <DropdownMenuItem onClick={() => router.push('/admin')}>
+                    <Shield className="mr-2 h-4 w-4" />
+                    <span>Admin</span>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
