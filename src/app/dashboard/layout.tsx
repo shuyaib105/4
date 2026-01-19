@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState, useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -13,11 +13,9 @@ import {
   BarChart3,
   User as UserIcon,
   LogOut,
-  Menu,
 } from 'lucide-react';
 
 import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
-import { Button } from '@/components/ui/button';
 import {
   SidebarProvider,
   Sidebar,
@@ -32,13 +30,14 @@ import {
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { doc } from 'firebase/firestore';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const navItems = [
   { href: '/dashboard', icon: LayoutGrid, text: 'ড্যাশবোর্ড' },
-  { href: '#', icon: CalendarCheck, text: 'টাস্ক' },
-  { href: '#', icon: Users, text: 'সকল ব্যাচ' },
-  { href: '#', icon: FileText, text: 'পরীক্ষাসমূহ' },
-  { href: '#', icon: BarChart3, text: 'ফলাফল' },
+  { href: '/dashboard#tasks', icon: CalendarCheck, text: 'টাস্ক' },
+  { href: '/dashboard#batches', icon: Users, text: 'সকল ব্যাচ' },
+  { href: '/dashboard#exams', icon: FileText, text: 'পরীক্ষাসমূহ' },
+  { href: '/dashboard#results', icon: BarChart3, text: 'ফলাফল' },
   { href: '/dashboard/profile', icon: UserIcon, text: 'প্রোফাইল' },
 ];
 
@@ -62,7 +61,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     router.push('/');
   };
 
-  if (isUserLoading || isDataLoading) {
+  if (isUserLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         Loading...
@@ -99,7 +98,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <SidebarMenu>
             {navItems.map((item) => (
               <SidebarMenuItem key={item.href}>
-                <Link href={item.href} legacyBehavior passHref>
+                <Link href={item.href}>
                   <SidebarMenuButton
                     isActive={pathname === item.href}
                     tooltip={item.text}
@@ -130,13 +129,22 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
              {/* Can add a search bar here in the future */}
            </div>
           <div className="flex items-center gap-3">
-             <span className="font-semibold text-gray-700 hidden sm:inline">
-               Welcome, {userData?.displayName || user.displayName || user.email}
-             </span>
-             <Avatar>
-               <AvatarImage src={userData?.photoURL || user.photoURL || undefined} alt={userData?.displayName || ''} />
-               <AvatarFallback>{getInitials(userData?.displayName)}</AvatarFallback>
-             </Avatar>
+            {isDataLoading ? (
+              <>
+                <Skeleton className="h-6 w-32 hidden sm:block" />
+                <Skeleton className="h-10 w-10 rounded-full" />
+              </>
+            ) : (
+             <>
+               <span className="font-semibold text-gray-700 hidden sm:inline">
+                 Welcome, {userData?.displayName || user.displayName || user.email}
+               </span>
+               <Avatar>
+                 <AvatarImage src={userData?.photoURL || user.photoURL || undefined} alt={userData?.displayName || ''} />
+                 <AvatarFallback>{getInitials(userData?.displayName)}</AvatarFallback>
+               </Avatar>
+             </>
+            )}
            </div>
         </header>
         <main className="flex-1 bg-[#FFFDF5] p-6">{children}</main>
