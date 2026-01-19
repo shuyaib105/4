@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useMemo, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,10 +12,8 @@ import {
   Shield,
 } from 'lucide-react';
 
-import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
-import { doc } from 'firebase/firestore';
+import { useUser, useFirebaseApp } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -26,39 +24,35 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
+
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
   const app = useFirebaseApp();
   const auth = getAuth(app);
-  const firestore = useFirestore();
-
-  const userDocRef = useMemo(() => {
-    if (!user) return null;
-    return doc(firestore, 'users', user.uid);
-  }, [user, firestore]);
-
-  const { data: userData, isLoading: isDataLoading } = useDoc(userDocRef);
 
   const handleLogout = async () => {
     await signOut(auth);
     router.push('/');
   };
+  
+  const isAdmin = user?.email === ADMIN_EMAIL;
 
   useEffect(() => {
-    if (isUserLoading || isDataLoading) {
-      return; // Wait for user and data to load
+    if (isUserLoading) {
+      return; // Wait for user to load
     }
 
     if (!user) {
       router.push('/login');
-    } else if (userData?.displayName !== 'Shuyaib Islam') {
+    } else if (!isAdmin) {
       router.push('/dashboard');
     }
-  }, [isUserLoading, isDataLoading, user, userData, router]);
+  }, [isUserLoading, user, isAdmin, router]);
 
 
-  if (isUserLoading || isDataLoading) {
+  if (isUserLoading || !user) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#FFFDF5]">
         <p>Loading...</p>
@@ -66,7 +60,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     );
   }
 
-  if (!user || userData?.displayName !== 'Shuyaib Islam') {
+  if (!isAdmin) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#FFFDF5]">
         <p>Access Denied. Redirecting...</p>
@@ -78,8 +72,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     if (!name) return 'U';
     return name.charAt(0).toUpperCase();
   };
-  
-  const isAdmin = userData?.displayName === 'Shuyaib Islam';
 
   return (
     <div className="min-h-screen bg-[#FFFDF5]">
@@ -100,15 +92,15 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={userData?.photoURL || user.photoURL || undefined} alt={userData?.displayName || ''} />
-                  <AvatarFallback>{getInitials(userData?.displayName || user.displayName)}</AvatarFallback>
+                  <AvatarImage src={user.photoURL || undefined} alt={user.displayName || ''} />
+                  <AvatarFallback>{getInitials(user.displayName)}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{userData?.displayName || user.displayName}</p>
+                  <p className="text-sm font-medium leading-none">{user.displayName}</p>
                   <p className="text-xs leading-none text-muted-foreground">
                     {user.email}
                   </p>

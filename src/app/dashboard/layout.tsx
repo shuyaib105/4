@@ -26,6 +26,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
+
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
@@ -65,7 +67,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     return name.charAt(0).toUpperCase();
   };
 
-  const isAdmin = userData?.displayName === 'Shuyaib Islam';
+  const isAdmin = user.email === ADMIN_EMAIL;
 
   return (
     <div className="min-h-screen bg-[#FFFDF5]">
