@@ -10,8 +10,17 @@ import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { allCourses } from '@/lib/courses';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, LayoutGrid, CalendarCheck, Users, ClipboardList, BarChart3, FilePenLine } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+
+const dashboardNavItems = [
+  { href: '/dashboard', text: 'ড্যাশবোর্ড', icon: LayoutGrid },
+  { href: '#', text: 'টাস্ক', icon: CalendarCheck },
+  { href: '#', text: 'সকল ব্যাচ', icon: Users },
+  { href: '#', text: 'পরীক্ষাসমূহ', icon: ClipboardList },
+  { href: '#', text: 'ফলাফল', icon: BarChart3 },
+  { href: '#', text: 'নোটস', icon: FilePenLine },
+];
 
 
 export default function DashboardPage() {
@@ -32,7 +41,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const enrollCourse = async () => {
       const courseToEnroll = searchParams.get('course');
-      if (courseToEnroll && user) {
+      if (courseToEnroll && user && firestore) {
         const decodedCourseName = decodeURIComponent(courseToEnroll);
         const userDocRef = doc(firestore, 'users', user.uid);
         
@@ -80,11 +89,23 @@ export default function DashboardPage() {
       enrollCourse();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isUserLoading, searchParams, firestore, router, toast]);
+  }, [user, isUserLoading, searchParams, firestore, router]);
 
   if (isUserLoading || isDataLoading) {
     return (
        <>
+        <Card className="mb-8">
+          <CardContent className="p-4">
+            <div className="flex flex-wrap justify-center md:justify-around gap-4">
+              {dashboardNavItems.map((item, index) => (
+                  <div key={index} className="flex flex-col items-center justify-center gap-2 text-center w-20">
+                      <Skeleton className="h-8 w-8 rounded-md" />
+                      <Skeleton className="h-4 w-16" />
+                  </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
         <h1 className="text-3xl font-bold mb-8 font-tiro-bangla">আমার কোর্সসমূহ</h1>
         <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
           {Array.from({ length: 2 }).map((_, index) => (
@@ -116,6 +137,19 @@ export default function DashboardPage() {
 
   return (
     <>
+      <Card className="mb-8">
+        <CardContent className="p-4">
+          <div className="flex flex-wrap justify-center md:justify-around gap-4">
+            {dashboardNavItems.map((item) => (
+                <Link href={item.href} key={item.text} className="flex flex-col items-center justify-center gap-2 text-center text-gray-600 hover:text-primary transition-colors w-20">
+                    <item.icon className="h-8 w-8" />
+                    <span className="text-sm font-medium font-tiro-bangla">{item.text}</span>
+                </Link>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
       <h1 className="text-3xl font-bold mb-8 font-tiro-bangla">আমার কোর্সসমূহ</h1>
       
       {enrolledCourses.length > 0 ? (

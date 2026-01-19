@@ -1,6 +1,6 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore";
 import { firebaseConfig } from "./config";
 
 function initializeFirebase() {
@@ -8,6 +8,20 @@ function initializeFirebase() {
   const app = apps.length > 0 ? apps[0] : initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
+
+  try {
+    enableIndexedDbPersistence(firestore)
+      .catch((err) => {
+        if (err.code === 'failed-precondition') {
+          console.warn("Firebase persistence failed, multiple tabs open.");
+        } else if (err.code === 'unimplemented') {
+          console.warn("Firebase persistence is not available in this browser.");
+        }
+      });
+  } catch (e) {
+    console.error("Firebase persistence error", e);
+  }
+
   return { app, auth, firestore };
 }
 
