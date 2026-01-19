@@ -1,50 +1,33 @@
 'use client';
 
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { getAuth, signOut } from 'firebase/auth';
 import {
   LayoutGrid,
-  CalendarCheck,
-  Users,
-  FileText,
-  BarChart3,
-  User as UserIcon,
   LogOut,
+  User as UserIcon,
 } from 'lucide-react';
 
 import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarHeader,
-  SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarFooter,
-  SidebarInset,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { doc } from 'firebase/firestore';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
-
-const navItems = [
-  { href: '/dashboard', icon: LayoutGrid, text: 'ড্যাশবোর্ড' },
-  { href: '/dashboard#tasks', icon: CalendarCheck, text: 'টাস্ক' },
-  { href: '/dashboard#batches', icon: Users, text: 'সকল ব্যাচ' },
-  { href: '/dashboard#exams', icon: FileText, text: 'পরীক্ষাসমূহ' },
-  { href: '/dashboard#results', icon: BarChart3, text: 'ফলাফল' },
-  { href: '/dashboard/profile', icon: UserIcon, text: 'প্রোফাইল' },
-];
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
-  const pathname = usePathname();
   const app = useFirebaseApp();
   const auth = getAuth(app);
   const firestore = useFirestore();
@@ -61,94 +44,82 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     router.push('/');
   };
 
-  if (isUserLoading) {
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/login');
+    }
+  }, [isUserLoading, user, router]);
+
+
+  if (isUserLoading || !user) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        Loading...
+      <div className="flex h-screen items-center justify-center bg-[#FFFDF5]">
+        <p>Loading...</p>
       </div>
     );
   }
-
-  if (!user) {
-    router.push('/login');
-    return null;
-  }
-
+  
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
     return name.charAt(0).toUpperCase();
   };
 
   return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
-          <Link href="/">
-            <Image
-              src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png"
-              alt="Logo"
-              width={100}
-              height={100}
-              quality={100}
-              className="mx-auto"
-            />
-          </Link>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {navItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <Link href={item.href}>
-                  <SidebarMenuButton
-                    isActive={pathname === item.href}
-                    tooltip={item.text}
-                  >
-                    <item.icon />
-                    <span>{item.text}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-        <SidebarFooter>
-          <SidebarMenu>
-             <SidebarMenuItem>
-                <SidebarMenuButton onClick={handleLogout} tooltip="Logout">
-                  <LogOut />
-                  <span>Logout</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
-      </Sidebar>
-      <SidebarInset>
-        <header className="flex h-14 items-center justify-between gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6">
-           <SidebarTrigger className="md:hidden"/>
-           <div className="flex-1">
-             {/* Can add a search bar here in the future */}
-           </div>
-          <div className="flex items-center gap-3">
-            {isDataLoading ? (
-              <>
-                <Skeleton className="h-6 w-32 hidden sm:block" />
-                <Skeleton className="h-10 w-10 rounded-full" />
-              </>
-            ) : (
-             <>
-               <span className="font-semibold text-gray-700 hidden sm:inline">
-                 Welcome, {userData?.displayName || user.displayName || user.email}
-               </span>
-               <Avatar>
-                 <AvatarImage src={userData?.photoURL || user.photoURL || undefined} alt={userData?.displayName || ''} />
-                 <AvatarFallback>{getInitials(userData?.displayName)}</AvatarFallback>
-               </Avatar>
-             </>
-            )}
-           </div>
-        </header>
-        <main className="flex-1 bg-[#FFFDF5] p-6">{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
+    <div className="min-h-screen bg-[#FFFDF5]">
+      <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-white px-4 sm:px-6">
+        <Link href="/">
+          <Image
+            src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png"
+            alt="Logo"
+            width={60}
+            height={60}
+            quality={100}
+            className="h-14 w-auto"
+          />
+        </Link>
+        
+        <div className="flex items-center gap-4">
+          {isDataLoading ? (
+            <Skeleton className="h-10 w-10 rounded-full" />
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={userData?.photoURL || user.photoURL || undefined} alt={userData?.displayName || ''} />
+                    <AvatarFallback>{getInitials(userData?.displayName || user.displayName)}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{userData?.displayName || user.displayName}</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
+                  <LayoutGrid className="mr-2 h-4 w-4" />
+                  <span>ড্যাশবোর্ড</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
+                  <UserIcon className="mr-2 h-4 w-4" />
+                  <span>প্রোফাইল</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>লগআউট</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </div>
+      </header>
+      <main className="p-6">{children}</main>
+    </div>
   );
 }

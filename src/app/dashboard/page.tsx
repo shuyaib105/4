@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { allCourses } from '@/lib/courses';
 import { BookOpen } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 export default function DashboardPage() {
@@ -83,9 +84,30 @@ export default function DashboardPage() {
 
   if (isUserLoading || isDataLoading) {
     return (
-      <div className="flex items-center justify-center">
-        <div className="text-2xl">Loading...</div>
-      </div>
+       <>
+        <h1 className="text-3xl font-bold mb-8 font-tiro-bangla">আমার কোর্সসমূহ</h1>
+        <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
+          {Array.from({ length: 2 }).map((_, index) => (
+            <Card key={index} className="overflow-hidden shadow-lg bg-white rounded-2xl flex flex-col md:flex-row">
+              <div className="md:w-1/3 flex-shrink-0 bg-gray-100">
+                <Skeleton className="w-full h-full min-h-[200px]" />
+              </div>
+              <div className="p-6 flex flex-col justify-between md:w-2/3">
+                <div>
+                  <Skeleton className="h-7 w-3/4 mb-4" />
+                  <div className="border-t border-gray-200 pt-4">
+                    <Skeleton className="h-5 w-1/4 mb-2" />
+                    <Skeleton className="h-4 w-full" />
+                  </div>
+                </div>
+                <div className="mt-6 self-start md:self-end">
+                  <Skeleton className="h-11 w-36" />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </>
     );
   }
 
