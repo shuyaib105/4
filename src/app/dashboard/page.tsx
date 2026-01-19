@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { useUser, useFirestore, useDoc } from '@/firebase';
-import { doc, setDoc, updateDoc, arrayUnion, serverTimestamp, getDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
@@ -32,54 +32,59 @@ export default function DashboardCoursesPage() {
   useEffect(() => {
     const enrollCourse = async () => {
       const courseToEnroll = searchParams.get('course');
-      if (courseToEnroll && user && firestore) {
-        const decodedCourseName = decodeURIComponent(courseToEnroll);
-        const userDocRef = doc(firestore, 'users', user.uid);
-        
-        const userDoc = await getDoc(userDocRef);
-        const currentData = userDoc.data();
+      // Exit if no course in URL, or if user/data is still loading
+      if (!courseToEnroll || !user || !firestore || isDataLoading) {
+        return;
+      }
 
-        if (currentData && currentData.enrolledCourses && currentData.enrolledCourses.includes(decodedCourseName)) {
-           router.replace('/dashboard');
-          return;
-        }
+      const decodedCourseName = decodeURIComponent(courseToEnroll);
+      const docRef = doc(firestore, 'users', user.uid);
 
-        try {
-          if (userDoc.exists()) {
-            await updateDoc(userDocRef, {
-              enrolledCourses: arrayUnion(decodedCourseName)
-            });
-          } else {
-            await setDoc(userDocRef, {
-                uid: user.uid,
-                displayName: user.displayName,
-                email: user.email,
-                createdAt: serverTimestamp(),
-                enrolledCourses: [decodedCourseName],
-            });
-          }
-          toast({
-            title: "Success",
-            description: `Enrolled in ${decodedCourseName} successfully!`,
+      // Check if already enrolled using data from our hook
+      if (userData?.enrolledCourses?.includes(decodedCourseName)) {
+        // Just remove the query param and do nothing else
+        router.replace('/dashboard');
+        return;
+      }
+
+      try {
+        // If userData is not null, document exists, so update it.
+        if (userData) {
+          await updateDoc(docRef, {
+            enrolledCourses: arrayUnion(decodedCourseName)
           });
-        } catch (e: any) {
-            console.error("Error enrolling course: ", e);
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: "There was a problem enrolling in the course.",
-            });
-        } finally {
-          router.replace('/dashboard');
+        } else {
+          // If userData is null, document doesn't exist, so create it.
+          await setDoc(docRef, {
+              uid: user.uid,
+              displayName: user.displayName,
+              email: user.email,
+              createdAt: serverTimestamp(),
+              enrolledCourses: [decodedCourseName],
+          });
         }
+        toast({
+          title: "Success",
+          description: `Enrolled in ${decodedCourseName} successfully!`,
+        });
+      } catch (e: any) {
+          console.error("Error enrolling course: ", e);
+          toast({
+              variant: "destructive",
+              title: "Error",
+              description: "There was a problem enrolling in the course.",
+          });
+      } finally {
+        // Clean up URL
+        router.replace('/dashboard');
       }
     };
 
-    if (user && !isUserLoading) {
-      enrollCourse();
+    if (!isUserLoading) {
+        enrollCourse();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isUserLoading, searchParams, firestore, router]);
+  // The hook now correctly depends on all its dependencies
+  }, [user, isUserLoading, isDataLoading, userData, searchParams, firestore, router, toast]);
 
   if (isUserLoading || isDataLoading) {
     return (

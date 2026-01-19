@@ -28,12 +28,16 @@ export const useDoc = <T extends DocumentData>(docRef: DocumentReference<T> | nu
         setError(null);
       },
       (err) => {
-        const permissionError = new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'get',
-        });
-        errorEmitter.emit('permission-error', permissionError);
-        setError(permissionError);
+        if (err.code === 'permission-denied') {
+            const permissionError = new FirestorePermissionError({
+              path: docRef.path,
+              operation: 'get',
+            });
+            errorEmitter.emit('permission-error', permissionError);
+            setError(permissionError);
+        } else {
+            setError(err); // Set the actual FirestoreError
+        }
         setIsLoading(false);
         setData(null);
       }
