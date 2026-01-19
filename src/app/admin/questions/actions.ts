@@ -10,6 +10,16 @@ const QuestionSchema = z.object({
   answer: z.string(),
 });
 
+// Extracted validation function to avoid Next.js compiler issues with inline functions in server actions.
+function validateQuestionsJson(val: string) {
+  try {
+    const parsed = JSON.parse(val);
+    const arrayCheck = z.array(QuestionSchema).min(1, "There must be at least one question.").safeParse(parsed);
+    return arrayCheck.success;
+  } catch (e) {
+    return false;
+  }
+}
 
 export const ExamFormSchema = z.object({
   courseId: z.string().min(1, 'Please select a course.'),
@@ -19,15 +29,7 @@ export const ExamFormSchema = z.object({
   duration: z.coerce.number().min(1, 'Duration must be at least 1 minute.'),
   negativeMark: z.coerce.number().min(0, 'Negative mark cannot be negative.'),
   questionsJson: z.string().refine(
-    (val) => {
-      try {
-        const parsed = JSON.parse(val);
-        const arrayCheck = z.array(QuestionSchema).min(1, "There must be at least one question.").safeParse(parsed);
-        return arrayCheck.success;
-      } catch (e) {
-        return false;
-      }
-    },
+    validateQuestionsJson,
     { message: 'Invalid JSON format, empty array, or incorrect question structure.' }
   ),
 });
