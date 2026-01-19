@@ -1,51 +1,30 @@
 'use client';
 
-import { ReactNode, useMemo, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { getAuth, signOut } from 'firebase/auth';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   LayoutGrid,
-  LogOut,
+  ClipboardList,
+  BarChart3,
   User as UserIcon,
-  Shield,
 } from 'lucide-react';
 
-import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useUser } from '@/firebase';
+import { cn } from '@/lib/utils';
 
-const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
+const navItems = [
+  { href: '/dashboard', text: 'কোর্স সমূহ', icon: LayoutGrid },
+  { href: '/dashboard/exams', text: 'পরীক্ষা', icon: ClipboardList },
+  { href: '/dashboard/results', text: 'রেজাল্ট', icon: BarChart3 },
+  { href: '/dashboard/profile', text: 'প্রোফাইল', icon: UserIcon },
+];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
-  const app = useFirebaseApp();
-  const auth = getAuth(app);
-  const firestore = useFirestore();
-
-  const userDocRef = useMemo(() => {
-    if (!user) return null;
-    return doc(firestore, 'users', user.uid);
-  }, [user, firestore]);
-
-  const { data: userData, isLoading: isDataLoading } = useDoc(userDocRef);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    router.push('/');
-  };
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -61,13 +40,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       </div>
     );
   }
-  
-  const getInitials = (name: string | null | undefined) => {
-    if (!name) return 'U';
-    return name.charAt(0).toUpperCase();
-  };
-
-  const isAdmin = user.email === ADMIN_EMAIL;
 
   return (
     <div className="min-h-screen bg-[#FFFDF5]">
@@ -82,55 +54,28 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             className="h-14 w-auto"
           />
         </Link>
-        
-        <div className="flex items-center gap-4">
-          {isDataLoading ? (
-            <Skeleton className="h-10 w-10 rounded-full" />
-          ) : (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src={userData?.photoURL || user.photoURL || undefined} alt={userData?.displayName || ''} />
-                    <AvatarFallback>{getInitials(userData?.displayName || user.displayName)}</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{userData?.displayName || user.displayName}</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push('/dashboard')}>
-                  <LayoutGrid className="mr-2 h-4 w-4" />
-                  <span>ড্যাশবোর্ড</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
-                  <UserIcon className="mr-2 h-4 w-4" />
-                  <span>প্রোফাইল</span>
-                </DropdownMenuItem>
-                {isAdmin && (
-                  <DropdownMenuItem onClick={() => router.push('/admin')}>
-                    <Shield className="mr-2 h-4 w-4" />
-                    <span>Admin</span>
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>লগআউট</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </div>
       </header>
-      <main className="p-6">{children}</main>
+      
+      <main className="p-6 pb-24">{children}</main>
+
+      {/* Bottom Navigation Bar */}
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white shadow-t-lg">
+        <div className="mx-auto grid h-16 max-w-lg grid-cols-4 font-medium">
+          {navItems.map((item) => (
+            <Link 
+              href={item.href} 
+              key={item.text} 
+              className={cn(
+                "group inline-flex flex-col items-center justify-center px-5 text-gray-500 hover:bg-gray-50 hover:text-primary",
+                pathname === item.href && "text-primary"
+              )}
+            >
+              <item.icon className="mb-1 h-6 w-6" />
+              <span className="text-xs font-bold font-tiro-bangla">{item.text}</span>
+            </Link>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }

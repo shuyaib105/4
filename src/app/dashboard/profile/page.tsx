@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { getAuth, updateProfile } from 'firebase/auth';
+import { getAuth, updateProfile, signOut } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
+import { LogOut, BookOpen, Shield } from 'lucide-react';
 
 import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
@@ -27,10 +29,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+
+const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
 
 const profileFormSchema = z.object({
   displayName: z.string().min(1, 'নাম আবশ্যক'),
-  email: z.string().email(),
+  collegeName: z.string().optional(),
   photoURL: z.string().url('সঠিক URL প্রদান করুন').or(z.literal('')),
 });
 
@@ -41,6 +47,7 @@ export default function ProfilePage() {
   const app = useFirebaseApp();
   const firestore = useFirestore();
   const auth = getAuth(app);
+  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,23 +57,34 @@ export default function ProfilePage() {
   }, [user, firestore]);
 
   const { data: userData, isLoading: isDataLoading } = useDoc(userDocRef);
+  const isAdmin = user?.email === ADMIN_EMAIL;
+
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     values: {
       displayName: userData?.displayName || user?.displayName || '',
-      email: userData?.email || user?.email || '',
+      collegeName: userData?.collegeName || '',
       photoURL: userData?.photoURL || user?.photoURL || '',
     },
     mode: 'onChange',
   });
+  
+  useEffect(() => {
+      if(userData) {
+          form.reset({
+              displayName: userData.displayName || user?.displayName || '',
+              collegeName: userData.collegeName || '',
+              photoURL: userData.photoURL || user?.photoURL || '',
+          });
+      }
+  }, [userData, user, form]);
 
   const onSubmit: SubmitHandler<ProfileFormValues> = async (data) => {
     if (!user || !userDocRef) return;
     setIsLoading(true);
 
     try {
-      // Update Firebase Auth profile
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, {
           displayName: data.displayName,
@@ -74,9 +92,9 @@ export default function ProfilePage() {
         });
       }
 
-      // Update Firestore document
       await updateDoc(userDocRef, {
         displayName: data.displayName,
+        collegeName: data.collegeName,
         photoURL: data.photoURL,
       });
 
@@ -96,6 +114,11 @@ export default function ProfilePage() {
     }
   };
   
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/');
+  };
+
   const getInitials = (name: string | null | undefined) => {
     if (!name) return 'U';
     return name.charAt(0).toUpperCase();
@@ -105,18 +128,20 @@ export default function ProfilePage() {
     return <div>Loading profile...</div>;
   }
 
+  const enrolledCourses = userData?.enrolledCourses || [];
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold font-tiro-bangla">প্রোফাইল</h1>
-        <p className="text-muted-foreground font-tiro-bangla">আপনার ব্যক্তিগত তথ্য দেখুন এবং সম্পাদন করুন।</p>
+        <p className="text-muted-foreground font-tiro-bangla">আপনার ব্যক্তিগত তথ্য এবং কোর্স দেখুন।</p>
       </div>
 
       <Card>
         <CardHeader>
           <CardTitle>প্রোফাইল তথ্য</CardTitle>
           <CardDescription>
-            আপনার নাম এবং প্রোফাইল ছবি পরিবর্তন করুন।
+            আপনার নাম, কলেজ এবং প্রোফাইল ছবি পরিবর্তন করুন।
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -157,26 +182,70 @@ export default function ProfilePage() {
                   </FormItem>
                 )}
               />
-              <FormField
+               <FormField
                 control={form.control}
-                name="email"
+                name="collegeName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ইমেইল</FormLabel>
+                    <FormLabel>কলেজের নাম</FormLabel>
                     <FormControl>
-                      <Input readOnly disabled {...field} />
+                      <Input placeholder="আপনার কলেজের নাম" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'সেভ হচ্ছে...' : 'সেভ করুন'}
+                {isLoading ? 'সেভ হচ্ছে...' : 'পরিবর্তন সেভ করুন'}
               </Button>
             </form>
           </Form>
         </CardContent>
       </Card>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="h-6 w-6"/> 
+            <span>আপনার কোর্সসমূহ</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {enrolledCourses.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {enrolledCourses.map((course: string) => (
+                <Badge key={course} variant="secondary" className="text-base font-tiro-bangla p-2">
+                  {course}
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            <p className="font-tiro-bangla text-muted-foreground">আপনি এখনো কোনো কোর্সে এনরোল করেননি।</p>
+          )}
+        </CardContent>
+      </Card>
+      
+      {isAdmin && (
+         <Card>
+            <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+                <Shield className="h-6 w-6"/> 
+                <span>অ্যাডমিন প্যানেল</span>
+            </CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground font-tiro-bangla mb-4">অ্যাডমিন হিসেবে সাইটের সকল কিছু নিয়ন্ত্রণ করুন।</p>
+                <Button onClick={() => router.push('/admin')}>অ্যাডমিন প্যানেলে যান</Button>
+            </CardContent>
+        </Card>
+      )}
+
+      <Separator />
+
+      <Button variant="destructive" onClick={handleLogout} className="w-full md:w-auto">
+        <LogOut className="mr-2 h-4 w-4" />
+        লগআউট
+      </Button>
     </div>
   );
 }

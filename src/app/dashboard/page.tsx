@@ -10,20 +10,11 @@ import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { allCourses } from '@/lib/courses';
-import { BookOpen, LayoutGrid, CalendarCheck, Users, ClipboardList, BarChart3, FilePenLine } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const dashboardNavItems = [
-  { href: '/dashboard', text: 'ড্যাশবোর্ড', icon: LayoutGrid },
-  { href: '#', text: 'টাস্ক', icon: CalendarCheck },
-  { href: '#', text: 'সকল ব্যাচ', icon: Users },
-  { href: '#', text: 'পরীক্ষাসমূহ', icon: ClipboardList },
-  { href: '#', text: 'ফলাফল', icon: BarChart3 },
-  { href: '#', text: 'নোটস', icon: FilePenLine },
-];
 
-
-export default function DashboardPage() {
+export default function DashboardCoursesPage() {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
   const firestore = useFirestore();
@@ -94,18 +85,6 @@ export default function DashboardPage() {
   if (isUserLoading || isDataLoading) {
     return (
        <>
-        <Card className="mb-8">
-          <CardContent className="p-4">
-            <div className="flex flex-wrap justify-center md:justify-around gap-4">
-              {dashboardNavItems.map((item, index) => (
-                  <div key={index} className="flex flex-col items-center justify-center gap-2 text-center w-20">
-                      <Skeleton className="h-8 w-8 rounded-md" />
-                      <Skeleton className="h-4 w-16" />
-                  </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
         <h1 className="text-3xl font-bold mb-8 font-tiro-bangla">আমার কোর্সসমূহ</h1>
         <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
           {Array.from({ length: 2 }).map((_, index) => (
@@ -116,10 +95,6 @@ export default function DashboardPage() {
               <div className="p-6 flex flex-col justify-between md:w-2/3">
                 <div>
                   <Skeleton className="h-7 w-3/4 mb-4" />
-                  <div className="border-t border-gray-200 pt-4">
-                    <Skeleton className="h-5 w-1/4 mb-2" />
-                    <Skeleton className="h-4 w-full" />
-                  </div>
                 </div>
                 <div className="mt-6 self-start md:self-end">
                   <Skeleton className="h-11 w-36" />
@@ -137,19 +112,6 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Card className="mb-8">
-        <CardContent className="p-4">
-          <div className="flex flex-wrap justify-center md:justify-around gap-4">
-            {dashboardNavItems.map((item) => (
-                <Link href={item.href} key={item.text} className="flex flex-col items-center justify-center gap-2 text-center text-gray-600 hover:text-primary transition-colors w-20">
-                    <item.icon className="h-8 w-8" />
-                    <span className="text-sm font-medium font-tiro-bangla">{item.text}</span>
-                </Link>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
       <h1 className="text-3xl font-bold mb-8 font-tiro-bangla">আমার কোর্সসমূহ</h1>
       
       {enrolledCourses.length > 0 ? (
@@ -169,13 +131,9 @@ export default function DashboardPage() {
               <div className="p-6 flex flex-col justify-between md:w-2/3">
                 <div>
                   <h3 className="text-xl font-bold font-tiro-bangla mb-4">{course.title}</h3>
-                  <div className="border-t border-gray-200 pt-4">
-                    <h4 className="font-semibold text-md font-tiro-bangla mb-2 text-accent">কোর্স রুটিন</h4>
-                    <p className="text-gray-600 text-sm font-tiro-bangla">রুটিন খুব শীঘ্রই এখানে আপডেট করা হবে।</p>
-                  </div>
                 </div>
                 <Link href={`/courses/${course.id}`} className="mt-6 self-start md:self-end">
-                  <Button className="w-full md:w-auto bg-black text-white hover:bg-gray-800 font-montserrat">View Details</Button>
+                  <Button className="w-full md:w-auto bg-black text-white hover:bg-gray-800 font-montserrat">রুটিন দেখুন</Button>
                 </Link>
               </div>
             </Card>
