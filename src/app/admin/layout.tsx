@@ -46,16 +46,30 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    if (!isUserLoading && (!user || userData?.displayName !== 'Shuyaib Islam')) {
-      router.push('/login');
+    if (isUserLoading || isDataLoading) {
+      return; // Wait for user and data to load
     }
-  }, [isUserLoading, user, userData, router]);
+
+    if (!user) {
+      router.push('/login');
+    } else if (userData?.displayName !== 'Shuyaib Islam') {
+      router.push('/dashboard');
+    }
+  }, [isUserLoading, isDataLoading, user, userData, router]);
 
 
-  if (isUserLoading || isDataLoading || !user) {
+  if (isUserLoading || isDataLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#FFFDF5]">
         <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!user || userData?.displayName !== 'Shuyaib Islam') {
+    return (
+      <div className="flex h-screen items-center justify-center bg-[#FFFDF5]">
+        <p>Access Denied. Redirecting...</p>
       </div>
     );
   }
