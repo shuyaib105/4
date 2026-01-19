@@ -139,17 +139,28 @@ export default function CourseDetailPage() {
             {/* Routine Section */}
             <div className="mt-16 print:mt-0">
                 {/* Print-only header */}
-                <div className="hidden print:block text-center mb-8">
-                    <Image 
-                        src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" 
-                        alt="Logo" 
-                        width={150} 
-                        height={150} 
-                        className="mx-auto"
-                        quality={100} 
-                    />
-                    <h1 className="text-2xl font-bold mt-4 font-tiro-bangla">{course.title}</h1>
-                    <h2 className="text-lg font-semibold mt-1 font-tiro-bangla">কোর্স রুটিন</h2>
+                <div className="hidden print:block mb-6">
+                    <div className="text-center">
+                        <Image 
+                            src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" 
+                            alt="Logo" 
+                            width={120} 
+                            height={120}
+                            className="mx-auto"
+                            quality={100} 
+                        />
+                        <h1 className="text-2xl font-bold mt-2 font-tiro-bangla">{course.title}</h1>
+                        <h2 className="text-lg font-semibold mt-1 font-tiro-bangla">কোর্স রুটিন</h2>
+                    </div>
+                    <div className="flex justify-between items-center text-xs border-y py-2 my-4">
+                        <a href="https://t.me/syllabuserbaire" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 no-underline">
+                            <Send size={14} />
+                            <span className="font-tiro-bangla font-semibold">সিলেবাসের বাইরে</span>
+                        </a>
+                        <div className="bg-black text-white p-2 rounded-md font-tiro-bangla text-[10px]">
+                            যেকোনো প্রয়োজনে টেলিগ্রামে <a href="https://t.me/shu_yaib" target="_blank" rel="noopener noreferrer" className="font-semibold text-yellow-400 hover:underline">@shu_yaib</a> কে মেসেজ করুন
+                        </div>
+                    </div>
                 </div>
 
                 <div className="flex justify-between items-center mb-8 print:hidden">
@@ -242,18 +253,6 @@ export default function CourseDetailPage() {
           </div>
         </div>
       </footer>
-      
-      {/* Print Footer */}
-      <div className="hidden print:block fixed bottom-0 left-0 w-full p-4 text-center text-xs text-gray-600 border-t bg-white">
-          <div className="flex justify-center items-center gap-4 font-tiro-bangla">
-              <a href="https://t.me/syllabuserbaire" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
-                  <Send size={14} />
-                  <span>সিলেবাসের বাইরে</span>
-              </a>
-              <span>|</span>
-              <span>যেকোনো প্রয়োজনে টেলিগ্রামে <a href="https://t.me/shu_yaib" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">@shu_yaib</a> কে মেসেজ করুন</span>
-          </div>
-      </div>
     </div>
   );
 }

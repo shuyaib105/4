@@ -12,6 +12,7 @@ export const courseTabsData = [
         "features": [
           "১০ টি অধ্যায় ভিত্তিক MCQ Exam",
           "১টি সাবজেক্ট ফাইনাল এক্সাম",
+          "পরীক্ষার সময়: সকাল ১০টা থেকে রাত ১০টা",
           "কোর্স শেষে CQ সাজেশন পিডিএফ ফাইল প্রদান"
         ],
         "image": "https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/phy2f.webp",
