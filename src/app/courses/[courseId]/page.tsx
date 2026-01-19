@@ -97,9 +97,9 @@ export default function CourseDetailPage() {
                 <div className="md:col-span-1 print:hidden">
                     <Image src={course.image} alt={course.title} width={600} height={400} className="w-full h-auto object-cover rounded-2xl shadow-lg" data-ai-hint={course.imageHint} />
                 </div>
-                <div className="md:col-span-2 flex flex-col h-full print:hidden">
-                    <h1 className="text-3xl lg:text-4xl font-black font-montserrat mb-4">{course.title}</h1>
-                    <div className="flex items-center gap-4 mb-6">
+                <div className="md:col-span-2 flex flex-col h-full">
+                    <h1 className="text-3xl lg:text-4xl font-black font-montserrat mb-4 print:hidden">{course.title}</h1>
+                    <div className="flex items-center gap-4 mb-6 print:hidden">
                         <span className={cn("text-white px-4 py-1 rounded-full text-lg font-semibold whitespace-nowrap", course.price === 'EXPIRED' ? 'bg-destructive' : 'bg-green-500')}>
                             {course.price}
                         </span>
@@ -110,9 +110,9 @@ export default function CourseDetailPage() {
                             </div>
                         )}
                     </div>
-                    {course.description && <p className="text-lg leading-relaxed text-gray-700 font-tiro-bangla mb-8">{course.description}</p>}
+                    {course.description && <p className="text-lg leading-relaxed text-gray-700 font-tiro-bangla mb-8 print:hidden">{course.description}</p>}
                     
-                    <div className="bg-yellow-50/50 border border-yellow-200 rounded-xl p-6 my-6">
+                    <div className="bg-yellow-50/50 border border-yellow-200 rounded-xl p-6 my-6 print:hidden">
                         <h3 className="font-bold text-xl mb-4 font-tiro-bangla">কোর্সের ফিচারসমূহ</h3>
                         <div className="space-y-3">
                         {course.features.map(feature => (
@@ -124,7 +124,7 @@ export default function CourseDetailPage() {
                         </div>
                     </div>
 
-                    <div className="mt-auto">
+                    <div className="mt-auto print:hidden">
                         <button
                             onClick={executeRedirect}
                             disabled={course.disabled}
@@ -165,27 +165,24 @@ export default function CourseDetailPage() {
                 
                 <div>
                   {course.id === 'physics-second-part' ? (
-                      <>
-                          <table className="w-full text-left border-collapse font-tiro-bangla">
-                              <thead className="bg-yellow-100 print:bg-gray-200">
-                                  <tr>
-                                      <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">তারিখ</th>
-                                      <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">পরীক্ষার বিষয়/টপিক</th>
+                      <table className="w-full text-left border-collapse font-tiro-bangla">
+                          <thead className="bg-yellow-100 print:bg-gray-200">
+                              <tr>
+                                  <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">তারিখ</th>
+                                  <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black">পরীক্ষার বিষয়/টপিক</th>
+                                  <th className="p-4 border-b-2 border-yellow-300 text-base font-bold text-accent print:text-black hidden print:table-cell">সময়</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {physicsRoutine.map((item, index) => (
+                                  <tr key={index} className="odd:bg-white even:bg-yellow-50/50 hover:bg-yellow-100 transition-colors">
+                                      <td className="p-4 border-b border-yellow-100 text-gray-700">{item.date}</td>
+                                      <td className="p-4 border-b border-yellow-100 text-gray-800 font-medium">{item.topic}</td>
+                                      <td className="p-4 border-b border-yellow-100 text-gray-700 hidden print:table-cell">সকাল ১০ টা - রাত ১০ টা</td>
                                   </tr>
-                              </thead>
-                              <tbody>
-                                  {physicsRoutine.map((item, index) => (
-                                      <tr key={index} className="odd:bg-white even:bg-yellow-50/50 hover:bg-yellow-100 transition-colors">
-                                          <td className="p-4 border-b border-yellow-100 text-gray-700">{item.date}</td>
-                                          <td className="p-4 border-b border-yellow-100 text-gray-800 font-medium">{item.topic}</td>
-                                      </tr>
-                                  ))}
-                              </tbody>
-                          </table>
-                          <p className="text-center text-sm text-gray-600 mt-6 font-tiro-bangla">
-                              <strong>নোট:</strong> প্রতিটি পরীক্ষা সকাল ১০ টা থেকে রাত ১০ টা পর্যন্ত অনুষ্ঠিত হবে।
-                          </p>
-                      </>
+                              ))}
+                          </tbody>
+                      </table>
                   ) : (
                       <p className="text-center text-gray-500">কোর্স রুটিন খুব শীঘ্রই এখানে আপডেট করা হবে।</p>
                   )}
@@ -249,12 +246,12 @@ export default function CourseDetailPage() {
       {/* Print Footer */}
       <div className="hidden print:block fixed bottom-0 left-0 w-full p-4 text-center text-xs text-gray-600 border-t bg-white">
           <div className="flex justify-center items-center gap-4 font-tiro-bangla">
-              <div className="flex items-center gap-2">
+              <a href="https://t.me/syllabuserbaire" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 hover:underline">
                   <Send size={14} />
                   <span>সিলেবাসের বাইরে</span>
-              </div>
+              </a>
               <span>|</span>
-              <span>যেকোনো প্রয়োজনে টেলিগ্রামে @shu_yaib কে মেসেজ করুন</span>
+              <span>যেকোনো প্রয়োজনে টেলিগ্রামে <a href="https://t.me/shu_yaib" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">@shu_yaib</a> কে মেসেজ করুন</span>
           </div>
       </div>
     </div>
