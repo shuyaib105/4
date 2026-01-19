@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { getAuth, updateProfile, signOut } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
-import { LogOut, BookOpen, Shield } from 'lucide-react';
+import { LogOut, BookOpen, Shield, User } from 'lucide-react';
 
 import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
@@ -28,7 +28,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
@@ -37,7 +36,6 @@ const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
 const profileFormSchema = z.object({
   displayName: z.string().min(1, 'নাম আবশ্যক'),
   collegeName: z.string().optional(),
-  photoURL: z.string().url('সঠিক URL প্রদান করুন').or(z.literal('')),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -65,7 +63,6 @@ export default function ProfilePage() {
     values: {
       displayName: userData?.displayName || user?.displayName || '',
       collegeName: userData?.collegeName || '',
-      photoURL: userData?.photoURL || user?.photoURL || '',
     },
     mode: 'onChange',
   });
@@ -75,7 +72,6 @@ export default function ProfilePage() {
           form.reset({
               displayName: userData.displayName || user?.displayName || '',
               collegeName: userData.collegeName || '',
-              photoURL: userData.photoURL || user?.photoURL || '',
           });
       }
   }, [userData, user, form]);
@@ -88,14 +84,12 @@ export default function ProfilePage() {
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, {
           displayName: data.displayName,
-          photoURL: data.photoURL,
         });
       }
 
       await updateDoc(userDocRef, {
         displayName: data.displayName,
         collegeName: data.collegeName,
-        photoURL: data.photoURL,
       });
 
       toast({
@@ -119,11 +113,6 @@ export default function ProfilePage() {
     router.push('/');
   };
 
-  const getInitials = (name: string | null | undefined) => {
-    if (!name) return 'U';
-    return name.charAt(0).toUpperCase();
-  };
-
   if (isDataLoading) {
     return <div>Loading profile...</div>;
   }
@@ -139,36 +128,21 @@ export default function ProfilePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>প্রোফাইল তথ্য</CardTitle>
-          <CardDescription>
-            আপনার নাম, কলেজ এবং প্রোফাইল ছবি পরিবর্তন করুন।
-          </CardDescription>
+          <div className="flex items-center gap-4">
+            <div className="bg-gray-100 p-3 rounded-full">
+              <User className="h-6 w-6 text-gray-600" />
+            </div>
+            <div>
+              <CardTitle>প্রোফাইল তথ্য</CardTitle>
+              <CardDescription>
+                আপনার নাম এবং কলেজ পরিবর্তন করুন।
+              </CardDescription>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="flex items-center gap-4">
-                 <Avatar className="h-20 w-20">
-                    <AvatarImage src={form.watch('photoURL') || userData?.photoURL || ''} />
-                    <AvatarFallback>{getInitials(form.watch('displayName') || userData?.displayName)}</AvatarFallback>
-                </Avatar>
-                <div className="flex-grow">
-                    <FormField
-                      control={form.control}
-                      name="photoURL"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>প্রোফাইল ছবির URL</FormLabel>
-                          <FormControl>
-                            <Input placeholder="https://example.com/image.png" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                </div>
-              </div>
-
               <FormField
                 control={form.control}
                 name="displayName"

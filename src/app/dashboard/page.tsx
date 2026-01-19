@@ -54,7 +54,6 @@ export default function DashboardCoursesPage() {
                 uid: user.uid,
                 displayName: user.displayName,
                 email: user.email,
-                photoURL: user.photoURL || null,
                 createdAt: serverTimestamp(),
                 enrolledCourses: [decodedCourseName],
             });

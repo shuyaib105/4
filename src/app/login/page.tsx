@@ -74,7 +74,6 @@ export default function LoginPage() {
             uid: user.uid,
             displayName: name,
             email: user.email,
-            photoURL: user.photoURL || null,
             createdAt: serverTimestamp(),
             enrolledCourses: [],
         });
