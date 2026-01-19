@@ -3,20 +3,17 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { allCourses } from '@/lib/courses';
 import { useToast } from '@/hooks/use-toast';
-import { uploadExamAction, ExamFormSchema } from './actions';
+import { uploadExamAction } from './actions';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-
-type ExamFormValues = z.infer<typeof ExamFormSchema>;
+import { ExamFormSchema, type ExamFormValues } from './schema';
 
 export default function AdminQuestionsPage() {
   const [isLoading, setIsLoading] = useState(false);
