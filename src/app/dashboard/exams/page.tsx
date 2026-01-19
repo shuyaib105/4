@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { collection, query, where } from 'firebase/firestore';
+import { collection, query, where, doc } from 'firebase/firestore';
 import { useCollection, useDoc, useFirestore, useUser } from '@/firebase';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -57,9 +57,8 @@ export default function ExamsPage() {
   const { user, isLoading: isUserLoading } = useUser();
   const firestore = useFirestore();
   
-  const userDocRef = useMemo(() => user ? query(collection(firestore, 'users'), where('uid', '==', user.uid)) : null, [user, firestore]);
-  const { data: userDataArr, isLoading: isUserDataLoading } = useCollection(userDocRef);
-  const userData = useMemo(() => (userDataArr && userDataArr.length > 0 ? userDataArr[0] : null), [userDataArr]);
+  const userDocRef = useMemo(() => user ? doc(firestore, 'users', user.uid) : null, [user, firestore]);
+  const { data: userData, isLoading: isUserDataLoading } = useDoc(userDocRef);
   
   const enrolledCourseTitles = useMemo(() => userData?.enrolledCourses || [], [userData]);
   const enrolledCourseIds = useMemo(() => allCourses.filter(c => enrolledCourseTitles.includes(c.title)).map(c => c.id), [enrolledCourseTitles]);
@@ -82,6 +81,8 @@ export default function ExamsPage() {
     const upcoming: Exam[] = [];
 
     exams.forEach(exam => {
+      if (!exam.startTime || !exam.endTime) return; // Defensive check for malformed data
+      
       const startTime = exam.startTime.toDate();
       const endTime = exam.endTime.toDate();
 
