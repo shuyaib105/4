@@ -1,3 +1,4 @@
+
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore";
@@ -5,11 +6,14 @@ import { firebaseConfig } from "./config";
 
 function initializeFirebase() {
   const apps = getApps();
-  const app = apps.length > 0 ? apps[0] : initializeApp(firebaseConfig);
+  const isInitialized = apps.length > 0;
+  const app = isInitialized ? apps[0] : initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
 
-  try {
+  if (!isInitialized) {
+    // Only enable persistence on the very first initialization.
+    // This avoids the error during hot-reloads.
     enableIndexedDbPersistence(firestore)
       .catch((err) => {
         if (err.code === 'failed-precondition') {
@@ -18,8 +22,6 @@ function initializeFirebase() {
           console.warn("Firebase persistence is not available in this browser.");
         }
       });
-  } catch (e) {
-    console.error("Firebase persistence error", e);
   }
 
   return { app, auth, firestore };
