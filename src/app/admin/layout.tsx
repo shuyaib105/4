@@ -3,16 +3,11 @@
 import { ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { getAuth, signOut } from 'firebase/auth';
 import {
-  LayoutGrid,
   LogOut,
   User as UserIcon,
-  BookOpen,
-  ClipboardList,
-  BarChart3,
-  Users,
 } from 'lucide-react';
 
 import { useUser, useFirebaseApp } from '@/firebase';
@@ -26,24 +21,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from '@/lib/utils';
 
 const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
-
-const navItems = [
-  { href: '/admin', text: 'Dashboard', icon: LayoutGrid },
-  { href: '/admin/courses', text: 'Courses', icon: BookOpen },
-  { href: '/admin/questions', text: 'Questions', icon: ClipboardList },
-  { href: '/admin/results', text: 'Results', icon: BarChart3 },
-  { href: '/admin/students', text: 'Students', icon: Users },
-];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
   const app = useFirebaseApp();
   const auth = getAuth(app);
-  const pathname = usePathname();
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -125,26 +110,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
       
-      <main className="p-6 pb-24">{children}</main>
-
-      {/* Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white shadow-t-lg">
-        <div className="mx-auto grid h-16 max-w-screen-md grid-cols-5 font-medium">
-          {navItems.map((item) => (
-            <Link 
-              href={item.href} 
-              key={item.href} 
-              className={cn(
-                "group inline-flex flex-col items-center justify-center px-5 text-gray-500 hover:bg-gray-50 hover:text-primary",
-                (pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href))) && "text-primary"
-              )}
-            >
-              <item.icon className="mb-1 h-6 w-6" />
-              <span className="text-xs font-bold font-tiro-bangla">{item.text}</span>
-            </Link>
-          ))}
-        </div>
-      </nav>
+      <main className="p-6">{children}</main>
     </div>
   );
 }

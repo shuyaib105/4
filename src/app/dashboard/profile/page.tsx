@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { getAuth, updateProfile, signOut } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
-import { LogOut, BookOpen, Shield, User } from 'lucide-react';
+import { LogOut, BookOpen, User } from 'lucide-react';
 
 import { useUser, useFirebaseApp, useFirestore, useDoc } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
@@ -31,8 +31,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
-const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
-
 const profileFormSchema = z.object({
   displayName: z.string().min(1, 'নাম আবশ্যক'),
   collegeName: z.string().optional(),
@@ -55,8 +53,6 @@ export default function ProfilePage() {
   }, [user, firestore]);
 
   const { data: userData, isLoading: isDataLoading } = useDoc(userDocRef);
-  const isAdmin = user?.email === ADMIN_EMAIL;
-
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -199,21 +195,6 @@ export default function ProfilePage() {
         </CardContent>
       </Card>
       
-      {isAdmin && (
-         <Card>
-            <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-                <Shield className="h-6 w-6"/> 
-                <span>অ্যাডমিন প্যানেল</span>
-            </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-muted-foreground font-tiro-bangla mb-4">অ্যাডমিন হিসেবে সাইটের সকল কিছু নিয়ন্ত্রণ করুন।</p>
-                <Button onClick={() => router.push('/admin')}>অ্যাডমিন প্যানেলে যান</Button>
-            </CardContent>
-        </Card>
-      )}
-
       <Separator />
 
       <Button variant="destructive" onClick={handleLogout} className="w-full md:w-auto">
