@@ -39,11 +39,13 @@ export default function AdminQuestionsPage() {
   });
 
   async function onSubmit(data: ExamFormValues) {
+    // 1. Check if the user is the admin. This is a client-side check for better UX.
+    // The true security is handled by Firestore Security Rules.
     if (!user || user.email !== ADMIN_EMAIL) {
       toast({
         variant: 'destructive',
         title: 'Permission Denied',
-        description: 'You do not have permission to upload exams.',
+        description: 'You do not have the required permissions to upload an exam.',
       });
       return;
     }
@@ -51,15 +53,19 @@ export default function AdminQuestionsPage() {
     setIsLoading(true);
     try {
       const { courseId, examName, startTime, endTime, duration, negativeMark, questionsJson } = data;
+      
+      // The Zod schema already validates the JSON structure, but we still need to parse it.
       const questions = JSON.parse(questionsJson);
 
+      // The `firestore` instance here is from the client, so it's authenticated.
+      // Firestore will now check the security rules using this user's authentication.
       await addDoc(collection(firestore, 'exams'), {
         courseId,
         examName,
         startTime: Timestamp.fromDate(new Date(startTime)),
         endTime: Timestamp.fromDate(new Date(endTime)),
-        duration,
-        negativeMark,
+        duration: Number(duration),
+        negativeMark: Number(negativeMark),
         questions,
         createdAt: Timestamp.now(),
       });
@@ -68,15 +74,21 @@ export default function AdminQuestionsPage() {
         title: 'Success!',
         description: 'The exam has been uploaded successfully.',
       });
-      form.reset();
+      form.reset(); // Reset form on successful upload.
     } catch (error: any) {
       console.error('Error uploading exam:', error);
+      let description = 'An unknown error occurred. Please check the console for details.';
+      // Provide a more specific error message for permission denied.
+      if (error.code === 'permission-denied') {
+          description = 'Permission denied by security rules. Please ensure you are logged in with the admin email (mdshuyaibislam5050@gmail.com).';
+      } else if (error instanceof SyntaxError) {
+          description = 'The provided JSON for questions is invalid. Please check the format.';
+      }
+      
       toast({
         variant: 'destructive',
         title: 'Upload Failed',
-        description: error.code === 'permission-denied' 
-            ? 'Permission denied by security rules. Ensure you are logged in as admin.'
-            : 'An unknown error occurred while uploading the exam.',
+        description: description,
       });
     } finally {
       setIsLoading(false);
