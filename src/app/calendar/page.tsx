@@ -1,12 +1,11 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserRound, Menu, Send, Shield, Calendar as CalendarIcon, Clock, BookText } from 'lucide-react';
+import { UserRound, Menu, Send, Shield, Calendar as CalendarIcon, Clock } from 'lucide-react';
 import { useUser } from '@/firebase';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { format } from 'date-fns';
 import { bn } from 'date-fns/locale';
 
@@ -53,18 +52,18 @@ const Countdown = ({ targetDate }: { targetDate: string }) => {
 
     Object.entries(timeLeft).forEach(([interval, value]) => {
         timerComponents.push(
-        <div key={interval} className="flex flex-col items-center">
-            <span className="text-2xl md:text-3xl font-bold text-accent">
+        <div key={interval} className="flex flex-col items-center leading-none">
+            <span className="text-xl font-bold text-accent">
             {value.toLocaleString('bn-BD')}
             </span>
-            <span className="text-xs text-muted-foreground">{interval}</span>
+            <span className="text-[10px] text-muted-foreground">{interval}</span>
         </div>
         );
     });
   
   return (
-    <div className="flex justify-center gap-4 md:gap-6 mt-4">
-      {timerComponents.length ? timerComponents : <span className="text-lg font-bold text-destructive">সময় শেষ!</span>}
+    <div className="flex justify-end gap-3">
+      {timerComponents.length ? timerComponents : <span className="text-sm font-bold text-destructive">সময় শেষ!</span>}
     </div>
   );
 };
@@ -125,26 +124,36 @@ export default function CalendarPage() {
             </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {examSchedule.map((exam, index) => (
-                <Card key={index} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <CardHeader className="text-center pb-4">
-                        <div className="flex justify-center items-center gap-3">
-                            <BookText className="w-6 h-6 text-primary" />
-                            <CardTitle className="font-tiro-bangla text-2xl">{exam.subject}</CardTitle>
-                        </div>
-                         <p className="text-sm text-muted-foreground font-semibold flex items-center justify-center gap-2 pt-2">
-                            <CalendarIcon className="w-4 h-4"/>
-                            {format(new Date(exam.date), "d MMMM, yyyy", { locale: bn })}
-                            <Clock className="w-4 h-4 ml-2"/>
-                            {format(new Date(exam.date), "p", { locale: bn })}
-                        </p>
-                    </CardHeader>
-                    <CardContent>
-                       <Countdown targetDate={exam.date} />
-                    </CardContent>
-                </Card>
-            ))}
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-yellow-100">
+            <Table>
+                <TableHeader className="bg-yellow-50/50">
+                    <TableRow className="border-b border-yellow-200">
+                        <TableHead className="w-[40%] py-4 px-6 font-tiro-bangla text-base text-accent">বিষয়</TableHead>
+                        <TableHead className="w-[30%] py-4 px-6 font-tiro-bangla text-base text-accent">তারিখ ও সময়</TableHead>
+                        <TableHead className="w-[30%] py-4 px-6 text-right font-tiro-bangla text-base text-accent">সময় বাকি</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {examSchedule.map((exam, index) => (
+                        <TableRow key={index} className="border-b border-yellow-100 last:border-b-0 hover:bg-yellow-50/20">
+                            <TableCell className="px-6 py-5 font-medium font-tiro-bangla text-gray-800 text-base">{exam.subject}</TableCell>
+                            <TableCell className="px-6">
+                                <div className="flex items-center gap-2">
+                                    <CalendarIcon className="w-4 h-4 text-gray-500"/>
+                                    <span className="font-semibold text-gray-700">{format(new Date(exam.date), "d MMMM, yyyy", { locale: bn })}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-gray-500">
+                                     <Clock className="w-4 h-4"/>
+                                     <span>{format(new Date(exam.date), "p", { locale: bn })}</span>
+                                </div>
+                            </TableCell>
+                            <TableCell className="px-6 text-right">
+                               <Countdown targetDate={exam.date} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
 
       </main>
