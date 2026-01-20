@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
@@ -20,8 +21,49 @@ interface Exam extends DocumentData {
 }
 
 function ExamCard({ exam }: { exam: Exam }) {
-    const startTime = new Date(exam.startTime.seconds * 1000);
-    const endTime = new Date(exam.endTime.seconds * 1000);
+    const router = useRouter();
+    const [status, setStatus] = useState<'upcoming' | 'active' | 'finished'>('upcoming');
+
+    const startTime = useMemo(() => new Date(exam.startTime.seconds * 1000), [exam.startTime]);
+    const endTime = useMemo(() => new Date(exam.endTime.seconds * 1000), [exam.endTime]);
+
+    useEffect(() => {
+        const updateStatus = () => {
+            const now = new Date();
+            if (now < startTime) {
+                setStatus('upcoming');
+            } else if (now > endTime) {
+                setStatus('finished');
+            } else {
+                setStatus('active');
+            }
+        };
+
+        updateStatus();
+        const interval = setInterval(updateStatus, 1000);
+
+        return () => clearInterval(interval);
+    }, [startTime, endTime]);
+
+    const handleStartExam = () => {
+        if (status === 'active') {
+            router.push(`/exam/${exam.id}`);
+        }
+    };
+
+    let buttonText: string;
+    switch (status) {
+        case 'active':
+            buttonText = 'Start Exam';
+            break;
+        case 'finished':
+            buttonText = 'Finished';
+            break;
+        case 'upcoming':
+        default:
+            buttonText = 'Upcoming';
+            break;
+    }
     
     return (
         <Card>
@@ -44,7 +86,13 @@ function ExamCard({ exam }: { exam: Exam }) {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button className="w-full" disabled>Start Exam (Coming Soon)</Button>
+                <Button 
+                    className="w-full" 
+                    disabled={status !== 'active'}
+                    onClick={handleStartExam}
+                >
+                    {buttonText}
+                </Button>
             </CardFooter>
         </Card>
     );
@@ -55,8 +103,8 @@ function ExamList({ exams, status }: { exams: Exam[] | null, status: 'loading' |
     if (status === 'loading') {
         return (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Skeleton className="h-48 w-full" />
-                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-56 w-full" />
+                <Skeleton className="h-56 w-full" />
             </div>
         );
     }
@@ -97,11 +145,15 @@ export default function ExamsPage() {
         return allExams.filter(exam => enrolledCourses.includes(exam.courseName));
     }, [allExams, enrolledCourses]);
 
-    const categorizedExams = useMemo(() => {
+    const [categorizedExams, setCategorizedExams] = useState<{today: Exam[], past: Exam[], upcoming: Exam[]}>({ today: [], past: [], upcoming: [] });
+
+    useEffect(() => {
+        if (!filteredExams) return;
+
         const now = new Date();
-        const today = [];
-        const past = [];
-        const upcoming = [];
+        const today: Exam[] = [];
+        const past: Exam[] = [];
+        const upcoming: Exam[] = [];
 
         for (const exam of filteredExams) {
             const startTime = new Date(exam.startTime.seconds * 1000);
@@ -115,7 +167,7 @@ export default function ExamsPage() {
                 today.push(exam);
             }
         }
-        return { today, past, upcoming };
+        setCategorizedExams({ today, past, upcoming });
     }, [filteredExams]);
 
     const isLoading = isUserLoading || isDataLoading || examsLoading;
