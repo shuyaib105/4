@@ -1,73 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserRound, Menu, Send, Shield, Calendar as CalendarIcon, Clock } from 'lucide-react';
+import { UserRound, Menu, Send, Shield, Lock } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { format } from 'date-fns';
-import { bn } from 'date-fns/locale';
-
-// Exam schedule data
-const examSchedule = [
-  { subject: 'পদার্থবিজ্ঞান ১ম পত্র', date: '2025-06-20T10:00:00' },
-  { subject: 'পদার্থবিজ্ঞান ২য় পত্র', date: '2025-06-22T10:00:00' },
-  { subject: 'রসায়ন ১ম পত্র', date: '2025-06-24T10:00:00' },
-  { subject: 'রসায়ন ২য় পত্র', date: '2025-06-26T10:00:00' },
-  { subject: 'উচ্চতর গণিত ১ম পত্র', date: '2025-06-28T10:00:00' },
-  { subject: 'উচ্চতর গণিত ২য় পত্র', date: '2025-06-30T10:00:00' },
-  { subject: 'জীববিজ্ঞান ১ম পত্র', date: '2025-07-02T10:00:00' },
-  { subject: 'জীববিজ্ঞান ২য় পত্র', date: '2025-07-04T10:00:00' },
-];
-
-const Countdown = ({ targetDate }: { targetDate: string }) => {
-    const calculateTimeLeft = () => {
-        const difference = +new Date(targetDate) - +new Date();
-        let timeLeft = {};
-
-        if (difference > 0) {
-        timeLeft = {
-            দিন: Math.floor(difference / (1000 * 60 * 60 * 24)),
-            ঘন্টা: Math.floor((difference / (1000 * 60 * 60)) % 24),
-            মিনিট: Math.floor((difference / 1000 / 60) % 60),
-            সেকেন্ড: Math.floor((difference / 1000) % 60),
-        };
-        }
-
-        return timeLeft;
-    };
-
-    const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-        setTimeLeft(calculateTimeLeft());
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [targetDate]);
-
-    const timerComponents: JSX.Element[] = [];
-
-    Object.entries(timeLeft).forEach(([interval, value]) => {
-        timerComponents.push(
-        <div key={interval} className="flex flex-col items-center leading-none">
-            <span className="text-xl font-bold text-accent">
-            {value.toLocaleString('bn-BD')}
-            </span>
-            <span className="text-[10px] text-muted-foreground">{interval}</span>
-        </div>
-        );
-    });
-  
-  return (
-    <div className="flex justify-end gap-3">
-      {timerComponents.length ? timerComponents : <span className="text-sm font-bold text-destructive">সময় শেষ!</span>}
-    </div>
-  );
-};
-
 
 export default function CalendarPage() {
   const [showMenu, setShowMenu] = useState(false);
@@ -134,24 +72,15 @@ export default function CalendarPage() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {examSchedule.map((exam, index) => (
-                        <TableRow key={index} className="border-b border-yellow-100 last:border-b-0 hover:bg-yellow-50/20">
-                            <TableCell className="px-6 py-5 font-medium font-tiro-bangla text-gray-800 text-base">{exam.subject}</TableCell>
-                            <TableCell className="px-6">
-                                <div className="flex items-center gap-2">
-                                    <CalendarIcon className="w-4 h-4 text-gray-500"/>
-                                    <span className="font-semibold text-gray-700">{format(new Date(exam.date), "d MMMM, yyyy", { locale: bn })}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-gray-500">
-                                     <Clock className="w-4 h-4"/>
-                                     <span>{format(new Date(exam.date), "p", { locale: bn })}</span>
-                                </div>
-                            </TableCell>
-                            <TableCell className="px-6 text-right">
-                               <Countdown targetDate={exam.date} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                     <TableRow>
+                        <TableCell colSpan={3} className="py-16 text-center">
+                            <div className="flex flex-col items-center justify-center gap-4">
+                                <Lock className="w-12 h-12 text-gray-300" />
+                                <h3 className="text-lg font-bold font-tiro-bangla text-gray-500">রুটিন এখনো প্রকাশিত হয়নি</h3>
+                                <p className="text-muted-foreground font-tiro-bangla">বোর্ড থেকে চূড়ান্ত রুটিন প্রকাশিত হওয়ার সাথে সাথেই এখানে ক্যালেন্ডার আপডেট করা হবে।</p>
+                            </div>
+                        </TableCell>
+                    </TableRow>
                 </TableBody>
             </Table>
         </div>
