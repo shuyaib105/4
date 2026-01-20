@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getFirestore, addDoc, collection, Timestamp } from 'firebase/firestore';
+import { format } from 'date-fns';
 
 import { useFirebaseApp, useUser } from '@/firebase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +19,134 @@ import { ExamFormSchema, type ExamFormValues } from './schema';
 
 const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
 
+const physicsQuestions = [
+    {
+        "question": "কুলম্ব ধ্রুবকের একক কোনটি?",
+        "options": ["C² N⁻¹ m⁻²", "C² N m⁻²", "N m² C⁻²", "N m² C²"],
+        "answer": "N m² C⁻²"
+    },
+    {
+        "question": "নিচের কোন পদার্থের পরাবৈদ্যুতিক ধ্রুবকের মান সর্বোচ্চ?",
+        "options": ["বায়ু", "কাগজ", "সিলিকন", "পানি"],
+        "answer": "পানি"
+    },
+    {
+        "question": "আধান ও বিভবের গুণফলের একক কোনটি?",
+        "options": ["ভোল্ট", "ফ্যারাড", "জুল", "হেনরি"],
+        "answer": "জুল"
+    },
+    {
+        "question": "শূন্য মাধ্যমে তড়িৎ ভেদনযোগ্যতার একক কোনটি?",
+        "options": ["C² N⁻¹ m⁻²", "N A⁻²", "N m² C⁻²", "A m⁻²"],
+        "answer": "C² N⁻¹ m⁻²"
+    },
+    {
+        "question": "তড়িৎ দ্বিমেরু ভ্রামকের মাত্রা কোনটি?",
+        "options": ["L T⁻¹", "LTI", "L² T¹", "LTI²"],
+        "answer": "LTI"
+    },
+    {
+        "question": "কোন গোলাকার পরিবাহীর আধান ও ক্ষেত্রফল চারগুণ করা হলে চার্জের তলমাত্রিক ঘনত্ব হবে-",
+        "options": ["ষোলোগুণ", "চারগুণ", "অসীম", "অপরিবর্তিত থাকবে"],
+        "answer": "অপরিবর্তিত থাকবে"
+    },
+    {
+        "question": "তড়িৎ দ্বিমেরু ভ্রামকের একক নিচের কোনটি?",
+        "options": ["কুলম্ব/মিটার", "কুলম্ব-মিটার", "মিটার/কুলম্ব", "কুলম্ব/মিটার²"],
+        "answer": "কুলম্ব-মিটার"
+    },
+    {
+        "question": "তড়িৎ প্রাবল্য ও তড়িৎ বিভবের মধ্যে সম্পর্ক নিম্নের কোনটি?",
+        "options": ["E = V/r", "V = E/r", "E = r/V", "E = V/r²"],
+        "answer": "E = V/r"
+    },
+    {
+        "question": "তড়িৎ বিভবের ঋণাত্মক গ্রেডিয়েন্টকে কী বলে?",
+        "options": ["চার্জ ঘনত্ব", "তড়িৎ ফ্লাক্স", "তড়িৎ প্রাবল্য", "ধারকত্ব"],
+        "answer": "তড়িৎ প্রাবল্য"
+    },
+    {
+        "question": "গাউসের সূত্রানুসারে কোনটি সঠিক?",
+        "options": ["μ₀Φ = q", "μ₀q = Φ", "ε₀q = Φ", "q = Φε₀"],
+        "answer": "q = Φε₀"
+    },
+    {
+        "question": "তড়িৎ ফ্লাক্সের একক-",
+        "options": ["N m⁻² C", "N m² C", "N⁻¹ m² C", "N m² C⁻¹"],
+        "answer": "N m² C⁻¹"
+    },
+    {
+        "question": "প্রোটনের আধান কত?",
+        "options": ["1.6 × 10¹⁹ C", "1.67 × 10⁻²⁷ C", "1.6 × 10⁻¹⁹ C", "1.67 × 10⁻²৩ C"],
+        "answer": "1.6 × 10⁻¹⁹ C"
+    },
+    {
+        "question": "তড়িৎ ভেদনযোগ্যতার একক কোনটি?",
+        "options": ["C² N⁻¹ m⁻²", "N m² C²", "C² N⁻² m⁻²", "N m⁻² C⁻²"],
+        "answer": "C² N⁻¹ m⁻²"
+    },
+    {
+        "question": "নিচের কোনটি ভোল্টের সমতুল্য?",
+        "options": ["J A⁻¹ s⁻¹", "J A⁻¹ s", "J A S", "J A S⁻¹"],
+        "answer": "J A⁻¹ s⁻¹"
+    },
+    {
+        "question": "সমবিভব তলের যে কোনো দুটি বিন্দুর বিভব পার্থক্য-",
+        "options": ["শূন্য", "অসীম", "এক ভোল্ট", "দুই ভোল্ট"],
+        "answer": "শূন্য"
+    },
+    {
+        "question": "ধারকে সঞ্চিত শক্তির ক্ষেত্রে নিচের কোনটি সঠিক?",
+        "options": ["W = ½ QC", "W = ½ V C²", "W = ½ C V²", "W = ½ CV"],
+        "answer": "W = ½ C V²"
+    },
+    {
+        "question": "একটি চার্জিত ধারকের শক্তি ঘনত্ব নির্ণয় করা যাবে নিচের কোন সমীকরণের সাহায্যে?",
+        "options": ["U = ½ QV", "U = ½ ε₀ E²", "U = ½ Q² C", "U = ½ ε₀ V²"],
+        "answer": "U = ½ ε₀ E²"
+    },
+    {
+        "question": "ধারকের পাতদ্বয়ের মধ্যবর্তী দূরত্ব বৃদ্ধি করলে ধারকত্ব-",
+        "options": ["বৃদ্ধি পাবে", "হ্রাস পাবে", "অপরিবর্তিত থাকবে", "উভয়ই হতে পারে"],
+        "answer": "হ্রাস পাবে"
+    },
+    {
+        "question": "কুলম্বের সূত্রের ভেক্টর রূপ কোনটি?",
+        "options": ["F = 1/(4πε₀) (q₁q₂/r²) r", "F = 1/(4πε₀) (q₁q₂/r³) r̂", "F = 1/(4πε₀) (q₁q₂/r³) r⃗", "F = 1/(4πε₀) (q₁q₂/r) r⃗"],
+        "answer": "F = 1/(4πε₀) (q₁q₂/r³) r⃗"
+    },
+    {
+        "question": "একটি চার্জিত বস্তুকে পৃথিবীর সাথে যুক্ত করলে চার্জের পরিমাণ-",
+        "options": ["বৃদ্ধি পাবে", "হ্রাস পাবে", "অপরিবর্তিত থাকবে", "শূন্য হবে"],
+        "answer": "শূন্য হবে"
+    },
+    {
+        "question": "সবচেয়ে বেশি চার্জ থাকে চার্জিত বস্তুর কোথায়?",
+        "options": ["কেন্দ্রে", "অবতল তলে", "সমতল তলে", "উত্তল তলে"],
+        "answer": "উত্তল তলে"
+    },
+    {
+        "question": "একটি দ্বিপোলের জন্য তড়িৎ প্রাবল্য কীরূপে পরিবর্তিত হয়?",
+        "options": ["r⁻¹", "r⁻²", "r⁻³", "r⁻⁴"],
+        "answer": "r⁻³"
+    },
+    {
+        "question": "আধান ঘনত্বের একক কী?",
+        "options": ["Cm⁻³", "Cm⁻²", "Cm²", "Cm³"],
+        "answer": "Cm⁻²"
+    },
+    {
+        "question": "বিভব পার্থক্য স্থির থাকলে একটি চার্জিত ধারকের শক্তি তার চার্জের-",
+        "options": ["ব্যস্তানুপাতিক", "সমানুপাতিক", "বর্গের ব্যস্তানুপাতিক", "বর্গমূলের সমানুপাতিক"],
+        "answer": "সমানুপাতিক"
+    },
+    {
+        "question": "তড়িৎ ক্ষেত্রের মান নির্ণয় করা যায়-",
+        "options": ["কুলম্বের সূত্র থেকে", "অ্যাম্পিয়ারের সূত্র থেকে", "গাউসের সূত্র থেকে", "i ও iii উভয়ই"],
+        "answer": "i ও iii উভয়ই"
+    }
+];
+
 export default function AdminQuestionsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -28,15 +157,26 @@ export default function AdminQuestionsPage() {
   const form = useForm<ExamFormValues>({
     resolver: zodResolver(ExamFormSchema),
     defaultValues: {
-      courseId: '',
-      examName: '',
+      courseId: 'physics-second-part',
+      examName: 'পদার্থবিজ্ঞান দ্বিতীয় পত্রঃ স্থির তড়িৎ পরীক্ষা',
       startTime: '',
       endTime: '',
-      duration: 30,
-      negativeMark: 0,
-      questionsJson: '[\n  {\n    "question": "What is the capital of France?",\n    "options": ["Berlin", "Madrid", "Paris", "Rome"],\n    "answer": "Paris"\n  }\n]',
+      duration: 25,
+      negativeMark: 0.25,
+      questionsJson: JSON.stringify(physicsQuestions, null, 2),
     },
   });
+
+  // Set start and end time dynamically for today
+  useEffect(() => {
+    const today = new Date();
+    const startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 20, 0);
+    const endTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11, 30, 0);
+
+    form.setValue('startTime', format(startTime, "yyyy-MM-dd'T'HH:mm"));
+    form.setValue('endTime', format(endTime, "yyyy-MM-dd'T'HH:mm"));
+  }, [form]);
+
 
   async function onSubmit(data: ExamFormValues) {
     // 1. Check if the user is the admin. This is a client-side check for better UX.
@@ -74,7 +214,15 @@ export default function AdminQuestionsPage() {
         title: 'Success!',
         description: 'The exam has been uploaded successfully.',
       });
-      form.reset(); // Reset form on successful upload.
+      form.reset({
+        courseId: '',
+        examName: '',
+        startTime: '',
+        endTime: '',
+        duration: 30,
+        negativeMark: 0,
+        questionsJson: '[\n  {\n    "question": "What is the capital of France?",\n    "options": ["Berlin", "Madrid", "Paris", "Rome"],\n    "answer": "Paris"\n  }\n]',
+      });
     } catch (error: any) {
       console.error('Error uploading exam:', error);
       let description = 'An unknown error occurred. Please check the console for details.';
