@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { UserRound, BookOpen, Calendar, Info, Shield, Send, Menu, BookCopy, StickyNote } from 'lucide-react';
+import { UserRound, BookOpen, Calendar, Info, Shield, Send, Menu, BookCopy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
@@ -72,23 +72,15 @@ export default function Home() {
               <div className="text-center md:text-left">
                 <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-tight font-tiro-bangla" dangerouslySetInnerHTML={{ __html: heroData.title }} />
                 <p className="text-xl mb-10 text-gray-600 leading-relaxed font-tiro-bangla">{heroData.subtitle}</p>
-                <div className="flex flex-col items-center md:items-start gap-4">
-                  <div className="flex justify-center md:justify-start gap-2">
-                    {actionButtonsData.map(button => (
-                        <a key={button.title} href={button.url} className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-4 py-2">
-                            <div className="flex items-center gap-2">
-                                <button.icon size={18} className="text-accent" />
-                                <span className="text-sm font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
-                            </div>
-                        </a>
-                    ))}
-                  </div>
-                  <a href="#" className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-6 py-3 w-full max-w-xs">
-                      <div className="flex items-center gap-3">
-                          <StickyNote size={20} className="text-accent" />
-                          <span className="text-base font-bold text-gray-800 font-tiro-bangla">নোটস</span>
-                      </div>
-                  </a>
+                <div className="flex justify-center md:justify-start gap-2">
+                  {actionButtonsData.map(button => (
+                      <a key={button.title} href={button.url} className="bg-white rounded-lg flex items-center justify-center no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg px-4 py-2">
+                          <div className="flex items-center gap-2">
+                              <button.icon size={18} className="text-accent" />
+                              <span className="text-sm font-bold text-gray-800 font-tiro-bangla">{button.title}</span>
+                          </div>
+                      </a>
+                  ))}
                 </div>
               </div>
               <div className="hidden md:flex justify-center items-center">
@@ -183,5 +175,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
