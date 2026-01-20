@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getFirestore, addDoc, collection, Timestamp } from 'firebase/firestore';
 
+import { useFirebaseApp, useUser } from '@/firebase';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -11,13 +13,17 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { allCourses } from '@/lib/courses';
 import { useToast } from '@/hooks/use-toast';
-import { uploadExamAction } from './actions';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { ExamFormSchema, type ExamFormValues } from './schema';
+
+const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
 
 export default function AdminQuestionsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useUser();
+  const app = useFirebaseApp();
+  const firestore = getFirestore(app);
 
   const form = useForm<ExamFormValues>({
     resolver: zodResolver(ExamFormSchema),
@@ -33,27 +39,44 @@ export default function AdminQuestionsPage() {
   });
 
   async function onSubmit(data: ExamFormValues) {
-    setIsLoading(true);
-    try {
-      const result = await uploadExamAction(data);
-      if (result.success) {
-        toast({
-          title: 'Success!',
-          description: 'The exam has been uploaded successfully.',
-        });
-        form.reset();
-      } else {
-        toast({
-          variant: 'destructive',
-          title: 'Upload Failed',
-          description: result.error,
-        });
-      }
-    } catch (error) {
+    if (!user || user.email !== ADMIN_EMAIL) {
       toast({
         variant: 'destructive',
-        title: 'An error occurred',
-        description: 'Something went wrong. Please try again.',
+        title: 'Permission Denied',
+        description: 'You do not have permission to upload exams.',
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { courseId, examName, startTime, endTime, duration, negativeMark, questionsJson } = data;
+      const questions = JSON.parse(questionsJson);
+
+      await addDoc(collection(firestore, 'exams'), {
+        courseId,
+        examName,
+        startTime: Timestamp.fromDate(new Date(startTime)),
+        endTime: Timestamp.fromDate(new Date(endTime)),
+        duration,
+        negativeMark,
+        questions,
+        createdAt: Timestamp.now(),
+      });
+
+      toast({
+        title: 'Success!',
+        description: 'The exam has been uploaded successfully.',
+      });
+      form.reset();
+    } catch (error: any) {
+      console.error('Error uploading exam:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Upload Failed',
+        description: error.code === 'permission-denied' 
+            ? 'Permission denied by security rules. Ensure you are logged in as admin.'
+            : 'An unknown error occurred while uploading the exam.',
       });
     } finally {
       setIsLoading(false);
