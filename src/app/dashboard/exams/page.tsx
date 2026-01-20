@@ -145,10 +145,10 @@ export default function ExamsPage() {
         return allExams.filter(exam => enrolledCourses.includes(exam.courseName));
     }, [allExams, enrolledCourses]);
 
-    const [categorizedExams, setCategorizedExams] = useState<{today: Exam[], past: Exam[], upcoming: Exam[]}>({ today: [], past: [], upcoming: [] });
-
-    useEffect(() => {
-        if (!filteredExams) return;
+    const categorizedExams = useMemo(() => {
+        if (!filteredExams) {
+            return { today: [], past: [], upcoming: [] };
+        }
 
         const now = new Date();
         const today: Exam[] = [];
@@ -167,7 +167,7 @@ export default function ExamsPage() {
                 today.push(exam);
             }
         }
-        setCategorizedExams({ today, past, upcoming });
+        return { today, past, upcoming };
     }, [filteredExams]);
 
     const isLoading = isUserLoading || isDataLoading || examsLoading;
