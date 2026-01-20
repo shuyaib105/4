@@ -55,7 +55,7 @@ export default function CalendarPage() {
       <main className="container mx-auto px-6 py-12">
         <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-black mb-3 leading-tight font-tiro-bangla">
-                HSC পরীক্ষার <span className="text-accent">সময়সূচি</span>
+                <span className="font-montserrat">HSC</span> পরীক্ষার <span className="text-accent">সময়সূচি</span>
             </h1>
             <p className="text-lg text-gray-600 font-tiro-bangla">
                 আপনার পরীক্ষার প্রস্তুতির জন্য কাউন্টডাউন শুরু।
