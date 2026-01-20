@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { UserRound, Menu, Send, Lock, Home as HomeIcon, BookOpen, Info, Calendar } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 
 export default function CalendarPage() {
   const [showMenu, setShowMenu] = useState(false);
@@ -43,6 +43,8 @@ export default function CalendarPage() {
         <Sheet open={showMenu} onOpenChange={setShowMenu}>
             <SheetContent side="left" className="p-0 w-[280px] bg-[#FFFDF5] border-r-yellow-200">
                 <SheetHeader className="p-4 border-b border-b-yellow-200">
+                    <SheetTitle className="sr-only">Menu</SheetTitle>
+                    <SheetDescription className="sr-only">A list of links to navigate the site.</SheetDescription>
                     <Link href="/" onClick={() => setShowMenu(false)}>
                         <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={150} height={36} quality={100} className="h-9 w-auto" />
                     </Link>
@@ -140,3 +142,4 @@ export default function CalendarPage() {
 }
 
     
+

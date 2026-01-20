@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { CheckCircle, Calendar, UserRound, Info, Send, Menu, Printer, Home as HomeIcon, BookOpen } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { cn } from '@/lib/utils';
-import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -83,6 +83,8 @@ export default function CourseDetailPage() {
         <Sheet open={showMenu} onOpenChange={setShowMenu}>
             <SheetContent side="left" className="p-0 w-[280px] bg-gray-50 border-r-yellow-200">
                 <SheetHeader className="p-4 border-b border-b-yellow-200">
+                    <SheetTitle className="sr-only">Menu</SheetTitle>
+                    <SheetDescription className="sr-only">A list of links to navigate the site.</SheetDescription>
                     <Link href="/" onClick={() => setShowMenu(false)}>
                         <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={150} height={36} quality={100} className="h-9 w-auto" />
                     </Link>
@@ -259,3 +261,4 @@ export default function CourseDetailPage() {
 }
 
     
+
