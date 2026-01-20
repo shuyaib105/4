@@ -3,14 +3,20 @@
 import { ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { getAuth, signOut } from 'firebase/auth';
+import { useRouter, usePathname } from 'next/navigation';
 import {
+  Home,
+  BookText,
+  Upload,
+  BarChart2,
+  Users,
   LogOut,
   User as UserIcon,
 } from 'lucide-react';
+import { getAuth, signOut } from 'firebase/auth';
 
 import { useUser, useFirebaseApp } from '@/firebase';
+import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,9 +30,18 @@ import {
 
 const ADMIN_EMAIL = 'mdshuyaibislam5050@gmail.com';
 
+const navItems = [
+  { href: '/admin', text: 'Home', icon: Home, exact: true },
+  { href: '/admin/courses', text: 'Courses', icon: BookText },
+  { href: '/admin/questions', text: 'Questions', icon: Upload },
+  { href: '/admin/results', text: 'Results', icon: BarChart2 },
+  { href: '/admin/students', text: 'Students', icon: Users },
+];
+
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const { user, isLoading: isUserLoading } = useUser();
   const router = useRouter();
+  const pathname = usePathname();
   const app = useFirebaseApp();
   const auth = getAuth(app);
 
@@ -110,7 +125,29 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
       
-      <main className="p-6">{children}</main>
+      <main className="p-6 pb-24">{children}</main>
+
+      {/* Bottom Navigation Bar */}
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-white shadow-t-lg md:hidden">
+        <div className="mx-auto grid h-16 max-w-lg grid-cols-5 font-medium">
+          {navItems.map((item) => {
+            const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href);
+            return (
+              <Link 
+                href={item.href} 
+                key={item.text} 
+                className={cn(
+                  "group inline-flex flex-col items-center justify-center px-2 text-center text-gray-500 hover:bg-gray-50 hover:text-primary",
+                  isActive && "text-primary"
+                )}
+              >
+                <item.icon className="mb-1 h-5 w-5" />
+                <span className="text-[10px] font-bold">{item.text}</span>
+              </Link>
+            )
+          })}
+        </div>
+      </nav>
     </div>
   );
 }
