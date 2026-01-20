@@ -205,7 +205,7 @@ export default function CourseDetailPage() {
       {/* Footer */}
       <footer className="bg-white border-t mt-12 print:hidden">
         <div className="container mx-auto px-6 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Column 1: Logo and Description */}
             <div className="space-y-4">
               <Link href="/">
@@ -223,24 +223,11 @@ export default function CourseDetailPage() {
                 <li><Link href="/" className="text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm">হোম</Link></li>
                 <li><Link href="/#courses-section" className="text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm">কোর্সসমূহ</Link></li>
                 <li><Link href="/about" className="text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm">আমাদের সম্পর্কে</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 3: Contact & Social */}
-            <div>
-              <h3 className="font-bold text-base font-montserrat mb-4">যোগাযোগ</h3>
-              <ul className="space-y-3">
                 <li>
                   <a href="https://t.me/syllabuserbaire" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors text-sm">
                     <Send size={16} />
                     <span className="font-tiro-bangla">টেলিগ্রাম চ্যানেল</span>
                   </a>
-                </li>
-                <li>
-                   <Link href="/privacy-policy" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors text-sm">
-                    <Shield size={16} />
-                    <span className="font-tiro-bangla">প্রাইভেসি পলিসি</span>
-                  </Link>
                 </li>
               </ul>
             </div>
