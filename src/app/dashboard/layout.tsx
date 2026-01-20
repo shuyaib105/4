@@ -56,10 +56,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </Link>
         {user && (
           <div className="flex items-center gap-2 text-gray-800">
-              <span className="font-semibold font-tiro-bangla hidden sm:block">
+              <span className="font-semibold font-tiro-bangla">
                   {user.displayName}
               </span>
-              <UserIcon className="h-6 w-6" />
           </div>
         )}
       </header>
