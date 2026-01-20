@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { UserRound, BookOpen, Calendar, Info, Shield, Send, Menu, BookCopy, Home as HomeIcon } from 'lucide-react';
+import { UserRound, BookOpen, Calendar, Info, Send, Menu, BookCopy, Home as HomeIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useUser } from '@/firebase';
 import { courseTabsData } from '@/lib/courses';
+import { Sheet, SheetContent, SheetHeader } from '@/components/ui/sheet';
 
 const heroData = {
   title: 'তোমার <span class="text-accent">সেরা প্রস্তুতির</span> শুরু হোক এখানে থেকেই',
@@ -26,9 +27,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(courseTabsData[0].id);
 
   const navLinks = [
-    { href: '/', text: 'হোম' },
-    { href: '/#courses-section', text: 'কোর্সসমূহ' },
-    { href: '/about', text: 'আমাদের সম্পর্কে' },
+    { href: '/', text: 'হোম', icon: HomeIcon },
+    { href: '/#courses-section', text: 'কোর্সসমূহ', icon: BookOpen },
+    { href: '/calendar', text: 'ক্যালেন্ডার', icon: Calendar },
+    { href: '/about', text: 'আমাদের সম্পর্কে', icon: Info },
   ];
   
   return (
@@ -45,22 +47,33 @@ export default function Home() {
             <span className="font-montserrat">{user ? "Dashboard" : "Account"}</span>
           </Link>
           
-          <button onClick={() => setShowMenu(!showMenu)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
+          <button onClick={() => setShowMenu(true)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
             <Menu className="h-6 w-6" />
           </button>
         </div>
 
-        {showMenu && (
-          <div className="absolute top-full left-0 w-full bg-white shadow-lg md:hidden z-30">
-            <nav className="flex flex-col p-4">
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={() => setShowMenu(false)} className="py-2 text-sm font-semibold text-gray-700 hover:text-primary">
-                  {link.text}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        )}
+        <Sheet open={showMenu} onOpenChange={setShowMenu}>
+            <SheetContent side="left" className="p-0 w-[280px] bg-[#FFFDF5] border-r-yellow-200">
+                <SheetHeader className="p-4 border-b border-b-yellow-200">
+                    <Link href="/" onClick={() => setShowMenu(false)}>
+                        <Image src="https://raw.githubusercontent.com/shuyaib105/syllabuserbaire/refs/heads/main/ei_1766508088751-removebg-preview.png" alt="Logo" width={150} height={36} quality={100} className="h-9 w-auto" />
+                    </Link>
+                </SheetHeader>
+                <nav className="flex flex-col p-4 space-y-1">
+                    {navLinks.map((link) => (
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setShowMenu(false)}
+                        className="flex items-center gap-3 rounded-lg px-3 py-3 text-gray-700 transition-all hover:bg-yellow-100/50 hover:text-primary font-tiro-bangla text-base"
+                    >
+                        <link.icon className="h-5 w-5 text-accent" />
+                        <span>{link.text}</span>
+                    </Link>
+                    ))}
+                </nav>
+            </SheetContent>
+        </Sheet>
       </header>
 
       <main>
@@ -154,6 +167,7 @@ export default function Home() {
                 <li><Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm"><HomeIcon size={16} /><span>হোম</span></Link></li>
                 <li><Link href="/#courses-section" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm"><BookOpen size={16} /><span>কোর্সসমূহ</span></Link></li>
                 <li><Link href="/about" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm"><Info size={16} /><span>আমাদের সম্পর্কে</span></Link></li>
+                <li><Link href="/calendar" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors font-tiro-bangla text-sm"><Calendar size={16} /><span>ক্যালেন্ডার</span></Link></li>
                 <li>
                   <a href="https://t.me/syllabuserbaire" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors text-sm">
                     <Send size={16} />
@@ -174,9 +188,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-    
