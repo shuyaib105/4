@@ -40,6 +40,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       </div>
     );
   }
+  
+  const isBengali = (text: string | null | undefined): boolean => {
+    if (!text) return false;
+    // Bengali Unicode range U+0980 to U+09FF
+    const bengaliRegex = /[\u0980-\u09FF]/;
+    return bengaliRegex.test(text);
+  };
 
   return (
     <div className="min-h-screen bg-[#FFFDF5]">
@@ -56,7 +63,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </Link>
         {user && (
           <div className="flex items-center gap-2 text-gray-800">
-              <span className="font-semibold font-tiro-bangla">
+              <span className={cn(
+                "font-semibold",
+                isBengali(user.displayName) ? 'font-tiro-bangla' : 'font-montserrat'
+              )}>
                   {user.displayName}
               </span>
           </div>
