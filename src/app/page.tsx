@@ -16,7 +16,7 @@ const heroData = {
 
 const actionButtonsData = [
   { url: "#courses-section", title: "কোর্স", icon: BookOpen },
-  { url: "#", title: "ক্যালেন্ডার", icon: Calendar },
+  { url: "/calendar", title: "ক্যালেন্ডার", icon: Calendar },
   { url: "#courses-section", title: "প্রশ্নব্যাংক", icon: BookCopy },
 ];
 
