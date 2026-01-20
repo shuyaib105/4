@@ -132,19 +132,21 @@ export default function DashboardCoursesPage() {
                   data-ai-hint={course.imageHint}
                 />
               </div>
-              <div className="p-6 flex flex-col justify-between grow md:w-2/3">
-                <div>
-                  <h3 className="text-xl font-bold font-tiro-bangla mb-2">{course.title}</h3>
-                   {course.startDate && (
-                    <div className="flex items-center text-sm text-gray-500">
+              <div className="p-6 grow md:w-2/3">
+                <div className="flex justify-between items-start">
+                  <div className="pr-4">
+                    <h3 className="text-xl font-bold font-tiro-bangla mb-2">{course.title}</h3>
+                    {course.startDate && (
+                      <div className="flex items-center text-sm text-gray-500">
                         <Calendar className="mr-2 h-4 w-4 text-accent" />
                         <span className="font-tiro-bangla">{course.startDate}</span>
-                    </div>
-                  )}
+                      </div>
+                    )}
+                  </div>
+                  <Link href={`/courses/${course.id}`} className="flex-shrink-0">
+                    <Button className="bg-black text-white hover:bg-gray-800 font-montserrat">রুটিন দেখুন</Button>
+                  </Link>
                 </div>
-                <Link href={`/courses/${course.id}`} className="mt-4 self-start md:self-end">
-                  <Button className="w-full md:w-auto bg-black text-white hover:bg-gray-800 font-montserrat">রুটিন দেখুন</Button>
-                </Link>
               </div>
             </Card>
           ))}
